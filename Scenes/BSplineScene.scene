@@ -1,0 +1,84 @@
+# This is a comment
+
+[Path]
+name     = "Path"
+position = -1.0 9 -2.0
+rotation = 0.0 0.0 1.0 90
+scaling = 0.8 0.8 0.8
+waypoint = 10.0 0.0 0.0
+waypoint = 7.07 0.0 7.07
+waypoint = 0.0 0.0 10.0
+waypoint = -7.07 0.0 7.07
+waypoint = -10.0 0.0 0.0
+waypoint = -7.07 0.0 -7.07
+waypoint = 0.0 0.0 -10.0
+waypoint = 7.07 0.0 -7.07
+
+[Path]
+name     = "Path2"
+position = 0.0 0.5 0.0
+waypoint = -3.0 0.0 0.0
+waypoint =  3.0 0.0 0.0
+
+[Spline]
+name     = "Spline"
+position = -1.0 9 -2.0
+rotation = 0.0 0.0 1.0 90
+scaling = 0.8 0.8 0.8
+controlpoint = 10.0 0.0 0.0
+controlpoint = 7.07 0.0 7.07
+controlpoint = 0.0 0.0 10.0
+controlpoint = -7.07 0.0 7.07
+controlpoint = -10.0 0.0 0.0
+controlpoint = -7.07 0.0 -7.07
+controlpoint = 0.0 0.0 -10.0
+controlpoint = 7.07 0.0 -7.07
+
+[Spline]
+name     = "RollerCoaster"
+position = 0.0 2.5 0.0
+controlpoint = 10.0 2.0 0.0
+controlpoint = 13.0 3.0 -5.0
+controlpoint = 5.0 4.0 -12.0
+controlpoint = -3.0 3.0 -11.0
+controlpoint = -4.0 2.0 -2.0
+controlpoint = -10.0 2.0 -2.0
+controlpoint = -14.0 0.0 5.0
+controlpoint = -7.0 -1.0 8.0
+controlpoint = 0.0 -2.0 15.0
+controlpoint = 4.0 -1.0 10.0
+controlpoint = 4.0 0.0 2.5
+
+
+[Cube]
+name     = "Ground"
+scaling  = 1.0 100.0 100.0
+position = 0.0 -0.5 0.0
+rotation = 0.0 0.0 1.0 90.0
+
+[Cube]
+name     = "Cube"
+scaling  = 1.0 1.0 1.0
+position = 0.0 1.0 0.0
+rotation = 0.0 0.0 1.0 180
+boundpath = "Path2"
+pathspeed = 1.0
+
+[Sphere]
+name     = "Sphere1"
+position = 0.0 5.0 -12.0
+boundpath = "Path"
+pathspeed = 5.00
+
+[Sphere]
+name     = "Sphere2"
+position = 0.0 5.0 -12.0
+boundpath = "Spline"
+pathspeed = 5.00
+
+[Sphere]
+name     = "Sphere2"
+scaling  = 1.0 1.0 1.0
+position = 0.0 5.0 -12.0
+boundpath = "RollerCoaster"
+pathspeed = 5.00

@@ -1,0 +1,41 @@
+# This is a comment
+
+[Path]
+name     = "Path"
+position = 0.0 2.5 0.0
+waypoint = 10.0 0.0 0.0
+waypoint = 7.07 0.0 7.07
+waypoint = 0.0 0.0 10.0
+waypoint = -7.07 0.0 7.07
+waypoint = -10.0 0.0 0.0
+waypoint = -7.07 0.0 -7.07
+waypoint = 0.0 0.0 -10.0
+waypoint = 7.07 0.0 -7.07
+
+[Path]
+name     = "Path2"
+position = 0.0 0.5 0.0
+waypoint = -3.0 0.0 0.0
+waypoint =  3.0 0.0 0.0
+
+[Cube]
+name     = "Ground"
+scaling  = 100.0 1.0 100.0
+position = 0.0 -0.5 0.0
+rotation = 0.0 0.0 1.0 0.0
+
+
+[Cube]
+name     = "Cube"
+scaling  = 1.0 1.0 1.0
+position = 0.0 1.0 0.0
+rotation = 0.0 0.0 1.0 180
+boundpath = "Path2"
+pathspeed = 1.0
+
+[Sphere]
+name     = "Sphere"
+scaling  = 1.0 1.0 1.0
+position = 0.0 5.0 -12.0
+boundpath = "Path"
+pathspeed = 5.00
