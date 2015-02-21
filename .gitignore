@@ -1,7 +1,8 @@
 ## Ignore Visual Studio project files
 
 # Exlude Folders
-!ThirdParty/*
+!ThirdParty/
+## ThirdParty exclude not working correctly because of the later filters are all global... :(
 
 # User-Specified Files
 *.suo
@@ -12,14 +13,14 @@
 # Build Results
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-build/
-bld/
-[Bb]in/
-[Oo]bj/
+/[Rr]elease/
+/[Rr]eleases/
+/x64/
+/x86/
+/build/
+/bld/
+/[Bb]in/
+/[Oo]bj/
 
 #Visual Studio 2015 cache/options directory
 .vs/
