@@ -1,5 +1,8 @@
 ## Ignore Visual Studio project files
 
+# Exlude Folders
+!ThirdParty/
+
 # User-Specified Files
 *.suo
 *.user
