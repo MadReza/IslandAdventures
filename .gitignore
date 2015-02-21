@@ -1,0 +1,27 @@
+## Ignore Visual Studio project files
+
+# User-Specified Files
+*.suo
+*.user
+*.useroscache
+*.sln.doctstates
+
+# Build Results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+#Visual Studio 2015 cache/options directory
+.vs/
+
+#Resharper Addon cache stuff
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
