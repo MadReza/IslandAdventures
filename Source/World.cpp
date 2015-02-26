@@ -14,6 +14,7 @@
 #include "StaticCamera.h"
 #include "BSplineCamera.h"
 #include "ThirdPersonCamera.h"
+#include "BSplineCameraThirdPerson.h"
 
 #include "CubeModel.h"
 #include "SphereModel.h"
@@ -174,10 +175,72 @@ void World::Draw()
 		(*it)->Draw();
 	}
 
+
+
+	/////////////////DRAW BIG CUBE///////////////////////////
+	//float points[] = {
+	//	-10.0f, 10.0f, -10.0f,
+	//	-10.0f, -10.0f, -10.0f,
+	//	10.0f, -10.0f, -10.0f,
+	//	10.0f, -10.0f, -10.0f,
+	//	10.0f, 10.0f, -10.0f,
+	//	-10.0f, 10.0f, -10.0f,
+
+	//	-10.0f, -10.0f, 10.0f,
+	//	-10.0f, -10.0f, -10.0f,
+	//	-10.0f, 10.0f, -10.0f,
+	//	-10.0f, 10.0f, -10.0f,
+	//	-10.0f, 10.0f, 10.0f,
+	//	-10.0f, -10.0f, 10.0f,
+
+	//	10.0f, -10.0f, -10.0f,
+	//	10.0f, -10.0f, 10.0f,
+	//	10.0f, 10.0f, 10.0f,
+	//	10.0f, 10.0f, 10.0f,
+	//	10.0f, 10.0f, -10.0f,
+	//	10.0f, -10.0f, -10.0f,
+
+	//	-10.0f, -10.0f, 10.0f,
+	//	-10.0f, 10.0f, 10.0f,
+	//	10.0f, 10.0f, 10.0f,
+	//	10.0f, 10.0f, 10.0f,
+	//	10.0f, -10.0f, 10.0f,
+	//	-10.0f, -10.0f, 10.0f,
+
+	//	-10.0f, 10.0f, -10.0f,
+	//	10.0f, 10.0f, -10.0f,
+	//	10.0f, 10.0f, 10.0f,
+	//	10.0f, 10.0f, 10.0f,
+	//	-10.0f, 10.0f, 10.0f,
+	//	-10.0f, 10.0f, -10.0f,
+
+	//	-10.0f, -10.0f, -10.0f,
+	//	-10.0f, -10.0f, 10.0f,
+	//	10.0f, -10.0f, -10.0f,
+	//	10.0f, -10.0f, -10.0f,
+	//	-10.0f, -10.0f, 10.0f,
+	//	10.0f, -10.0f, 10.0f
+	//};
+	//GLuint vbo;
+	//glGenBuffers(1, &vbo);
+	//glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	//glBufferData(GL_ARRAY_BUFFER, 3 * 36 * sizeof (float), &points, GL_STATIC_DRAW);
+
+	//GLuint vao;
+	//glGenVertexArrays(1, &vao);
+	//glBindVertexArray(vao);
+	//glEnableVertexAttribArray(0);
+	//glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
 
 	Renderer::EndFrame();
+	/*float dt = EventManager::GetFrameTime();
+	mCurrentCamera = 4;
+	mCamera[mCurrentCamera]->Update(dt);*/
 }
 
 void World::LoadScene(const char * scene_path)
@@ -262,7 +325,7 @@ void World::LoadCameras()
 {
     // Setup Camera
     mCamera.push_back(new StaticCamera(vec3(3.0f, 5.0f, 5.0f),  vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
-    mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
+    mCamera.push_back(new StaticCamera(vec3(3.0f, 95.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     
     // Cube Character controlled with Third Person Camera
@@ -280,7 +343,7 @@ void World::LoadCameras()
     
     if (spline != nullptr)
     {
-        mCamera.push_back(new BSplineCamera(spline , 5.0f));
+		mCamera.push_back(new BSplineCameraThirdPerson(spline, 5.0f));
     }
     
     mCurrentCamera = 0;

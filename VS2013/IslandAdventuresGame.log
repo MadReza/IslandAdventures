@@ -1,25 +1,13 @@
-﻿Build started 2015-02-21 12:44:20 AM.
+﻿Build started 2015-02-26 4:31:27 PM.
      1>Project "C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\IslandAdventuresGame.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/) contains files shared from another project (Assignment1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"../ThirdParty/glew-1.10.0/include" /I"../ThirdParty/glfw-3.0.4/include" /I../ThirdParty/glm /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/" /Fd"C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Source\BSpline.cpp ..\Source\BSplineCamera.cpp ..\Source\Camera.cpp ..\Source\Path.cpp ..\Source\SphereModel.cpp ..\Source\StaticCamera.cpp ..\Source\EventManager.cpp ..\Source\main.cpp ..\Source\Model.cpp ..\Source\CubeModel.cpp ..\Source\Renderer.cpp ..\Source\ThirdPersonCamera.cpp ..\Source\World.cpp
-         Skipping... (no relevant changes detected)
-         World.cpp
-         ThirdPersonCamera.cpp
-         Renderer.cpp
-         CubeModel.cpp
-         Model.cpp
-         main.cpp
-         EventManager.cpp
-         StaticCamera.cpp
-         SphereModel.cpp
-         Path.cpp
-         Camera.cpp
-         BSplineCamera.cpp
-         BSpline.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"../ThirdParty/glew-1.10.0/include" /I"../ThirdParty/glfw-3.0.4/include" /I../ThirdParty/glm /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/" /Fd"C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Source\BSplineCameraThirdPerson.cpp
+         BSplineCameraThirdPerson.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Bin/IslandAdventureGame-Debug.exe" /INCREMENTAL /NOLOGO /LIBPATH:"../ThirdParty/glew-1.10.0/lib/Release/Win32" /LIBPATH:"../ThirdParty/glfw-3.0.4/lib/Win32/lib-msvc110" opengl32.lib glew32s.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Bin/IslandAdventureGame-Debug.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Bin/IslandAdventureGame-Debug.lib" /MACHINE:X86 "C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/BSpline.obj"
          "C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/BSplineCamera.obj"
+         "C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/BSplineCameraThirdPerson.obj"
          "C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/Camera.obj"
          "C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/Path.obj"
          "C:\Users\Reza\Documents\School\Comp 371\Project\VS2013\/../Build/Debug/SphereModel.obj"
@@ -39,4 +27,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.01
+Time Elapsed 00:00:02.84

@@ -38,6 +38,10 @@ void BSplineCamera::Update(float dt)
 {
 	mPosition = mSpline->GetPosition(mSplineParameterT);
 	mLookAt = mSpline->GetTangent(mSplineParameterT);
+	if (mLookAt.y > 0){
+		mLookAt.y = -mLookAt.y;
+
+	}
 	vec3 mRight = cross(mLookAt, vec3(0, 1, 0));
 	mUp = cross(mRight, mLookAt); 
 
