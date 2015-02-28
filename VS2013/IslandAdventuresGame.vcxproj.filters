@@ -91,6 +91,9 @@
     <ClCompile Include="..\Source\BSplineCameraThirdPerson.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\DebugCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -133,6 +136,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\BSplineCameraThirdPerson.h">
+      <Filter>Source Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DebugCamera.h">
       <Filter>Source Files\Camera</Filter>
     </ClInclude>
   </ItemGroup>

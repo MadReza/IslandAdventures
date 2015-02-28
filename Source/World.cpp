@@ -15,6 +15,7 @@
 #include "BSplineCamera.h"
 #include "ThirdPersonCamera.h"
 #include "BSplineCameraThirdPerson.h"
+#include "DebugCamera.h"
 
 #include "CubeModel.h"
 #include "SphereModel.h"
@@ -75,39 +76,44 @@ void World::Update(float dt)
 {
 	// User Inputs
 	// 0 1 2 to change the Camera
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_1 ) == GLFW_PRESS)
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_1) == GLFW_PRESS)
 	{
 		mCurrentCamera = 0;
 	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_2 ) == GLFW_PRESS)
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_2) == GLFW_PRESS)
 	{
 		if (mCamera.size() > 1)
 		{
 			mCurrentCamera = 1;
 		}
 	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_3 ) == GLFW_PRESS)
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_3) == GLFW_PRESS)
 	{
 		if (mCamera.size() > 2)
 		{
 			mCurrentCamera = 2;
 		}
 	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4 ) == GLFW_PRESS)
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4) == GLFW_PRESS)
 	{
-        // Spline camera
+		// Spline camera
 		if (mCamera.size() > 3 && mSpline.size() > 0)
 		{
 			mCurrentCamera = 3;
 		}
 	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5 ) == GLFW_PRESS)
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5) == GLFW_PRESS)
 	{
-        // Spline camera
+		// Spline camera
 		if (mCamera.size() > 4 && mModel.size() > 0)
 		{
 			mCurrentCamera = 4;
 		}
+	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_GRAVE_ACCENT) == GLFW_PRESS)
+	{	
+		if (mCamera.size() > 5)
+			mCurrentCamera = 5;
 	}
 
 	// Spacebar to change the shader
@@ -345,6 +351,9 @@ void World::LoadCameras()
     {
 		mCamera.push_back(new BSplineCameraThirdPerson(spline, 5.0f));
     }
+
+	//debug camera
+	mCamera.push_back(new DebugCamera(vec3(0.0f, 2.0f, 0.0f)));
     
     mCurrentCamera = 0;
 }
