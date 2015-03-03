@@ -33,6 +33,7 @@ World* World::instance;
 World::World()
 {
     instance = this;
+	keyPressed = -1;
 }
 
 World::~World()
@@ -74,56 +75,109 @@ World* World::GetInstance()
 
 void World::Update(float dt)
 {
+	//TODO: Move Camera Manager outside and clean up code.
+	//2 part key event: Press & release, On release action happens to make certain we don't repeat keypress multiple times.
+	if (keyPressed != -1 && glfwGetKey(EventManager::GetWindow(), keyPressed) == GLFW_RELEASE)
+	{
+		switch (keyPressed)
+		{
+		case GLFW_KEY_1:
+			mCurrentCamera = 0;
+			std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
+			keyPressed = -1; //Reset KeyPressed.
+			break;
+		case GLFW_KEY_2:
+			if (mCamera.size() > 1)
+			{
+				mCurrentCamera = 1;
+				std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
+			}
+			keyPressed = -1; //Reset KeyPressed.
+			break;
+		case GLFW_KEY_3:
+			if (mCamera.size() > 2)
+			{
+				mCurrentCamera = 2;
+				std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
+			}
+			keyPressed = -1; //Reset KeyPressed.
+			break;
+		case GLFW_KEY_4:
+			// Spline camera
+			if (mCamera.size() > 3 && mSpline.size() > 0)
+			{
+				mCurrentCamera = 3;
+				std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
+			}
+			keyPressed = -1; //Reset KeyPressed.
+			break;
+		case GLFW_KEY_5:
+			// Spline camera
+			if (mCamera.size() > 4 && mModel.size() > 0)
+			{
+				mCurrentCamera = 4;
+				std::cout << "Camera Changed to: " << mCurrentCamera << ": Third Person Model Camera" << std::endl;
+			}
+			keyPressed = -1; //Reset KeyPressed.
+			break;
+		case GLFW_KEY_6:
+			if (mCamera.size() > 5)
+			{
+				mCurrentCamera = 5;
+				std::cout << "Camera Changed to: " << mCurrentCamera << ": Spline Movement Camera" << std::endl;
+			}
+			keyPressed = -1; //Reset KeyPressed.
+			break;
+		case GLFW_KEY_0:
+			Renderer::SetShader(SHADER_SOLID_COLOR);
+			std::cout << "Shader Changed: SOLID_COLOR" << std::endl;
+			keyPressed = -1; 
+			break;
+		case GLFW_KEY_9:
+			Renderer::SetShader(SHADER_BLUE);
+			std::cout << "Shader Changed: SHADER_BLUE" << std::endl;
+			keyPressed = -1; 
+			break;
+		default:
+			break;
+		}
+	}
+
 	// User Inputs
 	// 0 1 2 to change the Camera
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_1) == GLFW_PRESS)
 	{
-		mCurrentCamera = 0;
+		keyPressed = GLFW_KEY_1;
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_2) == GLFW_PRESS)
 	{
-		if (mCamera.size() > 1)
-		{
-			mCurrentCamera = 1;
-		}
+		keyPressed = GLFW_KEY_2;
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_3) == GLFW_PRESS)
 	{
-		if (mCamera.size() > 2)
-		{
-			mCurrentCamera = 2;
-		}
+		keyPressed = GLFW_KEY_3;
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4) == GLFW_PRESS)
 	{
-		// Spline camera
-		if (mCamera.size() > 3 && mSpline.size() > 0)
-		{
-			mCurrentCamera = 3;
-		}
+		keyPressed = GLFW_KEY_4;
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5) == GLFW_PRESS)
 	{
-		// Spline camera
-		if (mCamera.size() > 4 && mModel.size() > 0)
-		{
-			mCurrentCamera = 4;
-		}
+		keyPressed = GLFW_KEY_5;
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_GRAVE_ACCENT) == GLFW_PRESS)
 	{	
-		if (mCamera.size() > 5)
-			mCurrentCamera = 5;
+		keyPressed = GLFW_KEY_6;
 	}
 
 	// Spacebar to change the shader
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0) == GLFW_PRESS)
 	{
-		Renderer::SetShader(SHADER_SOLID_COLOR);
+		keyPressed = GLFW_KEY_0;
 	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9) == GLFW_PRESS)
 	{
-		Renderer::SetShader(SHADER_BLUE);
+		keyPressed = GLFW_KEY_9;
 	}
 
 	// Update current Camera
