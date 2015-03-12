@@ -21,6 +21,12 @@
     <Filter Include="Resource Files\Scenes">
       <UniqueIdentifier>{3b2e1119-c64d-494f-9840-6ae6746aa7bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Models">
+      <UniqueIdentifier>{04020276-2b9e-4b8a-896d-0ec81fda3044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Models\Textures">
+      <UniqueIdentifier>{2485fd19-a841-4735-8e25-2c13631a9dd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Shaders\SolidColor.vertexshader">
@@ -46,6 +52,12 @@
     </None>
     <None Include="..\Scenes\BSplineScene.scene">
       <Filter>Resource Files\Scenes</Filter>
+    </None>
+    <None Include="..\Models\Pikachu.mtl">
+      <Filter>Resource Files\Models</Filter>
+    </None>
+    <None Include="..\Models\Pikachu.obj">
+      <Filter>Resource Files\Models</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +106,9 @@
     <ClCompile Include="..\Source\DebugCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\OBJModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -141,5 +156,106 @@
     <ClInclude Include="..\Source\DebugCamera.h">
       <Filter>Source Files\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\OBJModel.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Models\Textures\pikachu_0_0.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_0_2.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_0_3.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_0_4.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_0_5.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_1_0.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_1_2.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_1_3.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_1_4.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_1_5.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_2_0.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_2_2.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_2_3.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_2_4.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_2_5.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_3_0.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_3_2.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_3_3.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_3_4.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pikachu_3_5.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\PikachuDh.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\PikachuEyeDh.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\PikachuEyeNl.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\PikachuHohoDh.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\PikachuHohoNl.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\PikachuMouthDh.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\PikachuMouthNl.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\PikachuNl.tga">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pm0025_00_BodyA1.png">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pm0025_00_BodyB1.png">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pm0025_00_Eye1.png">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
+    <Image Include="..\Models\Textures\pm0025_00_Mouth1.png">
+      <Filter>Resource Files\Models\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

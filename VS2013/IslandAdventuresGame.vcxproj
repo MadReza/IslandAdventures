@@ -97,6 +97,7 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\Models\Pikachu.mtl" />
     <None Include="..\Scenes\BSplineScene.scene" />
     <None Include="..\Scenes\CoordinateSystem.scene" />
     <None Include="..\Scenes\PathScene.scene" />
@@ -112,6 +113,7 @@
     <ClCompile Include="..\Source\BSplineCameraThirdPerson.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
     <ClCompile Include="..\Source\DebugCamera.cpp" />
+    <ClCompile Include="..\Source\OBJModel.cpp" />
     <ClCompile Include="..\Source\Path.cpp" />
     <ClCompile Include="..\Source\SphereModel.cpp" />
     <ClCompile Include="..\Source\StaticCamera.cpp" />
@@ -129,6 +131,7 @@
     <ClInclude Include="..\Source\BSplineCameraThirdPerson.h" />
     <ClInclude Include="..\Source\Camera.h" />
     <ClInclude Include="..\Source\DebugCamera.h" />
+    <ClInclude Include="..\Source\OBJModel.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
     <ClInclude Include="..\Source\Path.h" />
     <ClInclude Include="..\Source\SphereModel.h" />
@@ -139,6 +142,45 @@
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\World.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Models\Pikachu.obj">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Models\Textures\PikachuDh.tga" />
+    <Image Include="..\Models\Textures\PikachuEyeDh.tga" />
+    <Image Include="..\Models\Textures\PikachuEyeNl.tga" />
+    <Image Include="..\Models\Textures\PikachuHohoDh.tga" />
+    <Image Include="..\Models\Textures\PikachuHohoNl.tga" />
+    <Image Include="..\Models\Textures\PikachuMouthDh.tga" />
+    <Image Include="..\Models\Textures\PikachuMouthNl.tga" />
+    <Image Include="..\Models\Textures\PikachuNl.tga" />
+    <Image Include="..\Models\Textures\pikachu_0_0.tga" />
+    <Image Include="..\Models\Textures\pikachu_0_2.tga" />
+    <Image Include="..\Models\Textures\pikachu_0_3.tga" />
+    <Image Include="..\Models\Textures\pikachu_0_4.tga" />
+    <Image Include="..\Models\Textures\pikachu_0_5.tga" />
+    <Image Include="..\Models\Textures\pikachu_1_0.tga" />
+    <Image Include="..\Models\Textures\pikachu_1_2.tga" />
+    <Image Include="..\Models\Textures\pikachu_1_3.tga" />
+    <Image Include="..\Models\Textures\pikachu_1_4.tga" />
+    <Image Include="..\Models\Textures\pikachu_1_5.tga" />
+    <Image Include="..\Models\Textures\pikachu_2_0.tga" />
+    <Image Include="..\Models\Textures\pikachu_2_2.tga" />
+    <Image Include="..\Models\Textures\pikachu_2_3.tga" />
+    <Image Include="..\Models\Textures\pikachu_2_4.tga" />
+    <Image Include="..\Models\Textures\pikachu_2_5.tga" />
+    <Image Include="..\Models\Textures\pikachu_3_0.tga" />
+    <Image Include="..\Models\Textures\pikachu_3_2.tga" />
+    <Image Include="..\Models\Textures\pikachu_3_3.tga" />
+    <Image Include="..\Models\Textures\pikachu_3_4.tga" />
+    <Image Include="..\Models\Textures\pikachu_3_5.tga" />
+    <Image Include="..\Models\Textures\pm0025_00_BodyA1.png" />
+    <Image Include="..\Models\Textures\pm0025_00_BodyB1.png" />
+    <Image Include="..\Models\Textures\pm0025_00_Eye1.png" />
+    <Image Include="..\Models\Textures\pm0025_00_Mouth1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
