@@ -204,16 +204,6 @@ void World::Draw()
 	mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
 	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
 
-	// Code for lighting
-	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
-	mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
-	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &V[0][0]);
-
-	// Set the light
-	GLuint LightID = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightPosition_worldspace");
-	glm::vec3 lightPos = glm::vec3(40,4,4);
-    glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{

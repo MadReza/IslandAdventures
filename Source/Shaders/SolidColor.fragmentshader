@@ -1,56 +1,13 @@
 #version 330 core
 
 // Ouput to fragment shader
-out vec3 color;		// final color
+out vec3 color;
 
 in vec4 v_color;
-in vec3 normal;
-in vec3 Position_worldspace;
-in vec3 EyeDirection_cameraspace;
-in vec3 LightDirection_cameraspace;
-
-uniform mat4 MV;
-uniform vec3 LightPosition_worldspace;
+in vec3 normal; // You will need this when you do per-fragment lighting
 
 void main()
-{	
-	// set the light properties
-	vec3 LightColor = vec3(1,1,1);
-	float LightPower = 50.0f;
-
-	// set the material properties
-	vec3 MaterialDiffuseColor = v_color.xyz;
-	vec3 MaterialAmbientColor = vec3(0.1,0.1,0.1) * MaterialDiffuseColor;
-	vec3 MaterialSpecularColor = vec3(0.3,0.3,0.3);
-	
-	// distance to the light, if light is a positional
-	float distance = length( LightPosition_worldspace - Position_worldspace );
-	
-	// normal vector
-	vec3 n = normalize( normal );
-	
-	// light vector
-	vec3 l = normalize( LightDirection_cameraspace );
-	
-	// cos angle between the normal and the light
-	float cosTheta = clamp( dot( n,l ), 0,1 );
-	
-	// eye vector
-	vec3 E = normalize(EyeDirection_cameraspace);
-	
-	// reflect vector
-	vec3 R = reflect(-l,n);
-	
-	// cos angle between the eye vector and the reflect vector
-	float cosAlpha = clamp( dot( E,R ), 0,1 );
-
-	// calculate the final color
-	color = MaterialAmbientColor +
-			MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) + 
-			MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
-
-//	color = MaterialAmbientColor +
-//			MaterialDiffuseColor * LightColor * LightPower * cosTheta + 
-//			MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5);
-
+{
+	// set the fragment color to the interpolated vertex color
+	color = v_color.rgb;
 }
