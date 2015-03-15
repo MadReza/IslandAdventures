@@ -44,6 +44,7 @@ private:
     std::vector<BSpline*> mSpline;
 	std::vector<Camera*> mCamera;
 	unsigned int mCurrentCamera;
+	int score;
 
 	int keyPressed; //-1 for Unknown key
 };

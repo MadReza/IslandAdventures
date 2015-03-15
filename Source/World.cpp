@@ -25,6 +25,7 @@
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
+#include "Text2D.h"
 
 using namespace std;
 using namespace glm;
@@ -35,6 +36,7 @@ World::World()
 {
     instance = this;
 	keyPressed = -1;
+	score = 0;
 }
 
 World::~World()
@@ -78,7 +80,8 @@ void World::Update(float dt)
 {
 	//TODO: Move Camera Manager outside and clean up code.
 	//2 part key event: Press & release, On release action happens to make certain we don't repeat keypress multiple times.
-	if (keyPressed != -1 && glfwGetKey(EventManager::GetWindow(), keyPressed) == GLFW_RELEASE)
+	if (keyPressed != -1 && glfwGetKey(EventManager::GetWindow(), keyPressed) == GLFW_RELEASE 
+		&& glfwGetMouseButton(EventManager::GetWindow(), keyPressed) == GLFW_RELEASE)
 	{
 		switch (keyPressed)
 		{
@@ -121,7 +124,7 @@ void World::Update(float dt)
 			}
 			keyPressed = -1; //Reset KeyPressed.
 			break;
-		case GLFW_KEY_6:
+		case GLFW_KEY_GRAVE_ACCENT:
 			if (mCamera.size() > 5)
 			{
 				mCurrentCamera = 5;
@@ -138,6 +141,11 @@ void World::Update(float dt)
 			Renderer::SetShader(SHADER_BLUE);
 			std::cout << "Shader Changed: SHADER_BLUE" << std::endl;
 			keyPressed = -1; 
+			break;
+		case GLFW_MOUSE_BUTTON_LEFT:
+		case GLFW_MOUSE_BUTTON_RIGHT:
+			++score;
+			keyPressed = -1;
 			break;
 		default:
 			break;
@@ -168,10 +176,21 @@ void World::Update(float dt)
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_GRAVE_ACCENT) == GLFW_PRESS)
 	{	
-		keyPressed = GLFW_KEY_6;
+		keyPressed = GLFW_KEY_GRAVE_ACCENT;
 	}
 
-	// Spacebar to change the shader
+	// Take picture using left or right mouse
+	if (glfwGetMouseButton(EventManager::GetWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	{
+		keyPressed = GLFW_MOUSE_BUTTON_LEFT;
+	}
+	else if (glfwGetMouseButton(EventManager::GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+	{
+		keyPressed = GLFW_MOUSE_BUTTON_RIGHT;
+	}
+	
+
+	// 0-9 to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0) == GLFW_PRESS)
 	{
 		keyPressed = GLFW_KEY_0;
@@ -304,6 +323,17 @@ void World::Draw()
 	//glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
+
+	// DRAW UI 2D TEXTS 
+	char text[256];
+	sprintf(text, "You Win!");
+	printText2D(text, 200, 300, 50); // text, x, y, size
+
+	sprintf(text, "Score: %d", score);
+	printText2D(text, 10, 550, 30);
+
+	sprintf(text, "COMP 371");
+	printText2D(text, 620, 10, 20);
 
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);

@@ -10,12 +10,16 @@
 #include "Renderer.h"
 #include "World.h"
 #include "EventManager.h"
+#include "text2D.h"
 
 
 int main(int argc, char*argv[])
 {
 	EventManager::Initialize();
 	Renderer::Initialize();
+
+	// Initialize our little text library with the Holstein font
+	initText2D("..\\Source\\Holstein.DDS");
 
 	World world;
 

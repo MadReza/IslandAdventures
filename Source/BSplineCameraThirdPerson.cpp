@@ -39,10 +39,12 @@ BSplineCameraThirdPerson::~BSplineCameraThirdPerson()
 void BSplineCameraThirdPerson::CalculateCameraBasis()
 {
 	vec3 direction(
-		mRadius * cos(radians(mVerticalAngle)) * cos(radians
+		mRadius * cos(radians(mVerticalAngle)) * cos(radians
+
 		(mHorizontalAngle)),
 		mRadius * sin(radians(mVerticalAngle)),
-		mRadius  * -cos(radians(mVerticalAngle)) * sin(radians
+		mRadius  * -cos(radians(mVerticalAngle)) * sin(radians
+
 		(mHorizontalAngle))
 		);
 	mPosition = mSpline->GetPosition(mSplineParameterT);
@@ -63,7 +65,8 @@ void BSplineCameraThirdPerson::Update(float dt)
 	mUp = cross(mRight, mLookAt);*/
 
 	float distance = mSpeed * dt;
-	mSplineParameterT += distance / length(mSpline->GetTangent
+	mSplineParameterT += distance / length(mSpline->GetTangent
+
 		(mSplineParameterT));
 
 	EventManager::DisableMouseCursor();

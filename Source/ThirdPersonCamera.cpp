@@ -41,10 +41,12 @@ ThirdPersonCamera::~ThirdPersonCamera()
 void ThirdPersonCamera::CalculateCameraBasis()
 {
 	vec3 direction(
-		mRadius * cos(radians(mVerticalAngle)) * cos(radians
+		mRadius * cos(radians(mVerticalAngle)) * cos(radians
+
 		(mHorizontalAngle)),
 		mRadius * sin(radians(mVerticalAngle)),
-		mRadius  * -cos(radians(mVerticalAngle)) * sin(radians
+		mRadius  * -cos(radians(mVerticalAngle)) * sin(radians
+
 		(mHorizontalAngle))
 		);
 	//mPosition = mTargetModel->GetPosition() - direction * 10.0f ; 
@@ -53,7 +55,8 @@ void ThirdPersonCamera::CalculateCameraBasis()
 	mUp = glm::cross(mRight, mLookAt);
 
 	// Sebouh
-	vec3 TestPosition = mTargetModel->GetPosition() - mLookAt + vec3(0.0f,
+	vec3 TestPosition = mTargetModel->GetPosition() - mLookAt + vec3(0.0f,
+
 		1.0f, 0.0f);
 	if (TestPosition.y < 1.1f){
 		float distance;
@@ -113,7 +116,8 @@ void ThirdPersonCamera::Update(float dt)
 	}
 
 	// Align target model with the horizontal angle  
-	mTargetModel->SetRotation(mTargetModel->GetRotationAxis(),
+	mTargetModel->SetRotation(mTargetModel->GetRotationAxis(),
+
 		mHorizontalAngle);
 
 	CalculateCameraBasis();
