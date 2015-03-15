@@ -40,4 +40,5 @@ private:
 	BSpline* mSpline;
 	float mSplineParameterT;
 	float mSpeed;
+	float mRotationSpeed;
 };

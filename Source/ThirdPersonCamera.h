@@ -37,4 +37,5 @@ private:
     glm::vec3 mUp;
 
 	float mSpeed;
+	float mRotationSpeed;
 };
