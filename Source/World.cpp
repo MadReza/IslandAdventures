@@ -325,15 +325,18 @@ void World::Draw()
 
 
 	// DRAW UI 2D TEXTS 
+	// text, x, y, size
 	char text[256];
-	sprintf(text, "You Win!");
-	printText2D(text, 200, 300, 50); // text, x, y, size
-
 	sprintf(text, "Score: %d", score);
 	printText2D(text, 10, 550, 30);
 
 	sprintf(text, "COMP 371");
 	printText2D(text, 620, 10, 20);
+
+	if (score >= 15){
+		sprintf(text, "You Win!");
+		printText2D(text, 200, 300, 50);
+	}
 
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
