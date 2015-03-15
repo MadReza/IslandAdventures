@@ -21,6 +21,7 @@
 #include "SphereModel.h"
 #include "Path.h"
 #include "BSpline.h"
+#include "OBJModel.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -377,7 +378,12 @@ void World::LoadScene(const char * scene_path)
 		// Draw model
 		(*it)->CreateVertexBuffer();
 	}
-    
+
+	//LOAD DAT OBJ MODEL YO
+	OBJModel* pika = new OBJModel("../Models/Pikachu.obj");
+	pika->SetPosition(vec3(1,1,1));
+	mModel.push_back(pika);
+
     LoadCameras();
 }
 
@@ -385,7 +391,7 @@ void World::LoadCameras()
 {
     // Setup Camera
     mCamera.push_back(new StaticCamera(vec3(3.0f, 5.0f, 5.0f),  vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
-    mCamera.push_back(new StaticCamera(vec3(3.0f, 95.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
+    mCamera.push_back(new StaticCamera(vec3(3.0f, 74.5f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     
     // Cube Character controlled with Third Person Camera
