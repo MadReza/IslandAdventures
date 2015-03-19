@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -106,6 +106,8 @@
     <None Include="..\Source\Shaders\PathLines.vertexshader" />
     <None Include="..\Source\Shaders\SolidColor.vertexshader" />
     <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
+    <None Include="..\Source\Shaders\TextVertexShader.fragmentshader" />
+    <None Include="..\Source\Shaders\TextVertexShader.vertexshader" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\BSpline.cpp" />
@@ -122,6 +124,8 @@
     <ClCompile Include="..\Source\Model.cpp" />
     <ClCompile Include="..\Source\CubeModel.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
+    <ClCompile Include="..\Source\Text2D.cpp" />
+    <ClCompile Include="..\Source\TextureLoader.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
   </ItemGroup>
@@ -140,6 +144,8 @@
     <ClInclude Include="..\Source\Model.h" />
     <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
+    <ClInclude Include="..\Source\Text2D.h" />
+    <ClInclude Include="..\Source\TextureLoader.h" />
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\World.h" />
   </ItemGroup>
