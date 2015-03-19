@@ -13,6 +13,7 @@ OBJModel::OBJModel(char* path): Model(){
 OBJModel::~OBJModel(){
 	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteBuffers(1, &uvbuffer);
+	glDeleteBuffers(1, &colourbuffer);
 	glDeleteVertexArrays(1, &VertexArrayID);
 }
 
@@ -21,12 +22,18 @@ void OBJModel::loadOBJ(const char* path){
 	glBindVertexArray(VertexArrayID);
 
 	
-	bool res = Renderer::LoadOBJ(path, vertices, uvs, normals);
+	bool res = Renderer::LoadOBJ(path, vertices, uvs, normals, colours);
 
 	if (res == false)
 		//WELL FUCK
 		std::cout << "WELL SHIT\n";
 
+	//test colour
+	//colours = std::vector<glm::vec3>(vertices.size());
+	//for (int i = 0; i < colours.size(); i++)
+		//colours[i] = vec3(0.9f,0.9f,0);
+
+	std::cout << colours[0].g << "\n";
 	
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -35,6 +42,10 @@ void OBJModel::loadOBJ(const char* path){
 	glGenBuffers(1, &uvbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
 	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &colourbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, colourbuffer);
+	glBufferData(GL_ARRAY_BUFFER, colours.size() * sizeof(glm::vec3), &colours[0], GL_STATIC_DRAW);
 }
 
 void OBJModel::Update(float dt){
@@ -74,11 +85,24 @@ void OBJModel::Draw()
 		(void*)0                          // array buffer offset
 		);
 
+	//colour?
+	glEnableVertexAttribArray(2);
+	glBindBuffer(GL_ARRAY_BUFFER, colourbuffer);
+	glVertexAttribPointer(
+		2,
+		3,
+		GL_FLOAT,
+		GL_FALSE,
+		0,
+		(void*)0
+		);
+
 	// Draw the triangle
 	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 }
 
 

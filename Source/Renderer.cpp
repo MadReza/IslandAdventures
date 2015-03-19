@@ -224,7 +224,8 @@ GLuint Renderer::LoadShaders(std::string vertex_shader_path,std::string fragment
 bool Renderer::LoadOBJ(	const char * path, 	
 						std::vector<glm::vec3> & out_vertices, 	
 						std::vector<glm::vec2> & out_uvs,	
-						std::vector<glm::vec3> & out_normals )
+						std::vector<glm::vec3> & out_normals,
+						std::vector<glm::vec3> & out_colours)
 {
 	printf("Loading OBJ file %s...\n", path);
 
@@ -232,6 +233,9 @@ bool Renderer::LoadOBJ(	const char * path,
 	std::vector<glm::vec3> temp_vertices; 
 	std::vector<glm::vec2> temp_uvs;
 	std::vector<glm::vec3> temp_normals;
+
+	std::vector<glm::vec3> materials;
+	int currentMat = -1;
 
 
 	FILE * file;
@@ -258,6 +262,25 @@ bool Renderer::LoadOBJ(	const char * path,
 
 		// else : parse lineHeader
 		
+		
+		if (strcmp(lineHeader, "mtllib") == 0){ //load .mtl file
+			//get the path for the .mtl file
+			char c[128];
+			fscanf(file, "%s\n", c);
+			char mtlPath[128];
+			strcpy(mtlPath, path);
+			strcat(mtlPath, "/../");
+			strcat(mtlPath, c);
+			char * path2 = mtlPath;
+			
+			LoadMTL(path2, materials);
+		}else
+		if (strcmp(lineHeader, "usemtl") == 0){//switch material
+			char c[128];
+			fscanf(file, "%s\n", c);
+			currentMat = c[3] - '0' - 1;
+
+		}else
 		if ( strcmp( lineHeader, "v" ) == 0 ){
 			glm::vec3 vertex;
 			fscanf_s(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z );
@@ -288,6 +311,11 @@ bool Renderer::LoadOBJ(	const char * path,
 			normalIndices.push_back(normalIndex[0]);
 			normalIndices.push_back(normalIndex[1]);
 			normalIndices.push_back(normalIndex[2]);
+
+			out_colours.push_back(materials[currentMat]);
+			out_colours.push_back(materials[currentMat]);
+			out_colours.push_back(materials[currentMat]);
+
 		}else{
 			// Probably a comment, eat up the rest of the line
 			char stupidBuffer[1000];
@@ -314,6 +342,53 @@ bool Renderer::LoadOBJ(	const char * path,
 		out_uvs     .push_back(uv);
 		out_normals .push_back(normal);
 	
+	}
+
+	cout << out_colours.size() << "\n";
+
+	return true;
+}
+
+bool Renderer::LoadMTL(const char* path, std::vector<glm::vec3> & materials){
+	FILE * file;
+
+#if defined(PLATFORM_OSX)
+	file = fopen(path, "r");
+#else
+	fopen_s(&file, path, "r");
+#endif
+
+	if (file == nullptr){
+		printf("Can't open file. Damn :/");
+		getchar();
+		return false;
+	}
+
+	int currentMat = -1;
+
+	while (true){
+
+		char lineHeader[128];
+		// read the first word of the line
+		int res = fscanf(file, "%s", lineHeader);
+		if (res == EOF)
+			break; // EOF = End Of File. Quit the loop.
+
+		if (strcmp(lineHeader, "newmtl") == 0){
+			materials.push_back(glm::vec3());
+			currentMat++;
+			char stupidBuffer[1000];
+			fgets(stupidBuffer, 1000, file);
+		}
+		else if (strcmp(lineHeader, "Kd") == 0){
+			fscanf_s(file, "%f %f %f\n", &materials[currentMat].r, &materials[currentMat].g, &materials[currentMat].b);
+
+		}
+		else{
+			char stupidBuffer[1000];
+			fgets(stupidBuffer, 1000, file);
+		}
+
 	}
 
 	return true;
