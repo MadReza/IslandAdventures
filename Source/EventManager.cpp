@@ -61,7 +61,7 @@ void EventManager::Initialize()
     
 	// Open a window and create its OpenGL context
 	glfwWindowHint(GLFW_RESIZABLE, 0);
-	spWindow = glfwCreateWindow(1024, 768, "COMP371 - Assignment Framework", glfwGetPrimaryMonitor() /* For fullscreen, nullptr otherwise */, nullptr);
+	spWindow = glfwCreateWindow(1024, 768, "COMP371 - Assignment Framework",   glfwGetPrimaryMonitor() /* For fullscreen, nullptr otherwise */, nullptr);
 
 	if (spWindow == nullptr)
 	{
