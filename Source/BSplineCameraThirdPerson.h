@@ -20,11 +20,16 @@ public:
 
 	virtual void Update(float dt);
 	virtual glm::mat4 GetViewMatrix() const;
+	virtual glm::mat4 GetProjectionMatrix() const;
+
+	//check if zoomed.. to take pic only if zoomed
+	static bool isZoomed;
+	//void zoom (bool iszoomed);
 
 private:
 
 	virtual void CalculateCameraBasis();
-//	Model* mTargetModel;
+
 
 	// Cartesian Coordinates
 	float mHorizontalAngle;
@@ -37,8 +42,13 @@ private:
 	glm::vec3 mRight;
 	glm::vec3 mUp;
 
+	//to zoom for taking a pic
+	static float zoomLevel;
+
 	BSpline* mSpline;
 	float mSplineParameterT;
 	float mSpeed;
 	float mRotationSpeed;
+
+	
 };

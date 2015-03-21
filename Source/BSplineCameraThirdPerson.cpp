@@ -19,6 +19,9 @@
 
 using namespace glm;
 
+float BSplineCameraThirdPerson::zoomLevel = 45.0f;
+bool BSplineCameraThirdPerson::isZoomed = false;
+
 BSplineCameraThirdPerson::BSplineCameraThirdPerson(BSpline* spline, float speed)
 : Camera(), mSpline(spline), mSpeed(speed), mSplineParameterT(0.0f), mHorizontalAngle(0.0f), mVerticalAngle(-20.0f), mRadius(10.0f)
 {
@@ -51,18 +54,13 @@ void BSplineCameraThirdPerson::CalculateCameraBasis()
 	mLookAt = direction;
 	mRight = glm::cross(mLookAt, vec3(0, 1, 0));
 	mUp = glm::cross(mRight, mLookAt);
+
+
 }
 
 void BSplineCameraThirdPerson::Update(float dt)
 {
-	//mPosition = mSpline->GetPosition(mSplineParameterT);
-	/*mLookAt = mSpline->GetTangent(mSplineParameterT);
-	if (mLookAt.y > 0){
-	mLookAt.y = -mLookAt.y;
-
-	}
-	vec3 mRight = cross(mLookAt, vec3(0, 1, 0));
-	mUp = cross(mRight, mLookAt);*/
+	
 
 	float distance = mSpeed * dt;
 	mSplineParameterT += distance / length(mSpline->GetTangent
@@ -86,32 +84,30 @@ void BSplineCameraThirdPerson::Update(float dt)
 		mHorizontalAngle += 360;
 	else if (mHorizontalAngle > 180)
 		mHorizontalAngle -= 360;
+	
+	
 
 
-	/*vec3 alignHorizontal(1, 0, 1);
-	vec3 forward = mLookAt * dt * mSpeed * alignHorizontal;
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-	mTargetModel->SetPosition(mTargetModel->GetPosition() + forward);
+		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_SPACE) == GLFW_RELEASE)
+		{
+			if (isZoomed)
+				zoomLevel = 20.0f;
+			else
+				zoomLevel = 45.0f;
+			isZoomed = !isZoomed;
+		}
 	}
 
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
-	{
-	mTargetModel->SetPosition(mTargetModel->GetPosition() - forward);
-	}
-
-	vec3 side = mRight * dt * mSpeed * alignHorizontal;
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_A) == GLFW_PRESS)
-	{
-	mTargetModel->SetPosition(mTargetModel->GetPosition() - side);
-	}
-
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_D) == GLFW_PRESS)
-	{
-	mTargetModel->SetPosition(mTargetModel->GetPosition() + side);
-	}
-	*/
+	
 	CalculateCameraBasis();
+}
+
+
+glm::mat4 BSplineCameraThirdPerson::GetProjectionMatrix() const
+{
+	return glm::perspective(zoomLevel, 4.0f / 3.0f, 0.1f, 1000.0f);
 }
 
 glm::mat4 BSplineCameraThirdPerson::GetViewMatrix() const
