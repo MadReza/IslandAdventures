@@ -11,29 +11,20 @@ OBJModel::OBJModel(char* path): Model(){
 }
 
 OBJModel::~OBJModel(){
-	glDeleteBuffers(1, &vertexbuffer);
-	glDeleteBuffers(1, &uvbuffer);
-	glDeleteBuffers(1, &colourbuffer);
-	glDeleteVertexArrays(1, &VertexArrayID);
 }
 
 void OBJModel::loadOBJ(const char* path){
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
+	
+
 
 	
-	bool res = Renderer::LoadOBJ(path, vertices, uvs, normals, colours);
+	bool res = Renderer::LoadOBJ(path, polygons);
+	
 
+	/*
 	if (res == false)
 		//WELL FUCK
 		std::cout << "WELL SHIT\n";
-
-	//test colour
-	//colours = std::vector<glm::vec3>(vertices.size());
-	//for (int i = 0; i < colours.size(); i++)
-		//colours[i] = vec3(0.9f,0.9f,0);
-
-	std::cout << colours[0].g << "\n";
 	
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -45,7 +36,7 @@ void OBJModel::loadOBJ(const char* path){
 
 	glGenBuffers(1, &colourbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, colourbuffer);
-	glBufferData(GL_ARRAY_BUFFER, colours.size() * sizeof(glm::vec3), &colours[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, colours.size() * sizeof(glm::vec3), &colours[0], GL_STATIC_DRAW);*/
 }
 
 void OBJModel::Update(float dt){
@@ -57,7 +48,7 @@ void OBJModel::Update(float dt){
 void OBJModel::Draw()
 {
 	
-	
+	/*
 	GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldTransform");
 	glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
 
@@ -102,7 +93,7 @@ void OBJModel::Draw()
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(2);*/
 }
 
 

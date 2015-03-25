@@ -221,11 +221,7 @@ GLuint Renderer::LoadShaders(std::string vertex_shader_path,std::string fragment
 // - More secure. Change another line and you can inject code.
 // - Loading from memory, stream, etc
 
-bool Renderer::LoadOBJ(	const char * path, 	
-						std::vector<glm::vec3> & out_vertices, 	
-						std::vector<glm::vec2> & out_uvs,	
-						std::vector<glm::vec3> & out_normals,
-						std::vector<glm::vec3> & out_colours)
+bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 {
 	printf("Loading OBJ file %s...\n", path);
 
@@ -235,7 +231,10 @@ bool Renderer::LoadOBJ(	const char * path,
 	std::vector<glm::vec3> temp_normals;
 
 	std::vector<glm::vec3> materials;
-	int currentMat = -1;
+	Material* currentMat;
+	bool nextPoly = false;
+
+
 
 
 	FILE * file;
@@ -272,16 +271,64 @@ bool Renderer::LoadOBJ(	const char * path,
 			strcat(mtlPath, "/../");
 			strcat(mtlPath, c);
 			char * path2 = mtlPath;
+
+			vector<Material*> materials;
 			
 			LoadMTL(path2, materials);
+
+			for (int i = 0; i < materials.size(); ++i)
+				cout << materials[i]->getName() << "\n";
+
+			
 		}else
 		if (strcmp(lineHeader, "usemtl") == 0){//switch material
 			char c[128];
 			fscanf(file, "%s\n", c);
-			currentMat = c[3] - '0' - 1;
+			//currentMat = c[3] - '0' - 1;
 
 		}else
 		if ( strcmp( lineHeader, "v" ) == 0 ){
+			//v is the first attriubte encountered in a new polygon
+			if (nextPoly){
+				OBJPolygon* poly = new OBJPolygon();
+
+				cout << vertexIndices.size() << "\n";
+			
+				for (unsigned int i = 0; i<vertexIndices.size(); i++){
+
+					// Get the indices of its attributes
+					unsigned int vertexIndex = vertexIndices[i];
+					unsigned int uvIndex = uvIndices[i];
+					unsigned int normalIndex = normalIndices[i];
+
+					// Get the attributes thanks to the index
+					glm::vec3 vertex = temp_vertices[vertexIndex - 1];
+					glm::vec2 uv = temp_uvs[uvIndex - 1];
+					glm::vec3 normal = temp_normals[normalIndex - 1];
+
+					// Put the attributes in polygon
+					poly->vertices.push_back(vertex);
+					poly->uvs.push_back(uv);
+					poly->normals.push_back(normal);
+
+				}
+
+				//reset variables
+				vertexIndices.clear();
+				uvIndices.clear();
+				normalIndices.clear();
+				temp_vertices.clear();
+				temp_uvs.clear();
+				temp_normals.clear();
+				nextPoly = false;
+
+				//push polygon
+				polygons.push_back(poly);
+			
+			}
+			
+			
+			
 			glm::vec3 vertex;
 			fscanf_s(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z );
 			temp_vertices.push_back(vertex);
@@ -294,6 +341,9 @@ bool Renderer::LoadOBJ(	const char * path,
 			glm::vec3 normal;
 			fscanf_s(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z );
 			temp_normals.push_back(normal);
+		}
+		else if (strcmp(lineHeader, "g") == 0){
+			nextPoly = true;
 		}else if ( strcmp( lineHeader, "f" ) == 0 ){
 			std::string vertex1, vertex2, vertex3;
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
@@ -311,10 +361,6 @@ bool Renderer::LoadOBJ(	const char * path,
 			normalIndices.push_back(normalIndex[0]);
 			normalIndices.push_back(normalIndex[1]);
 			normalIndices.push_back(normalIndex[2]);
-
-			out_colours.push_back(materials[currentMat]);
-			out_colours.push_back(materials[currentMat]);
-			out_colours.push_back(materials[currentMat]);
 
 		}else{
 			// Probably a comment, eat up the rest of the line
@@ -338,18 +384,16 @@ bool Renderer::LoadOBJ(	const char * path,
 		glm::vec3 normal = temp_normals[ normalIndex-1 ];
 		
 		// Put the attributes in buffers
-		out_vertices.push_back(vertex);
-		out_uvs     .push_back(uv);
-		out_normals .push_back(normal);
+		//out_vertices.push_back(vertex);
+		//out_uvs     .push_back(uv);
+		//out_normals .push_back(normal);
 	
 	}
-
-	cout << out_colours.size() << "\n";
 
 	return true;
 }
 
-bool Renderer::LoadMTL(const char* path, std::vector<glm::vec3> & materials){
+bool Renderer::LoadMTL(const char* path, std::vector<Material*> & materials){
 	FILE * file;
 
 #if defined(PLATFORM_OSX)
@@ -364,6 +408,13 @@ bool Renderer::LoadMTL(const char* path, std::vector<glm::vec3> & materials){
 		return false;
 	}
 
+	//temp variable for reading
+	vec3 ka;
+	vec3 kd;
+	vec3 ks;
+	char* name = new char();
+	char* texturePath = new char();
+
 	int currentMat = -1;
 
 	while (true){
@@ -375,14 +426,43 @@ bool Renderer::LoadMTL(const char* path, std::vector<glm::vec3> & materials){
 			break; // EOF = End Of File. Quit the loop.
 
 		if (strcmp(lineHeader, "newmtl") == 0){
-			materials.push_back(glm::vec3());
+			//Create new material
 			currentMat++;
-			char stupidBuffer[1000];
-			fgets(stupidBuffer, 1000, file);
+			name = new char();
+			materials.push_back(new Material());
+
+			//retreive name
+			fscanf(file, "%s\n", name);
+			materials[currentMat]->setName(name);
+		}
+		else if (strcmp(lineHeader, "Ka") == 0){
+			//retreive ambiant level
+			fscanf_s(file, "%f %f %f\n", &ka.r, &ka.b, &ka.g);
+
+			//store
+			materials[currentMat]->setKa(ka);
 		}
 		else if (strcmp(lineHeader, "Kd") == 0){
-			fscanf_s(file, "%f %f %f\n", &materials[currentMat].r, &materials[currentMat].g, &materials[currentMat].b);
+			//retreive diffuse level
+			fscanf_s(file, "%f %f %f\n", &kd.r, &kd.g, &kd.b);
 
+			//store
+			materials[currentMat]->setKd(kd);
+		}
+		else if (strcmp(lineHeader, "Ks") == 0){
+			//retrieve specular level
+			fscanf_s(file, "%f %f %f\n", &ks.r, &ks.g, &ks.b);
+
+			//store
+			materials[currentMat]->setKs(ks);
+		}
+		else if (strcmp(lineHeader, "map_Kd") == 0){
+			//retreive texture location
+			texturePath = new char();
+			fscanf(file, "%s\n", texturePath);
+
+			//store
+			materials[currentMat]->setTexturePath(texturePath);
 		}
 		else{
 			char stupidBuffer[1000];
