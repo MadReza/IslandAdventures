@@ -18,7 +18,6 @@ OBJPolygon::~OBJPolygon(){
 void OBJPolygon::Initialize(){
 	//this assumes all data has already been properly loaded
 	glGenVertexArrays(1, &VertexArrayID);
-	//glBindVertexArray(VertexArrayID);
 
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);

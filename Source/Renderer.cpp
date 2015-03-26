@@ -213,16 +213,12 @@ GLuint Renderer::LoadShaders(std::string vertex_shader_path,std::string fragment
 	return ProgramID;
 }
 
-
-// Very, VERY simple OBJ loader.
-// Here is a short list of features a real function would provide : 
-// - Binary files. Reading a model should be just a few memcpy's away, not parsing a file at runtime. In short : OBJ is not very great.
-// - Animations & bones (includes bones weights)
-// - Multiple UVs
-// - All attributes should be optional, not "forced"
-// - More stable. Change a line in the OBJ file and it crashes.
-// - More secure. Change another line and you can inject code.
-// - Loading from memory, stream, etc
+//greatly modified OBJ loader from what was here before
+//Loads up the .obj file and parses the .mtl first, saving a vector of Material objects
+//Then goes through the .obj file and seperates it into seperate Polygon,
+//associating it with the appropriate Material
+//
+//returns a vector of these loaded polygons
 
 bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 {
