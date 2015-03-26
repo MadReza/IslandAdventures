@@ -238,7 +238,14 @@ void World::Draw()
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
 		// Draw model
-		(*it)->Draw();
+
+		//check if it's a textured object
+		if (dynamic_cast<OBJModel*>((*it)) != 0){
+			setUpTextureShader();
+			(*it)->Draw();
+			setUpLightingShader();
+		}else
+			(*it)->Draw();
 	}
 
 	// Draw Path Lines
@@ -493,4 +500,50 @@ BSpline* World::FindSplineByIndex(unsigned int index)
 Model* World::FindModelByIndex(unsigned int index)
 {
     return mModel.size() > 0 ? mModel[index % mModel.size()] : nullptr;
+}
+
+void World::setUpLightingShader(){
+	Renderer::SetShader(SHADER_SOLID_COLOR);
+	
+	glUseProgram(Renderer::GetShaderProgramID());
+
+	// This looks for the MVP Uniform variable in the Vertex Program
+	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
+
+	// Send the view projection constants to the shader
+	mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
+	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+
+	// Code for lighting - get just the View Matrix
+	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+	mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
+	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &V[0][0]);
+
+	// Code for lighting - set the light
+	GLuint LightID = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightPosition_worldspace");
+	glm::vec3 lightPos = glm::vec3(40, 4, 4);
+	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+}
+
+void World::setUpTextureShader(){
+	Renderer::SetShader(SHADER_TEXTURE);
+	
+	glUseProgram(Renderer::GetShaderProgramID());
+
+	// This looks for the MVP Uniform variable in the Vertex Program
+	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
+
+	// Send the view projection constants to the shader
+	mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
+	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+
+	// Code for lighting - get just the View Matrix
+	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+	mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
+	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &V[0][0]);
+
+	// Code for lighting - set the light
+	GLuint LightID = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightPosition_worldspace");
+	glm::vec3 lightPos = glm::vec3(40, 4, 4);
+	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 }

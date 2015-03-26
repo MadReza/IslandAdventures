@@ -1,53 +1,55 @@
-﻿Build started 3/24/2015 5:44:44 PM.
-     1>Project "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\IslandAdventuresGame.vcxproj" on node 2 (Build target(s)).
+﻿Build started 3/26/2015 1:07:26 PM.
+     1>Project "C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\IslandAdventuresGame.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"../ThirdParty/glew-1.10.0/include" /I"../ThirdParty/glfw-3.0.4/include" /I../ThirdParty/glm /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/" /Fd"C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Source\Renderer.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"../ThirdParty/glew-1.10.0/include" /I"../ThirdParty/glfw-3.0.4/include" /I../ThirdParty/glm /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/" /Fd"C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Source\Renderer.cpp
          Renderer.cpp
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(118): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(258): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(121): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(261): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(268): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(271): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(270): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(273): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : see declaration of 'strcpy'
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(271): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(274): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(272): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(275): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(279): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(286): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(280): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(287): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(234): warning C4101: 'currentMat' : unreferenced local variable
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(424): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(290): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(433): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(435): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(444): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
-     1>c:\users\alex\documents\visual studio 2013\projects\islandadventures\source\renderer.cpp(462): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(471): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\rethe_000\downloads\comp371\project\islandadventures\source\renderer.cpp(473): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Bin/IslandAdventureGame-Debug.exe" /INCREMENTAL /NOLOGO /LIBPATH:"../ThirdParty/glew-1.10.0/lib/Release/Win32" /LIBPATH:"../ThirdParty/glfw-3.0.4/lib/Win32/lib-msvc110" opengl32.lib glew32s.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Bin/IslandAdventureGame-Debug.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Bin/IslandAdventureGame-Debug.lib" /MACHINE:X86 "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/BSpline.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/BSplineCamera.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/BSplineCameraThirdPerson.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/Camera.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/DebugCamera.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/Material.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/OBJModel.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/OBJPolygon.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/Path.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/SphereModel.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/StaticCamera.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/EventManager.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/main.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/Model.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/CubeModel.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/Renderer.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/Text2D.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/TextureLoader.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/ThirdPersonCamera.obj"
-         "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Build/Debug/World.obj"
-         IslandAdventuresGame.vcxproj -> C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\/../Bin/IslandAdventureGame-Debug.exe
-     1>Done Building Project "C:\Users\Alex\Documents\Visual Studio 2013\Projects\IslandAdventures\VS2013\IslandAdventuresGame.vcxproj" (Build target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Bin/IslandAdventureGame-Debug.exe" /INCREMENTAL /NOLOGO /LIBPATH:"../ThirdParty/glew-1.10.0/lib/Release/Win32" /LIBPATH:"../ThirdParty/glfw-3.0.4/lib/Win32/lib-msvc110" opengl32.lib glew32s.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Bin/IslandAdventureGame-Debug.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Bin/IslandAdventureGame-Debug.lib" /MACHINE:X86 C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/BSpline.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/BSplineCamera.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/BSplineCameraThirdPerson.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/Camera.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/DebugCamera.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/Material.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/OBJModel.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/OBJPolygon.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/Path.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/SphereModel.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/StaticCamera.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/EventManager.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/main.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/Model.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/CubeModel.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/Renderer.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/Text2D.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/TextureLoader.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/ThirdPersonCamera.obj
+         C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Build/Debug/World.obj
+         IslandAdventuresGame.vcxproj -> C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Bin/IslandAdventureGame-Debug.exe
+     1>Done Building Project "C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\IslandAdventuresGame.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.83
+Time Elapsed 00:00:00.92

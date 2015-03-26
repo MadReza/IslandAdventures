@@ -82,6 +82,9 @@ void Renderer::Initialize()
                 LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
                             shaderPathPrefix + "BlueColor.fragmentshader")
                                );
+	sShaderProgramID.push_back(
+				LoadShaders(shaderPathPrefix + "Textured.vertexshader",
+							shaderPathPrefix + "Textured.fragmentshader"));
 	sCurrentShader = 0;
 
 }
@@ -230,7 +233,7 @@ bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 	std::vector<glm::vec2> temp_uvs;
 	std::vector<glm::vec3> temp_normals;
 
-	std::vector<glm::vec3> materials;
+	std::vector<Material*> materials;
 	Material* currentMat;
 	bool nextPoly = false;
 
@@ -271,8 +274,6 @@ bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 			strcat(mtlPath, "/../");
 			strcat(mtlPath, c);
 			char * path2 = mtlPath;
-
-			vector<Material*> materials;
 			
 			LoadMTL(path2, materials);
 
@@ -284,7 +285,14 @@ bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 		if (strcmp(lineHeader, "usemtl") == 0){//switch material
 			char c[128];
 			fscanf(file, "%s\n", c);
-			//currentMat = c[3] - '0' - 1;
+			
+			//find material
+			for (int i = 0; i < materials.size(); i++)
+				if (strcmp(c, materials[i]->getName()) == 0){
+					currentMat = materials[i];
+					break;
+				}
+					
 
 		}else
 		if ( strcmp( lineHeader, "v" ) == 0 ){
@@ -314,13 +322,14 @@ bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 				}
 
 				//reset variables
-				vertexIndices.clear();
-				uvIndices.clear();
-				normalIndices.clear();
-				temp_vertices.clear();
-				temp_uvs.clear();
-				temp_normals.clear();
+				std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
+				std::vector<glm::vec3> temp_vertices;
+				std::vector<glm::vec2> temp_uvs;
+				std::vector<glm::vec3> temp_normals;
 				nextPoly = false;
+
+				//set material
+				poly->material = currentMat;
 
 				//push polygon
 				polygons.push_back(poly);
@@ -458,8 +467,13 @@ bool Renderer::LoadMTL(const char* path, std::vector<Material*> & materials){
 		}
 		else if (strcmp(lineHeader, "map_Kd") == 0){
 			//retreive texture location
-			texturePath = new char();
-			fscanf(file, "%s\n", texturePath);
+			char c[128];
+			fscanf(file, "%s\n", c);
+			char d[128] = "../Models/";
+			strcat(d, c);
+			texturePath = new char[sizeof(d) + 1];
+
+			memcpy(texturePath, &d, sizeof(d) + 1);
 
 			//store
 			materials[currentMat]->setTexturePath(texturePath);

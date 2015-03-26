@@ -12,11 +12,11 @@ public:
 	Material(char* name, char* texturePath, vec3 ka, vec3 kd, vec3 ks);
 	virtual ~Material();
 
-	vec3 getKa() const;
-	vec3 getKd() const;
-	vec3 getKs() const;
-	char* getName() const;
-	char* getTexturePath() const;
+	vec3 getKa();
+	vec3 getKd();
+	vec3 getKs();
+	char* getName();
+	char* getTexturePath();
 
 	void setKa(vec3 v){ ka = v; }
 	void setKd(vec3 v){ kd = v; }

@@ -18,7 +18,9 @@ public :
 
 	GLuint vertexbuffer;
 	GLuint uvbuffer;
+	GLuint normalbuffer;
 	GLuint textureID;
+	GLuint texture;
 	GLuint VertexArrayID;
 
 	std::vector<glm::vec3> vertices;

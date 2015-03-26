@@ -1,4 +1,5 @@
 #include "OBJPolygon.h"
+#include "Renderer.h"
 
 OBJPolygon::OBJPolygon(){}
 
@@ -6,6 +7,7 @@ OBJPolygon::~OBJPolygon(){
 
 	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteBuffers(1, &uvbuffer);
+	glDeleteBuffers(1, &normalbuffer);
 	glDeleteTextures(1, &textureID);
 	glDeleteVertexArrays(1, &VertexArrayID);
 
@@ -25,7 +27,11 @@ void OBJPolygon::Initialize(){
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
 	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 
-	textureID = make_texture(material->getTexturePath());
+	glGenBuffers(1, &normalbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+
+	texture = make_texture(material->getTexturePath());
 
 }
 

@@ -47,4 +47,7 @@ private:
 	int score;
 
 	int keyPressed; //-1 for Unknown key
+
+	void setUpLightingShader();
+	void setUpTextureShader();
 };

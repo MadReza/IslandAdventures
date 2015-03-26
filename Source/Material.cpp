@@ -10,8 +10,8 @@ Material::~Material(){
 	delete texturePath;
 }
 
-vec3 Material::getKa() const{ return ka; }
-vec3 Material::getKd() const{ return kd; }
-vec3 Material::getKs() const{ return ks; }
-char* Material::getName() const{ return name;}
-char* Material::getTexturePath() const{ return texturePath; }
+vec3 Material::getKa() { return ka; }
+vec3 Material::getKd() { return kd; }
+vec3 Material::getKs() { return ks; }
+char* Material::getName() { return name;}
+char* Material::getTexturePath() { return texturePath; }
