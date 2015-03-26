@@ -82,6 +82,9 @@ void Renderer::Initialize()
                 LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
                             shaderPathPrefix + "BlueColor.fragmentshader")
                                );
+	sShaderProgramID.push_back(
+				LoadShaders(shaderPathPrefix + "Textured.vertexshader",
+							shaderPathPrefix + "Textured.fragmentshader"));
 	sCurrentShader = 0;
 
 }
@@ -210,21 +213,14 @@ GLuint Renderer::LoadShaders(std::string vertex_shader_path,std::string fragment
 	return ProgramID;
 }
 
+//greatly modified OBJ loader from what was here before
+//Loads up the .obj file and parses the .mtl first, saving a vector of Material objects
+//Then goes through the .obj file and seperates it into seperate Polygon,
+//associating it with the appropriate Material
+//
+//returns a vector of these loaded polygons
 
-// Very, VERY simple OBJ loader.
-// Here is a short list of features a real function would provide : 
-// - Binary files. Reading a model should be just a few memcpy's away, not parsing a file at runtime. In short : OBJ is not very great.
-// - Animations & bones (includes bones weights)
-// - Multiple UVs
-// - All attributes should be optional, not "forced"
-// - More stable. Change a line in the OBJ file and it crashes.
-// - More secure. Change another line and you can inject code.
-// - Loading from memory, stream, etc
-
-bool Renderer::LoadOBJ(	const char * path, 	
-						std::vector<glm::vec3> & out_vertices, 	
-						std::vector<glm::vec2> & out_uvs,	
-						std::vector<glm::vec3> & out_normals )
+bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 {
 	printf("Loading OBJ file %s...\n", path);
 
@@ -232,6 +228,12 @@ bool Renderer::LoadOBJ(	const char * path,
 	std::vector<glm::vec3> temp_vertices; 
 	std::vector<glm::vec2> temp_uvs;
 	std::vector<glm::vec3> temp_normals;
+
+	std::vector<Material*> materials;
+	Material* currentMat;
+	bool nextPoly = false;
+
+
 
 
 	FILE * file;
@@ -253,24 +255,124 @@ bool Renderer::LoadOBJ(	const char * path,
 		char lineHeader[128];
 		// read the first word of the line
         int res = fscanf(file, "%s", lineHeader);
-		if (res == EOF)
+		if (res == EOF){
+			//push last polygon
+			OBJPolygon* poly = new OBJPolygon();
+
+			for (unsigned int i = 0; i<vertexIndices.size(); i++){
+
+				// Get the indices of its attributes
+				unsigned int vertexIndex = vertexIndices[i];
+				unsigned int uvIndex = uvIndices[i];
+				unsigned int normalIndex = normalIndices[i];
+
+				// Get the attributes thanks to the index
+				glm::vec3 vertex = temp_vertices[vertexIndex - 1];
+				glm::vec2 uv = temp_uvs[uvIndex - 1];
+				glm::vec3 normal = temp_normals[normalIndex - 1];
+
+				// Put the attributes in polygon
+				poly->vertices.push_back(vertex);
+				poly->uvs.push_back(uv);
+				poly->normals.push_back(normal);
+
+
+			}
+
+			//set material
+			poly->material = currentMat;
+
+			//push polygon
+			polygons.push_back(poly);
+
+			
 			break; // EOF = End Of File. Quit the loop.
+		}
 
 		// else : parse lineHeader
 		
+		
+		if (strcmp(lineHeader, "mtllib") == 0){ //load .mtl file
+			//get the path for the .mtl file
+			char c[128];
+			fscanf(file, "%s\n", c);
+			char mtlPath[128];
+			strcpy(mtlPath, path);
+			strcat(mtlPath, "/../");
+			strcat(mtlPath, c);
+			char * path2 = mtlPath;
+			
+			LoadMTL(path2, materials);
+			
+		}else
+		if (strcmp(lineHeader, "usemtl") == 0){//switch material
+			char c[128];
+			fscanf(file, "%s\n", c);
+			
+			//find material
+			for (int i = 0; i < materials.size(); i++)
+				if (strcmp(c, materials[i]->getName()) == 0){
+					currentMat = materials[i];
+					break;
+				}
+					
+
+		}else
 		if ( strcmp( lineHeader, "v" ) == 0 ){
+			//v is the first attriubte encountered in a new polygon
+			if (nextPoly){
+				OBJPolygon* poly = new OBJPolygon();
+			
+				for (unsigned int i = 0; i<vertexIndices.size(); i++){
+
+					// Get the indices of its attributes
+					unsigned int vertexIndex = vertexIndices[i];
+					unsigned int uvIndex = uvIndices[i];
+					unsigned int normalIndex = normalIndices[i];
+
+					// Get the attributes thanks to the index
+					glm::vec3 vertex = temp_vertices[vertexIndex - 1];
+					glm::vec2 uv = temp_uvs[uvIndex - 1];
+					glm::vec3 normal = temp_normals[normalIndex - 1];
+
+					// Put the attributes in polygon
+					poly->vertices.push_back(vertex);
+					poly->uvs.push_back(uv);
+					poly->normals.push_back(normal);
+
+				}
+
+				//reset variables
+				std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
+				std::vector<glm::vec3> temp_vertices;
+				std::vector<glm::vec2> temp_uvs;
+				std::vector<glm::vec3> temp_normals;
+				nextPoly = false;
+
+				//set material
+				poly->material = currentMat;
+
+				//push polygon
+				polygons.push_back(poly);
+			
+			}
+			
+			
+			
 			glm::vec3 vertex;
 			fscanf_s(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z );
 			temp_vertices.push_back(vertex);
 		}else if ( strcmp( lineHeader, "vt" ) == 0 ){
 			glm::vec2 uv;
 			fscanf_s(file, "%f %f\n", &uv.x, &uv.y );
-			uv.y = -uv.y; // Invert V coordinate since we will only use DDS texture, which are inverted. Remove if you want to use TGA or BMP loaders.
 			temp_uvs.push_back(uv);
 		}else if ( strcmp( lineHeader, "vn" ) == 0 ){
 			glm::vec3 normal;
 			fscanf_s(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z );
 			temp_normals.push_back(normal);
+		}
+		else if (strcmp(lineHeader, "g") == 0){
+			nextPoly = true;
 		}else if ( strcmp( lineHeader, "f" ) == 0 ){
 			std::string vertex1, vertex2, vertex3;
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
@@ -288,6 +390,7 @@ bool Renderer::LoadOBJ(	const char * path,
 			normalIndices.push_back(normalIndex[0]);
 			normalIndices.push_back(normalIndex[1]);
 			normalIndices.push_back(normalIndex[2]);
+
 		}else{
 			// Probably a comment, eat up the rest of the line
 			char stupidBuffer[1000];
@@ -310,10 +413,96 @@ bool Renderer::LoadOBJ(	const char * path,
 		glm::vec3 normal = temp_normals[ normalIndex-1 ];
 		
 		// Put the attributes in buffers
-		out_vertices.push_back(vertex);
-		out_uvs     .push_back(uv);
-		out_normals .push_back(normal);
+		//out_vertices.push_back(vertex);
+		//out_uvs     .push_back(uv);
+		//out_normals .push_back(normal);
 	
+	}
+
+	return true;
+}
+
+bool Renderer::LoadMTL(const char* path, std::vector<Material*> & materials){
+	FILE * file;
+
+#if defined(PLATFORM_OSX)
+	file = fopen(path, "r");
+#else
+	fopen_s(&file, path, "r");
+#endif
+
+	if (file == nullptr){
+		printf("Can't open file. Damn :/");
+		getchar();
+		return false;
+	}
+
+	//temp variable for reading
+	vec3 ka;
+	vec3 kd;
+	vec3 ks;
+	char* name = new char();
+	char* texturePath = new char();
+
+	int currentMat = -1;
+
+	while (true){
+
+		char lineHeader[128];
+		// read the first word of the line
+		int res = fscanf(file, "%s", lineHeader);
+		if (res == EOF)
+			break; // EOF = End Of File. Quit the loop.
+
+		if (strcmp(lineHeader, "newmtl") == 0){
+			//Create new material
+			currentMat++;
+			name = new char();
+			materials.push_back(new Material());
+
+			//retreive name
+			fscanf(file, "%s\n", name);
+			materials[currentMat]->setName(name);
+		}
+		else if (strcmp(lineHeader, "Ka") == 0){
+			//retreive ambiant level
+			fscanf_s(file, "%f %f %f\n", &ka.r, &ka.b, &ka.g);
+
+			//store
+			materials[currentMat]->setKa(ka);
+		}
+		else if (strcmp(lineHeader, "Kd") == 0){
+			//retreive diffuse level
+			fscanf_s(file, "%f %f %f\n", &kd.r, &kd.g, &kd.b);
+
+			//store
+			materials[currentMat]->setKd(kd);
+		}
+		else if (strcmp(lineHeader, "Ks") == 0){
+			//retrieve specular level
+			fscanf_s(file, "%f %f %f\n", &ks.r, &ks.g, &ks.b);
+
+			//store
+			materials[currentMat]->setKs(ks);
+		}
+		else if (strcmp(lineHeader, "map_Kd") == 0){
+			//retreive texture location
+			char c[128];
+			fscanf(file, "%s\n", c);
+			char d[128] = "../Models/";
+			strcat(d, c);
+			texturePath = new char[sizeof(d) + 1];
+
+			memcpy(texturePath, &d, sizeof(d) + 1);
+
+			//store
+			materials[currentMat]->setTexturePath(texturePath);
+		}
+		else{
+			char stupidBuffer[1000];
+			fgets(stupidBuffer, 1000, file);
+		}
+
 	}
 
 	return true;
