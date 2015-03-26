@@ -26,11 +26,11 @@ void OBJModel::loadOBJ(const char* path){
 		std::cout << polygons[i]->material->getTexturePath() << "\n";
 	}
 
-	/*
+	
 	if (res == false)
 		//WELL FUCK
 		std::cout << "WELL SHIT\n";
-	
+	/*
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
@@ -57,7 +57,10 @@ void OBJModel::Draw()
 
 	for (int i = 0; i < polygons.size(); i++)
 	{
+		glBindVertexArray(polygons[i]->VertexArrayID);
+		
 		polygons[i]->textureID = glGetUniformLocation(Renderer::GetShaderProgramID(), "myTextureSampler");
+
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, polygons[i]->texture);
 		glUniform1i(polygons[i]->textureID, 0);
@@ -103,6 +106,7 @@ void OBJModel::Draw()
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(2);
 
 	}
 

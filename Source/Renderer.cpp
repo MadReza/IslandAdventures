@@ -276,10 +276,6 @@ bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 			char * path2 = mtlPath;
 			
 			LoadMTL(path2, materials);
-
-			for (int i = 0; i < materials.size(); ++i)
-				cout << materials[i]->getName() << "\n";
-
 			
 		}else
 		if (strcmp(lineHeader, "usemtl") == 0){//switch material
@@ -299,8 +295,6 @@ bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 			//v is the first attriubte encountered in a new polygon
 			if (nextPoly){
 				OBJPolygon* poly = new OBJPolygon();
-
-				cout << vertexIndices.size() << "\n";
 			
 				for (unsigned int i = 0; i<vertexIndices.size(); i++){
 
@@ -344,7 +338,6 @@ bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 		}else if ( strcmp( lineHeader, "vt" ) == 0 ){
 			glm::vec2 uv;
 			fscanf_s(file, "%f %f\n", &uv.x, &uv.y );
-			uv.y = -uv.y; // Invert V coordinate since we will only use DDS texture, which are inverted. Remove if you want to use TGA or BMP loaders.
 			temp_uvs.push_back(uv);
 		}else if ( strcmp( lineHeader, "vn" ) == 0 ){
 			glm::vec3 normal;
