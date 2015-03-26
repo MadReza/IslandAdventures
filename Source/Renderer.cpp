@@ -259,8 +259,39 @@ bool Renderer::LoadOBJ(const char * path, std::vector<OBJPolygon*> & polygons)
 		char lineHeader[128];
 		// read the first word of the line
         int res = fscanf(file, "%s", lineHeader);
-		if (res == EOF)
+		if (res == EOF){
+			//push last polygon
+			OBJPolygon* poly = new OBJPolygon();
+
+			for (unsigned int i = 0; i<vertexIndices.size(); i++){
+
+				// Get the indices of its attributes
+				unsigned int vertexIndex = vertexIndices[i];
+				unsigned int uvIndex = uvIndices[i];
+				unsigned int normalIndex = normalIndices[i];
+
+				// Get the attributes thanks to the index
+				glm::vec3 vertex = temp_vertices[vertexIndex - 1];
+				glm::vec2 uv = temp_uvs[uvIndex - 1];
+				glm::vec3 normal = temp_normals[normalIndex - 1];
+
+				// Put the attributes in polygon
+				poly->vertices.push_back(vertex);
+				poly->uvs.push_back(uv);
+				poly->normals.push_back(normal);
+
+
+			}
+
+			//set material
+			poly->material = currentMat;
+
+			//push polygon
+			polygons.push_back(poly);
+
+			
 			break; // EOF = End Of File. Quit the loop.
+		}
 
 		// else : parse lineHeader
 		

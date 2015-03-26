@@ -430,7 +430,7 @@ void World::LoadScene(const char * scene_path)
 	}
 
 	//LOAD DAT OBJ MODEL YO
-	OBJModel* pika = new OBJModel("../Models/Pikachu.obj");
+	OBJModel* pika = new OBJModel("../Models/Charmander.obj");
 	pika->SetPosition(vec3(1,1,1));
 	mModel.push_back(pika);
 
