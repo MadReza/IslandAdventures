@@ -373,9 +373,16 @@ void World::LoadScene(const char * scene_path)
 
 	//LOAD DAT OBJ MODEL YO
 	OBJModel* pika = new OBJModel("../Models/Pikachu.obj");
-	pika->SetPosition(vec3(1,1,1));
+	pika->SetPosition(vec3(40,1,5));
+	pika->SetScaling(vec3(0.2, 0.2, 0.2));
 	mModel.push_back(pika);
+	for (int i = 0; i < 15; i++){
 
+		OBJModel* grass = new OBJModel("../Models/Grass_02.obj");
+		grass->SetPosition(vec3(rand()%100 - 50, 0, rand()%100-50));
+		grass->SetScaling(vec3(1, 1, 1));
+		mModel.push_back(grass);
+	}
     LoadCameras();
 }
 
