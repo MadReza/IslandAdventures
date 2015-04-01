@@ -1,9 +1,9 @@
-﻿Build started 3/26/2015 5:54:12 PM.
-     1>Project "C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\IslandAdventuresGame.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2015-04-01 3:32:28 PM.
+     1>Project "C:\Users\Reina\Source\Repos\IslandAdventures\VS2013\IslandAdventuresGame.vcxproj" on node 2 (Build target(s)).
      1>Link:
-         IslandAdventuresGame.vcxproj -> C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\/../Bin/IslandAdventureGame-Debug.exe
-     1>Done Building Project "C:\Users\rethe_000\Downloads\comp371\PROJECT\IslandAdventures\VS2013\IslandAdventuresGame.vcxproj" (Build target(s)).
+         IslandAdventuresGame.vcxproj -> C:\Users\Reina\Source\Repos\IslandAdventures\VS2013\/../Bin/IslandAdventureGame-Debug.exe
+     1>Done Building Project "C:\Users\Reina\Source\Repos\IslandAdventures\VS2013\IslandAdventuresGame.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.06
+Time Elapsed 00:00:00.10

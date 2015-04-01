@@ -29,12 +29,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Source\Shaders\SolidColor.vertexshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="..\Source\Shaders\SolidColor.fragmentshader">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
     <None Include="..\Source\Shaders\BlueColor.fragmentshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
@@ -69,6 +63,12 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="..\Source\Shaders\Textured.vertexshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\PhongLighting.fragmentshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\PhongLighting.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>

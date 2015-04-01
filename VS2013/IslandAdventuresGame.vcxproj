@@ -104,8 +104,8 @@
     <None Include="..\Source\Shaders\BlueColor.fragmentshader" />
     <None Include="..\Source\Shaders\PathLines.fragmentshader" />
     <None Include="..\Source\Shaders\PathLines.vertexshader" />
-    <None Include="..\Source\Shaders\SolidColor.vertexshader" />
-    <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
+    <None Include="..\Source\Shaders\PhongLighting.vertexshader" />
+    <None Include="..\Source\Shaders\PhongLighting.fragmentshader" />
     <None Include="..\Source\Shaders\Textured.fragmentshader" />
     <None Include="..\Source\Shaders\Textured.vertexshader" />
     <None Include="..\Source\Shaders\TextVertexShader.fragmentshader" />

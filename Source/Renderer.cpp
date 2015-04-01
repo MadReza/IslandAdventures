@@ -71,15 +71,15 @@ void Renderer::Initialize()
 #endif
 
 	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
-                            shaderPathPrefix + "SolidColor.fragmentshader")
+                LoadShaders(shaderPathPrefix + "PhongLighting.vertexshader",
+                            shaderPathPrefix + "PhongLighting.fragmentshader")
                                );
 	sShaderProgramID.push_back(
                 LoadShaders(shaderPathPrefix + "PathLines.vertexshader",
                             shaderPathPrefix + "PathLines.fragmentshader")
                                );
 	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
+                LoadShaders(shaderPathPrefix + "PhongLighting.vertexshader",
                             shaderPathPrefix + "BlueColor.fragmentshader")
                                );
 	sShaderProgramID.push_back(
