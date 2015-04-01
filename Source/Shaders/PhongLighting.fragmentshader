@@ -3,35 +3,27 @@
 // Ouput to fragment shader
 out vec3 color;			// final color
 
-in vec4 v_color;
+in vec3 v_color;
 in vec3 normal;
-in vec3 Position_worldspace;
+in float distance;
 in vec3 EyeDirection_cameraspace;
-in vec3 LightDirection_cameraspace;
+in vec4 LightDirection_cameraspace;
 
-uniform mat4 MV;
-uniform vec3 LightPosition_worldspace;
+uniform vec4 MaterialCoefficients;
+
+uniform vec3 LightColor;
+uniform vec3 LightAttenuation;
 
 
 void main()
 {
-	// set the light properties
-	vec3 LightColor = vec3(1,1,1);
-	float LightPower = 50.0f;
+	float attenuation = 1/(LightAttenuation.x + (LightAttenuation.y * distance) + (LightAttenuation.z * distance * distance));
 
-	// set the material properties
-	vec3 MaterialDiffuseColor = v_color.xyz;
-	vec3 MaterialAmbientColor = vec3(0.1,0.1,0.1) * MaterialDiffuseColor;
-	vec3 MaterialSpecularColor = vec3(0.3,0.3,0.3);
-	
-	// distance to the light, if light is a positional
-	float distance = length( LightPosition_worldspace - Position_worldspace );
-	
 	// normal vector
 	vec3 n = normalize( normal );
 	
 	// light vector
-	vec3 l = normalize( LightDirection_cameraspace );
+	vec3 l = normalize( LightDirection_cameraspace.xyz );
 	
 	// cos angle between the normal and the light
 	float cosTheta = clamp( dot( n,l ), 0,1 );
@@ -46,7 +38,7 @@ void main()
 	float cosAlpha = clamp( dot( E,R ), 0,1 );
 
 	// calculate the final color
-	color = MaterialAmbientColor +
-			MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) + 
-			MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
+	color = MaterialCoefficients.x * v_color +
+			MaterialCoefficients.y * LightColor *  cosTheta * v_color+ 
+			MaterialCoefficients.z * LightColor * pow(cosAlpha, MaterialCoefficients.w) * v_color;
 }

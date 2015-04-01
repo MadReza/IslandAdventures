@@ -133,7 +133,7 @@ void World::Update(float dt)
 			keyPressed = -1; //Reset KeyPressed.
 			break;
 		case GLFW_KEY_0:
-			Renderer::SetShader(SHADER_SOLID_COLOR);
+			Renderer::SetShader(SHADER_LIGHTING);
 			std::cout << "Shader Changed: SOLID_COLOR" << std::endl;
 			keyPressed = -1; 
 			break;
@@ -224,16 +224,35 @@ void World::Draw()
 	mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
 	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
 
-	// Code for lighting - get just the View Matrix
+	// Code for lighting - just get the View Matrix
 	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
 	mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
 	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &V[0][0]);
 
-	// Code for lighting - set the light
-	GLuint LightID = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightPosition_worldspace");
-	glm::vec3 lightPos = glm::vec3(40,4,4);
-    glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-	
+	// Light Position
+	GLuint LightPositionID = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldLightPosition");
+	vec4 lightPosition = vec4(40, 40, -4, 0);
+	glUniform4f(LightPositionID, lightPosition.x, lightPosition.y, lightPosition.z, lightPosition.w);
+
+	// Light Color
+	GLuint LightColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightColor");
+	vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
+	glUniform3f(LightColorID, lightColor.x, lightColor.y, lightColor.z);
+
+	// Light Attenuation
+	GLuint LightAttenuationID = glGetUniformLocation(Renderer::GetShaderProgramID(), "lightAttenuation");
+	const float lightKc = 0.0f;
+	const float lightKl = 0.0f;
+	const float lightKq = 1.0f;
+	glUniform3f(LightAttenuationID, lightKc, lightKl, lightKq);
+
+	// Material Coefficients
+	GLuint MaterialID = glGetUniformLocation(Renderer::GetShaderProgramID(), "MaterialCoefficients");
+	const float ka = 0.2f;
+	const float kd = 0.8f;
+	const float ks = 0.2f;
+	const float n = 150.0f;
+	glUniform4f(MaterialID, ka, kd, ks, n);
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
@@ -445,7 +464,7 @@ Model* World::FindModelByIndex(unsigned int index)
 }
 
 void World::setUpLightingShader(){
-	Renderer::SetShader(SHADER_SOLID_COLOR);
+	Renderer::SetShader(SHADER_LIGHTING);
 	
 	glUseProgram(Renderer::GetShaderProgramID());
 
@@ -462,7 +481,7 @@ void World::setUpLightingShader(){
 	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &V[0][0]);
 
 	// Code for lighting - set the light
-	GLuint LightID = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightPosition_worldspace");
+	GLuint LightID = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldLightPosition");
 	glm::vec3 lightPos = glm::vec3(40, 4, 4);
 	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 }
