@@ -9,6 +9,7 @@
 
 #include "EventManager.h"
 #include "Renderer.h"
+#include "World.h"
 
 #include <GLFW/glfw3.h>
 
@@ -30,6 +31,10 @@ float  EventManager::sMouseDeltaY = 0.0f;
 
 // Window
 GLFWwindow* EventManager::spWindow = nullptr;
+
+// Event management
+bool EventManager::paused = false;
+int EventManager::keyPressed = -1;
 
 
 void EventManager::Initialize()

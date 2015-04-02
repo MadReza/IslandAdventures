@@ -27,6 +27,7 @@ public:
 
 	void Update(float dt);
 	void Draw();
+	void DrawMainMenu();
 
 	void LoadScene(const char * scene_path);
     void LoadCameras();
@@ -45,8 +46,6 @@ private:
 	std::vector<Camera*> mCamera;
 	unsigned int mCurrentCamera;
 	int score;
-
-	int keyPressed; //-1 for Unknown key
 
 	void setUpLightingShader();
 	void setUpTextureShader();

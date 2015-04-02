@@ -84,7 +84,13 @@ void Renderer::Initialize()
                                );
 	sShaderProgramID.push_back(
 				LoadShaders(shaderPathPrefix + "Textured.vertexshader",
-							shaderPathPrefix + "Textured.fragmentshader"));
+							shaderPathPrefix + "Textured.fragmentshader")
+							);
+	sShaderProgramID.push_back(
+		LoadShaders(shaderPathPrefix + "TextVertexShader.vertexshader",
+		shaderPathPrefix + "TextVertexShader.fragmentshader")
+							);
+
 	sCurrentShader = 0;
 
 }

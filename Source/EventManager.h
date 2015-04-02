@@ -29,6 +29,8 @@ public:
 
 	static void EnableMouseCursor();
 	static void DisableMouseCursor();
+	static bool paused;
+	static int keyPressed;
 
 
 private:

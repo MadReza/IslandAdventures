@@ -35,7 +35,6 @@ World* World::instance;
 World::World()
 {
     instance = this;
-	keyPressed = -1;
 	score = 0;
 }
 
@@ -78,136 +77,184 @@ World* World::GetInstance()
 
 void World::Update(float dt)
 {
-	//TODO: Move Camera Manager outside and clean up code.
-	//2 part key event: Press & release, On release action happens to make certain we don't repeat keypress multiple times.
-	if (keyPressed != -1 && glfwGetKey(EventManager::GetWindow(), keyPressed) == GLFW_RELEASE 
-		&& glfwGetMouseButton(EventManager::GetWindow(), keyPressed) == GLFW_RELEASE)
-	{
-		switch (keyPressed)
+	if (EventManager::paused == false){ // Not paused
+		glfwSetInputMode(EventManager::GetWindow(), GLFW_STICKY_KEYS, GL_TRUE);
+
+		//TODO: Move Camera Manager outside and clean up code.
+		//2 part key event: Press & release, On release action happens to make certain we don't repeat keypress multiple times.
+		if (EventManager::keyPressed != -1 && glfwGetKey(EventManager::GetWindow(), EventManager::keyPressed) == GLFW_RELEASE
+			&& glfwGetMouseButton(EventManager::GetWindow(), EventManager::keyPressed) == GLFW_RELEASE)
 		{
-		case GLFW_KEY_1:
-			mCurrentCamera = 0;
-			std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
-			keyPressed = -1; //Reset KeyPressed.
-			break;
-		case GLFW_KEY_2:
-			if (mCamera.size() > 1)
+			switch (EventManager::keyPressed)
 			{
-				mCurrentCamera = 1;
+			case GLFW_KEY_1:
+				mCurrentCamera = 0;
 				std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
+				EventManager::keyPressed = -1; //Reset KeyPressed.
+				break;
+			case GLFW_KEY_2:
+				if (mCamera.size() > 1)
+				{
+					mCurrentCamera = 1;
+					std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
+				}
+				EventManager::keyPressed = -1; //Reset KeyPressed.
+				break;
+			case GLFW_KEY_3:
+				if (mCamera.size() > 2)
+				{
+					mCurrentCamera = 2;
+					std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
+				}
+				EventManager::keyPressed = -1; //Reset KeyPressed.
+				break;
+			case GLFW_KEY_4:
+				// Spline camera
+				if (mCamera.size() > 3 && mSpline.size() > 0)
+				{
+					mCurrentCamera = 3;
+					std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
+				}
+				EventManager::keyPressed = -1; //Reset KeyPressed.
+				break;
+			case GLFW_KEY_5:
+				// Spline camera
+				if (mCamera.size() > 4 && mModel.size() > 0)
+				{
+					mCurrentCamera = 4;
+					std::cout << "Camera Changed to: " << mCurrentCamera << ": Third Person Model Camera" << std::endl;
+				}
+				EventManager::keyPressed = -1; //Reset KeyPressed.
+				break;
+			case GLFW_KEY_GRAVE_ACCENT:
+				if (mCamera.size() > 5)
+				{
+					mCurrentCamera = 5;
+					std::cout << "Camera Changed to: " << mCurrentCamera << ": Spline Movement Camera" << std::endl;
+				}
+				EventManager::keyPressed = -1; //Reset KeyPressed.
+				break;
+			case GLFW_KEY_0:
+				Renderer::SetShader(SHADER_LIGHTING);
+				std::cout << "Shader Changed: SOLID_COLOR" << std::endl;
+				EventManager::keyPressed = -1;
+				break;
+			case GLFW_KEY_9:
+				Renderer::SetShader(SHADER_BLUE);
+				std::cout << "Shader Changed: SHADER_BLUE" << std::endl;
+				EventManager::keyPressed = -1;
+				break;
+			case GLFW_MOUSE_BUTTON_LEFT:
+			case GLFW_MOUSE_BUTTON_RIGHT:
+				++score;
+				EventManager::keyPressed = -1;
+				break;
+			case GLFW_KEY_X:
+				EventManager::paused = true;
+				EventManager::keyPressed = -1;
+				break;
+			default:
+				break;
 			}
-			keyPressed = -1; //Reset KeyPressed.
-			break;
-		case GLFW_KEY_3:
-			if (mCamera.size() > 2)
-			{
-				mCurrentCamera = 2;
-				std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
-			}
-			keyPressed = -1; //Reset KeyPressed.
-			break;
-		case GLFW_KEY_4:
-			// Spline camera
-			if (mCamera.size() > 3 && mSpline.size() > 0)
-			{
-				mCurrentCamera = 3;
-				std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
-			}
-			keyPressed = -1; //Reset KeyPressed.
-			break;
-		case GLFW_KEY_5:
-			// Spline camera
-			if (mCamera.size() > 4 && mModel.size() > 0)
-			{
-				mCurrentCamera = 4;
-				std::cout << "Camera Changed to: " << mCurrentCamera << ": Third Person Model Camera" << std::endl;
-			}
-			keyPressed = -1; //Reset KeyPressed.
-			break;
-		case GLFW_KEY_GRAVE_ACCENT:
-			if (mCamera.size() > 5)
-			{
-				mCurrentCamera = 5;
-				std::cout << "Camera Changed to: " << mCurrentCamera << ": Spline Movement Camera" << std::endl;
-			}
-			keyPressed = -1; //Reset KeyPressed.
-			break;
-		case GLFW_KEY_0:
-			Renderer::SetShader(SHADER_LIGHTING);
-			std::cout << "Shader Changed: SOLID_COLOR" << std::endl;
-			keyPressed = -1; 
-			break;
-		case GLFW_KEY_9:
-			Renderer::SetShader(SHADER_BLUE);
-			std::cout << "Shader Changed: SHADER_BLUE" << std::endl;
-			keyPressed = -1; 
-			break;
-		case GLFW_MOUSE_BUTTON_LEFT:
-		case GLFW_MOUSE_BUTTON_RIGHT:
-			++score;
-			keyPressed = -1;
-			break;
-		default:
-			break;
+		}
+
+		// User Inputs
+		// 0 1 2 to change the Camera
+		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_1) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_1;
+		}
+		else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_2) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_2;
+		}
+		else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_3) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_3;
+		}
+		else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_4;
+		}
+		else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_5;
+		}
+		else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_GRAVE_ACCENT) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_GRAVE_ACCENT;
+		}
+
+		// Take picture using left or right mouse
+		if (glfwGetMouseButton(EventManager::GetWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_MOUSE_BUTTON_LEFT;
+		}
+		else if (glfwGetMouseButton(EventManager::GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_MOUSE_BUTTON_RIGHT;
+		}
+
+		// Pause key
+		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_X;
+		}
+
+
+		// 0-9 to change the shader
+		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_0;
+		}
+		else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_9;
+		}
+
+		// Update current Camera
+		mCamera[mCurrentCamera]->Update(dt);
+
+		// Update models
+		for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
+		{
+			(*it)->Update(dt);
 		}
 	}
+	// PAUSED
+	else {
+		glfwSetInputMode(EventManager::GetWindow(), GLFW_STICKY_KEYS, GL_FALSE);
+		EventManager::EnableMouseCursor();
 
-	// User Inputs
-	// 0 1 2 to change the Camera
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_1) == GLFW_PRESS)
-	{
-		keyPressed = GLFW_KEY_1;
-	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_2) == GLFW_PRESS)
-	{
-		keyPressed = GLFW_KEY_2;
-	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_3) == GLFW_PRESS)
-	{
-		keyPressed = GLFW_KEY_3;
-	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4) == GLFW_PRESS)
-	{
-		keyPressed = GLFW_KEY_4;
-	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5) == GLFW_PRESS)
-	{
-		keyPressed = GLFW_KEY_5;
-	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_GRAVE_ACCENT) == GLFW_PRESS)
-	{	
-		keyPressed = GLFW_KEY_GRAVE_ACCENT;
-	}
+		// Check for mouse input on menu
+		if (EventManager::keyPressed != -1 && glfwGetMouseButton(EventManager::GetWindow(), EventManager::keyPressed) == GLFW_RELEASE){
 
-	// Take picture using left or right mouse
-	if (glfwGetMouseButton(EventManager::GetWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-	{
-		keyPressed = GLFW_MOUSE_BUTTON_LEFT;
-	}
-	else if (glfwGetMouseButton(EventManager::GetWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
-	{
-		keyPressed = GLFW_MOUSE_BUTTON_RIGHT;
-	}
-	
+			double x, y;
+			glfwGetCursorPos(EventManager::GetWindow(), &x, &y);
+			cout << x << " and " << y << endl;
+			if (x >= 370 && x <= 630 && y >= 200 && y <= 270 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+				EventManager::paused = false;
+				EventManager::keyPressed = -1;
+			}
+			else if (x >= 400 && x <= 600 && y >= 401 && y <= 465 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+				cout << "QUIT" << endl;
+				std::exit(1);
+			}
+			else{
+				EventManager::keyPressed = -1;
+			}
+		}
+		
+		// Mouse click for pause menu
+		if (glfwGetMouseButton(EventManager::GetWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_MOUSE_BUTTON_LEFT;
+		}
 
-	// 0-9 to change the shader
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0) == GLFW_PRESS)
-	{
-		keyPressed = GLFW_KEY_0;
-	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9) == GLFW_PRESS)
-	{
-		keyPressed = GLFW_KEY_9;
-	}
 
-	// Update current Camera
-	mCamera[mCurrentCamera]->Update(dt);
+	} // End of pause
 
-	// Update models
-	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
-	{
-		(*it)->Update(dt);
-	}
+
 }
 
 void World::Draw()
@@ -293,6 +340,9 @@ void World::Draw()
 
 
 
+	Renderer::SetShader(SHADER_TEXT);
+	glUseProgram(Renderer::GetShaderProgramID());
+
 
 	// DRAW UI 2D TEXTS 
 	// text, x, y, size
@@ -308,12 +358,35 @@ void World::Draw()
 		printText2D(text, 200, 300, 50);
 	}
 
+	sprintf(text, "PAUSE: X");
+	printText2D(text, 10, 10, 14, vec4(1, 0, 0, 0));
+
+	// Draw Pause MENU
+	if (EventManager::paused == true){
+		DrawMainMenu();
+	}
+
+
+
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
 
 	Renderer::EndFrame();
 	
 }
+
+void World::DrawMainMenu(){
+	char text[256];
+	sprintf(text, "RESUME");
+	printText2D(text, 300, 400, 30);
+	sprintf(text, "OPTIONS");
+	printText2D(text, 285, 350, 30);
+	sprintf(text, "SCREENSHOTS");
+	printText2D(text, 230, 300, 30);
+	sprintf(text, "QUIT");
+	printText2D(text, 330, 250, 30);
+}
+
 
 void World::LoadScene(const char * scene_path)
 {
@@ -426,7 +499,9 @@ void World::LoadCameras()
 	//debug camera
 	mCamera.push_back(new DebugCamera(vec3(0.0f, 2.0f, 0.0f)));
     
-    mCurrentCamera = 0;
+	//Starting camera (change to the roller coaster for introduction credits)
+	mCurrentCamera = 3;
+
 }
 
 Path* World::FindPath(ci_string pathName)
