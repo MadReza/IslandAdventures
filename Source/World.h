@@ -28,6 +28,7 @@ public:
 	void Update(float dt);
 	void Draw();
 	void DrawMainMenu();
+	void DrawPauseMenu();
 
 	void LoadScene(const char * scene_path);
     void LoadCameras();

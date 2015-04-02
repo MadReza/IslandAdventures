@@ -352,8 +352,13 @@ void World::Draw()
 	// DRAW UI 2D TEXTS 
 	// text, x, y, size
 	char text[256];
-	sprintf(text, "Score: %d", score);
-	printText2D(text, 10, 550, 30);
+	if (EventManager::gameStarted == true){
+		sprintf(text, "Score: %d", score);
+		printText2D(text, 10, 550, 30);
+
+		sprintf(text, "PAUSE: X");
+		printText2D(text, 10, 10, 14, vec4(1, 0, 0, 0));
+	}
 
 	sprintf(text, "COMP 371");
 	printText2D(text, 620, 10, 20);
@@ -363,12 +368,14 @@ void World::Draw()
 		printText2D(text, 200, 300, 50);
 	}
 
-	sprintf(text, "PAUSE: X");
-	printText2D(text, 10, 10, 14, vec4(1, 0, 0, 0));
+	
 
 	// Draw MAIN MENU - PAUSE MENU
-	if (EventManager::paused == true || EventManager::gameStarted == false){
+	if (EventManager::gameStarted == false){
 		DrawMainMenu();
+	}
+	else if (EventManager::paused == true){
+		DrawPauseMenu();
 	}
 
 
@@ -382,14 +389,35 @@ void World::Draw()
 
 void World::DrawMainMenu(){
 	char text[256];
-	if (EventManager::gameStarted == false){
-		sprintf(text, "START");
-		printText2D(text, 315, 400, 30);
-	}
-	else{
-		sprintf(text, "RESUME");
-		printText2D(text, 300, 400, 30);
-	}
+	sprintf(text, "CREDITS:");
+	printText2D(text, 10, 190, 25);
+	sprintf(text, "ALEX NEWMAN");
+	printText2D(text, 10, 160, 25);
+	sprintf(text, "REZA MADABADI");
+	printText2D(text, 10, 130, 25);
+	sprintf(text, "ZHONGHAN ZHOU");
+	printText2D(text, 10, 100, 25);
+	sprintf(text, "TAWFEEQ JAWHAR");
+	printText2D(text, 10, 70, 25);
+	sprintf(text, "REINA VILLANUEVA");
+	printText2D(text, 10, 40, 25);
+	sprintf(text, "SEBOUH BARDAKJIAN");
+	printText2D(text, 10, 10, 25);
+
+	sprintf(text, "START");
+	printText2D(text, 315, 400, 30);
+	sprintf(text, "OPTIONS");
+	printText2D(text, 285, 350, 30);
+	sprintf(text, "SCREENSHOTS");
+	printText2D(text, 230, 300, 30);
+	sprintf(text, "QUIT");
+	printText2D(text, 330, 250, 30);
+}
+
+void World::DrawPauseMenu(){
+	char text[256];
+	sprintf(text, "RESUME");
+	printText2D(text, 300, 400, 30);
 	sprintf(text, "OPTIONS");
 	printText2D(text, 285, 350, 30);
 	sprintf(text, "SCREENSHOTS");
