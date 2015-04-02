@@ -32,6 +32,7 @@ public:
 
 	static void SaveTGA(void);
 
+	static bool gameStarted;
 	static bool paused;
 	static int keyPressed;
 	

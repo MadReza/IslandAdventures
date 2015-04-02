@@ -35,7 +35,8 @@ int EventManager::m_WindowWidth = 1024;
 int EventManager::m_WindowHeight = 768;
 
 // Event management
-bool EventManager::paused = false;
+bool EventManager::gameStarted = false;
+bool EventManager::paused = true;
 int EventManager::keyPressed = -1;
 
 // Screenshot

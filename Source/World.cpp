@@ -225,7 +225,7 @@ void World::Update(float dt)
 			(*it)->Update(dt);
 		}
 	}
-	// PAUSED
+	// PAUSED 
 	else {
 		glfwSetInputMode(EventManager::GetWindow(), GLFW_STICKY_KEYS, GL_FALSE);
 		EventManager::EnableMouseCursor();
@@ -237,6 +237,7 @@ void World::Update(float dt)
 			glfwGetCursorPos(EventManager::GetWindow(), &x, &y);
 			cout << x << " and " << y << endl;
 			if (x >= 370 && x <= 630 && y >= 200 && y <= 270 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+				EventManager::gameStarted = true;
 				EventManager::paused = false;
 				EventManager::keyPressed = -1;
 			}
@@ -365,8 +366,8 @@ void World::Draw()
 	sprintf(text, "PAUSE: X");
 	printText2D(text, 10, 10, 14, vec4(1, 0, 0, 0));
 
-	// Draw Pause MENU
-	if (EventManager::paused == true){
+	// Draw MAIN MENU - PAUSE MENU
+	if (EventManager::paused == true || EventManager::gameStarted == false){
 		DrawMainMenu();
 	}
 
@@ -381,8 +382,14 @@ void World::Draw()
 
 void World::DrawMainMenu(){
 	char text[256];
-	sprintf(text, "RESUME");
-	printText2D(text, 300, 400, 30);
+	if (EventManager::gameStarted == false){
+		sprintf(text, "START");
+		printText2D(text, 315, 400, 30);
+	}
+	else{
+		sprintf(text, "RESUME");
+		printText2D(text, 300, 400, 30);
+	}
 	sprintf(text, "OPTIONS");
 	printText2D(text, 285, 350, 30);
 	sprintf(text, "SCREENSHOTS");
