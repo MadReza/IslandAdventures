@@ -145,8 +145,12 @@ void World::Update(float dt)
 				EventManager::keyPressed = -1;
 				break;
 			case GLFW_MOUSE_BUTTON_LEFT:
-			case GLFW_MOUSE_BUTTON_RIGHT:
 				++score;
+				EventManager::keyPressed = -1;
+				break;
+			case GLFW_MOUSE_BUTTON_RIGHT:
+				score += 15;
+				EventManager::SaveTGA();
 				EventManager::keyPressed = -1;
 				break;
 			case GLFW_KEY_X:
@@ -185,7 +189,7 @@ void World::Update(float dt)
 			EventManager::keyPressed = GLFW_KEY_GRAVE_ACCENT;
 		}
 
-		// Take picture using left or right mouse
+		//  left and right mouse
 		if (glfwGetMouseButton(EventManager::GetWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 		{
 			EventManager::keyPressed = GLFW_MOUSE_BUTTON_LEFT;
@@ -353,7 +357,7 @@ void World::Draw()
 	sprintf(text, "COMP 371");
 	printText2D(text, 620, 10, 20);
 
-	if (score >= 15){
+	if (score >= 100 && EventManager::paused == false){
 		sprintf(text, "You Win!");
 		printText2D(text, 200, 300, 50);
 	}

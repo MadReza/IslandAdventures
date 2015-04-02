@@ -29,8 +29,15 @@ public:
 
 	static void EnableMouseCursor();
 	static void DisableMouseCursor();
+
+	static void SaveTGA(void);
+
 	static bool paused;
 	static int keyPressed;
+	
+	static int nShot;
+	static int m_WindowWidth;
+	static int m_WindowHeight;
 
 
 private:

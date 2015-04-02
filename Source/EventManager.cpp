@@ -31,10 +31,15 @@ float  EventManager::sMouseDeltaY = 0.0f;
 
 // Window
 GLFWwindow* EventManager::spWindow = nullptr;
+int EventManager::m_WindowWidth = 1024;
+int EventManager::m_WindowHeight = 768;
 
 // Event management
 bool EventManager::paused = false;
 int EventManager::keyPressed = -1;
+
+// Screenshot
+int EventManager::nShot = 0;
 
 
 void EventManager::Initialize()
@@ -150,4 +155,71 @@ void EventManager::EnableMouseCursor()
 void EventManager::DisableMouseCursor()
 {
 	glfwSetInputMode(spWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+
+void EventManager::SaveTGA(void)
+{
+	char cFileName[64];
+	FILE *fScreenshot;
+
+	int nSize = 768 * 1024 * 3;
+
+
+	GLubyte *pixels = new GLubyte[nSize];
+	if (pixels == NULL) return;
+
+
+	//int nShot = 0;
+
+	while (EventManager::nShot < 35)
+	{
+		sprintf(cFileName, "screenshot_%d.tga", EventManager::nShot);
+
+		fScreenshot = fopen(cFileName, "rb");
+
+		if (fScreenshot == NULL) break;
+		else fclose(fScreenshot);
+
+		++EventManager::nShot;
+
+		if (EventManager::nShot > 35)
+		{
+			// MessageBox(m_WindowHandle,"Screenshot limit of 64 reached. Remove some shots if you want to take more.",  m_AppTitle,MB_OK);
+			return;
+		}
+	}
+
+	fScreenshot = fopen(cFileName, "wb");
+
+	glReadPixels(0, 0, EventManager::m_WindowWidth, EventManager::m_WindowHeight, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+
+	//convert to BGR format    
+	unsigned char temp;
+	int i = 0;
+
+	while (i < nSize)
+	{
+		temp = pixels[i];       //grab blue
+		pixels[i] = pixels[i + 2];//assign red to blue
+		pixels[i + 2] = temp;     //assign blue to red
+		i += 3;     //skip to next blue byte
+	}
+
+	unsigned char TGAheader[12] = { 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+	unsigned char header[6] = { EventManager::m_WindowWidth % 256, EventManager::m_WindowWidth / 256,
+		EventManager::m_WindowHeight % 256, EventManager::m_WindowHeight / 256, 24, 0 };
+
+	fwrite(TGAheader, sizeof(unsigned char), 12, fScreenshot);
+
+	fwrite(header, sizeof(unsigned char), 6, fScreenshot);
+
+	fwrite(pixels, sizeof(GLubyte), nSize, fScreenshot);
+
+	fclose(fScreenshot);
+	delete[] pixels;
+
+
+	return;
+
 }
