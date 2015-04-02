@@ -1,39 +1,31 @@
 #version 330 core
 
-//output
-out vec3 color;
 
+out vec3 color;			// final color
+
+in vec3 v_color;
+in vec3 normal;
+in float distance;
+in vec3 EyeDirection_cameraspace;
+in vec4 LightDirection_cameraspace;
 in vec2 UV;
 
-uniform sampler2D myTextureSampler;
-in vec3 normal;
-in vec3 Position_worldspace;
-in vec3 EyeDirection_cameraspace;
-in vec3 LightDirection_cameraspace;
+uniform vec4 MaterialCoefficients;
 
-uniform mat4 MV;
-uniform vec3 LightPosition_worldspace;
+uniform vec3 LightColor;
+uniform vec3 LightAttenuation;
+uniform sampler2D myTextureSampler;
 
 void main()
-{
+{	
 	vec4 v_color = texture(myTextureSampler, UV).rbga;
-	// set the light properties
-	vec3 LightColor = vec3(1,1,1);
-	float LightPower = 50.0f;
+	float attenuation = 1/(LightAttenuation.x + (LightAttenuation.y * distance) + (LightAttenuation.z * distance * distance));
 
-	// set the material properties
-	vec3 MaterialDiffuseColor = vec3(1,1,1);
-	vec3 MaterialAmbientColor = vec3(0.1,0.1,0.1) * MaterialDiffuseColor;
-	vec3 MaterialSpecularColor = vec3(0.3,0.3,0.3);
-	
-	// distance to the light, if light is a positional
-	float distance = length( LightPosition_worldspace - Position_worldspace );
-	
 	// normal vector
 	vec3 n = normalize( normal );
 	
 	// light vector
-	vec3 l = normalize( LightDirection_cameraspace );
+	vec3 l = normalize( LightDirection_cameraspace.xyz );
 	
 	// cos angle between the normal and the light
 	float cosTheta = clamp( dot( n,l ), 0,1 );
@@ -48,9 +40,9 @@ void main()
 	float cosAlpha = clamp( dot( E,R ), 0,1 );
 
 	// calculate the final color
-	color = MaterialAmbientColor +
-			MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) + 
-			MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
+	color = MaterialCoefficients.x * vec3(1,1,1) +
+			MaterialCoefficients.y * LightColor *  cosTheta * vec3(1,1,1)+ 
+			MaterialCoefficients.z * LightColor * pow(cosAlpha, MaterialCoefficients.w) * vec3(1,1,1);
 
 	color = v_color.rbg * color;
 }
