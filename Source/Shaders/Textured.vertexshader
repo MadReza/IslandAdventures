@@ -8,14 +8,13 @@ layout(location = 2) in vec2 vertexUV;
 uniform mat4 ViewProjectionTransform;
 uniform mat4 WorldTransform;
 uniform mat4 ViewTransform;
-uniform vec3 LightPosition_worldspace;
+uniform vec4 WorldLightPosition;
 
 // Outputs to fragment shader
 out vec3 normal;
-out vec3 Position_worldspace;
-out vec3 Normal_cameraspace;
+out float distance;
 out vec3 EyeDirection_cameraspace;
-out vec3 LightDirection_cameraspace;
+out vec4 LightDirection_cameraspace;
 out vec2 UV;
 
 uniform mat4 MVP;
@@ -23,23 +22,30 @@ uniform mat4 MVP;
 void main()
 {
  
+	mat4 M = WorldTransform;
+	mat4 V = ViewTransform;
+	mat4 MV = V * M;
+	mat4 MVP = ViewProjectionTransform * M;
+
 	// Output position of the vertex, in clip space : MVP * position
-	gl_Position =  ViewProjectionTransform * WorldTransform * vec4(vertexPosition_modelspace,1);
+	gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
 
 	// position of the vertex IN WORLDSPACE: WorldTransform * position
-	Position_worldspace = (WorldTransform * vec4(vertexPosition_modelspace,1)).xyz;
+	vec3 Position_worldspace = (M * vec4(vertexPosition_modelspace,1)).xyz;
 
 	// vertex that goes from the vertex to the camera IN CAMERA SPACE
 	// camera is at (0,0,0) IN CAMERA SPACE
-	vec3 vertexPosition_cameraspace = ( ViewTransform * WorldTransform * vec4(vertexPosition_modelspace,1)).xyz;
+	vec3 vertexPosition_cameraspace = ( MV * vec4(vertexPosition_modelspace,1)).xyz;
 	EyeDirection_cameraspace = vec3(0,0,0) - vertexPosition_cameraspace;
 	
 	// vector that goes from the vertex to the light IN CAMERA SPACE
-	vec3 LightPosition_cameraspace = ( ViewTransform * vec4(LightPosition_worldspace,1)).xyz;
-	LightDirection_cameraspace = LightPosition_cameraspace + EyeDirection_cameraspace;
+	vec3 LightPosition_cameraspace = ( V * WorldLightPosition).xyz;
+	LightDirection_cameraspace.xyz = LightPosition_cameraspace + EyeDirection_cameraspace;
 
 	// normal of the vertex IN CAMERA SPACE
-	normal = ( ViewTransform * WorldTransform * vec4(vertexNormal_modelspace,0)).xyz;
+	normal = ( MV * vec4(vertexNormal_modelspace,0)).xyz;
+
+	distance = length( WorldLightPosition.xyz - Position_worldspace.xyz );
  
     // UV of the vertex. No special space for this one.
     UV = vertexUV;
