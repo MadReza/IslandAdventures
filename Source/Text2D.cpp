@@ -37,7 +37,7 @@ void initText2D(const char * texturePath){
 
 void printText2D(const char * text, int x, int y, int size, vec4 color){
 
-	GLuint ColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "FontColor");
+	GLuint ColorID = glGetUniformLocation( Text2DShaderID, "FontColor");
 	glUniform4f(ColorID, color.x, color.y, color.z, color.w);
 
 

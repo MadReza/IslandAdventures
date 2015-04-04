@@ -233,15 +233,13 @@ void World::Update(float dt)
 		// Check for mouse input on menu
 		if (EventManager::keyPressed != -1 && glfwGetMouseButton(EventManager::GetWindow(), EventManager::keyPressed) == GLFW_RELEASE){
 
-			double x, y;
-			glfwGetCursorPos(EventManager::GetWindow(), &x, &y);
-			cout << x << " and " << y << endl;
-			if (x >= 370 && x <= 630 && y >= 200 && y <= 270 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+			//cout << x << " and " << y << endl;
+			if (EventManager::selected == 1 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
 				EventManager::gameStarted = true;
 				EventManager::paused = false;
 				EventManager::keyPressed = -1;
 			}
-			else if (x >= 400 && x <= 600 && y >= 401 && y <= 465 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+			else if (EventManager::selected == 4 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
 				cout << "QUIT" << endl;
 				std::exit(1);
 			}
@@ -390,19 +388,37 @@ void World::Draw()
 void World::DrawMainMenu(){
 	char text[256];
 	sprintf(text, "CREDITS:");
-	printText2D(text, 10, 190, 25);
+	printText2D(text, 10, 190, 25, vec4(1, 1, 1, 0));
 	sprintf(text, "ALEX NEWMAN");
-	printText2D(text, 10, 160, 25);
+	printText2D(text, 10, 160, 25, vec4(1, 1, 1, 0));
 	sprintf(text, "REZA MADABADI");
-	printText2D(text, 10, 130, 25);
+	printText2D(text, 10, 130, 25, vec4(1, 1, 1, 0));
 	sprintf(text, "ZHONGHAN ZHOU");
-	printText2D(text, 10, 100, 25);
+	printText2D(text, 10, 100, 25, vec4(1, 1, 1, 0));
 	sprintf(text, "TAWFEEQ JAWHAR");
-	printText2D(text, 10, 70, 25);
+	printText2D(text, 10, 70, 25, vec4(1, 1, 1, 0));
 	sprintf(text, "REINA VILLANUEVA");
-	printText2D(text, 10, 40, 25);
+	printText2D(text, 10, 40, 25, vec4(1, 1, 1, 0));
 	sprintf(text, "SEBOUH BARDAKJIAN");
-	printText2D(text, 10, 10, 25);
+	printText2D(text, 10, 10, 25, vec4(1, 1, 1, 0));
+
+	
+	if (EventManager::selected == 1){
+		sprintf(text, "START");
+		printText2D(text, 315, 400, 32, vec4(1, 0, 0, 0));
+	}
+	else if (EventManager::selected == 2){
+		sprintf(text, "OPTIONS");
+		printText2D(text, 285, 350, 32, vec4(1, 0, 0, 0));
+	}
+	else if (EventManager::selected == 3){
+		sprintf(text, "SCREENSHOTS");
+		printText2D(text, 230, 300, 32, vec4(1, 0, 0, 0));
+	}
+	else if (EventManager::selected == 4){
+		sprintf(text, "QUIT");
+		printText2D(text, 330, 250, 32, vec4(1, 0, 0, 0));
+	}
 
 	sprintf(text, "START");
 	printText2D(text, 315, 400, 30);
@@ -412,10 +428,31 @@ void World::DrawMainMenu(){
 	printText2D(text, 230, 300, 30);
 	sprintf(text, "QUIT");
 	printText2D(text, 330, 250, 30);
+
+	
+
 }
 
 void World::DrawPauseMenu(){
 	char text[256];
+
+	if (EventManager::selected == 1){
+		sprintf(text, "RESUME");
+		printText2D(text, 300, 400, 32, vec4(1, 0, 0, 0));
+	}
+	else if (EventManager::selected == 2){
+		sprintf(text, "OPTIONS");
+		printText2D(text, 285, 350, 32, vec4(1, 0, 0, 0));
+	}
+	else if (EventManager::selected == 3){
+		sprintf(text, "SCREENSHOTS");
+		printText2D(text, 230, 300, 32, vec4(1, 0, 0, 0));
+	}
+	else if (EventManager::selected == 4){
+		sprintf(text, "QUIT");
+		printText2D(text, 330, 250, 32, vec4(1, 0, 0, 0));
+	}
+
 	sprintf(text, "RESUME");
 	printText2D(text, 300, 400, 30);
 	sprintf(text, "OPTIONS");

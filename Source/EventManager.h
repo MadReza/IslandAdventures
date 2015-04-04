@@ -35,6 +35,7 @@ public:
 	static bool gameStarted;
 	static bool paused;
 	static int keyPressed;
+	static int selected;
 	
 	static int nShot;
 	static int m_WindowWidth;

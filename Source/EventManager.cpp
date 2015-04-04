@@ -38,6 +38,7 @@ int EventManager::m_WindowHeight = 768;
 bool EventManager::gameStarted = false;
 bool EventManager::paused = true;
 int EventManager::keyPressed = -1;
+int EventManager::selected = 0;
 
 // Screenshot
 int EventManager::nShot = 0;
@@ -121,6 +122,24 @@ void EventManager::Update()
 	double currentTime = glfwGetTime();
 	sFrameTime = static_cast<float>(currentTime - sLastFrameTime);
 	sLastFrameTime = currentTime;
+
+	// Check hovered menu item
+	if (x >= 370 && x <= 630 && y >= 200 && y <= 270){
+		EventManager::selected = 1;
+	}
+	else if (x >= 350 && x <= 650 && y >= 271 && y <= 335){
+		EventManager::selected = 2;
+	}
+	else if (x >= 280 && x <= 730 && y >= 336 && y <= 400){
+		EventManager::selected = 3;
+	}
+	else if (x >= 400 && x <= 600 && y >= 401 && y <= 465){
+		EventManager::selected = 4;
+	} 
+	else {
+		EventManager::selected = 0;
+	}
+
 }
 
 float EventManager::GetFrameTime()
@@ -169,9 +188,6 @@ void EventManager::SaveTGA(void)
 	GLubyte *pixels = new GLubyte[nSize];
 	if (pixels == NULL) return;
 
-
-	//int nShot = 0;
-
 	while (EventManager::nShot < 35)
 	{
 		sprintf(cFileName, "screenshot_%d.tga", EventManager::nShot);
@@ -185,7 +201,7 @@ void EventManager::SaveTGA(void)
 
 		if (EventManager::nShot > 35)
 		{
-			// MessageBox(m_WindowHandle,"Screenshot limit of 64 reached. Remove some shots if you want to take more.",  m_AppTitle,MB_OK);
+			// Too many pics taken
 			return;
 		}
 	}
