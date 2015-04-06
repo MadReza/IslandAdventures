@@ -6,6 +6,7 @@
 //
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
 //
+#pragma comment( lib, "Glu32.Lib" )
 
 #include "EventManager.h"
 #include "Renderer.h"
@@ -31,12 +32,16 @@ float  EventManager::sMouseDeltaY = 0.0f;
 
 // Window
 GLFWwindow* EventManager::spWindow = nullptr;
-int EventManager::m_WindowWidth = 1024;
-int EventManager::m_WindowHeight = 768;
+bool EventManager::fullscreen = true;
+int EventManager::m_WindowWidth = 0;
+int EventManager::m_WindowHeight = 0;
 
 // Event management
 bool EventManager::gameStarted = false;
+bool EventManager::mainMenu = true;
 bool EventManager::paused = true;
+bool EventManager::screenshots = false;
+bool EventManager::options = false;
 int EventManager::keyPressed = -1;
 int EventManager::selected = 0;
 
@@ -72,9 +77,18 @@ void EventManager::Initialize()
     
     
 	// Open a window and create its OpenGL context
-	glfwWindowHint(GLFW_RESIZABLE, 0);
-	spWindow = glfwCreateWindow(1024, 768, "COMP371 - Assignment Framework",   glfwGetPrimaryMonitor() /* For fullscreen, nullptr otherwise */, nullptr);
+	glfwWindowHint(GLFW_RESIZABLE, 1);
 
+
+	
+	const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	EventManager::m_WindowWidth = mode->width - 10;
+	EventManager::m_WindowHeight = mode->height - 75;
+	
+
+	spWindow = glfwCreateWindow(EventManager::m_WindowWidth, EventManager::m_WindowHeight, "COMP371 - Assignment Framework",  nullptr /*glfwGetPrimaryMonitor() /* For fullscreen, nullptr otherwise */, nullptr);
+	glfwSetWindowPos(spWindow, 5, 5);
+	glfwSetWindowSizeCallback(spWindow, window_size_callback);
 	if (spWindow == nullptr)
 	{
 		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
@@ -123,22 +137,82 @@ void EventManager::Update()
 	sFrameTime = static_cast<float>(currentTime - sLastFrameTime);
 	sLastFrameTime = currentTime;
 
-	// Check hovered menu item
-	if (x >= 370 && x <= 630 && y >= 200 && y <= 270){
-		EventManager::selected = 1;
+	EventManager::selected = 0;
+	if (EventManager::paused == true){
+		if (EventManager::mainMenu == true){
+			// Check hovered menu item
+			if (x >= 370 / 1024.0 * EventManager::m_WindowWidth && x <= 630 / 1024.0 * EventManager::m_WindowWidth &&
+				y >= 200 / 768.0 * EventManager::m_WindowHeight && y <= 270 / 768.0 * EventManager::m_WindowHeight){
+				EventManager::selected = 1;
+			}
+			else if (x >= 350 / 1024.0 * EventManager::m_WindowWidth && x <= 650 / 1024.0 * EventManager::m_WindowWidth &&
+				y >= 271 / 768.0 * EventManager::m_WindowHeight && y <= 335 / 768.0 * EventManager::m_WindowHeight){
+				EventManager::selected = 2;
+			}
+			else if (x >= 280 / 1024.0 * EventManager::m_WindowWidth && x <= 730 / 1024.0 * EventManager::m_WindowWidth &&
+				y >= 336 / 768.0 * EventManager::m_WindowHeight && y <= 400 / 768.0 * EventManager::m_WindowHeight){
+				EventManager::selected = 3;
+			}
+			else if (x >= 400 / 1024.0 * EventManager::m_WindowWidth && x <= 600 / 1024.0 * EventManager::m_WindowWidth &&
+				y >= 401 / 768.0 * EventManager::m_WindowHeight && y <= 465 / 768.0 * EventManager::m_WindowHeight){
+				EventManager::selected = 4;
+			}
+			else {
+				EventManager::selected = 0;
+			}
+		}
+		else if (EventManager::options == true){
+			if (x >= 145 / 1024.0 * EventManager::m_WindowWidth && x <= 900 / 1024.0 * EventManager::m_WindowWidth &&
+				y >= 200 / 768.0 * EventManager::m_WindowHeight && y <= 270 / 768.0 * EventManager::m_WindowHeight){
+				EventManager::selected = 1;
+			}
+			else if (x >= 350 / 1024.0 * EventManager::m_WindowWidth && x <= 650 / 1024.0 * EventManager::m_WindowWidth &&
+				y >= 271 / 768.0 * EventManager::m_WindowHeight && y <= 335 / 768.0 * EventManager::m_WindowHeight){
+				EventManager::selected = 2;
+			}
+			else if (x >= 400 / 1024.0 * EventManager::m_WindowWidth && x <= 600 / 1024.0 * EventManager::m_WindowWidth &&
+				y >= 401 / 768.0 * EventManager::m_WindowHeight && y <= 465 / 768.0 * EventManager::m_WindowHeight){
+				EventManager::selected = 3;
+			}
+		}
+		else if (EventManager::screenshots == true){
+			if (x >= 400 / 1024.0 * EventManager::m_WindowWidth && x <= 600 / 1024.0 * EventManager::m_WindowWidth &&
+				y >= 655 / 768.0 * EventManager::m_WindowHeight && y <= 715 / 768.0 * EventManager::m_WindowHeight){
+				EventManager::selected = 3;
+			}
+		}
 	}
-	else if (x >= 350 && x <= 650 && y >= 271 && y <= 335){
-		EventManager::selected = 2;
-	}
-	else if (x >= 280 && x <= 730 && y >= 336 && y <= 400){
-		EventManager::selected = 3;
-	}
-	else if (x >= 400 && x <= 600 && y >= 401 && y <= 465){
-		EventManager::selected = 4;
-	} 
-	else {
-		EventManager::selected = 0;
-	}
+
+
+
+
+	
+	// FULLSCREEN
+	/*
+	// Toggle fullscreen flag.
+	//fullscreen = !fullscreen;
+
+	//glfwWindowShouldClose(EventManager::GetWindow());
+	glfwDestroyWindow(EventManager::GetWindow());
+
+	//glfwWindowHint(GLFW_RESIZABLE, 0);
+	//glfwSetWindowSize(spWindow, 1600, 1600);
+	GLFWwindow* spWindowCopy = glfwCreateWindow(1024, 768, "COMP371 - Assignment Framework", nullptr/* glfwGetPrimaryMonitor()  For fullscreen, nullptr otherwise , nullptr);
+		
+		
+	//glfwDestroyWindow(spWindow);
+	spWindow = spWindowCopy;
+
+	//glfwMakeContextCurrent(spWindow);
+
+	//glfwSwapInterval(1);
+
+	Renderer::Initialize();
+	World* world = World::GetInstance();
+	world->LoadScene("../Scenes/BSplineScene.scene");
+	*/
+	
+
 
 }
 
@@ -239,4 +313,67 @@ void EventManager::SaveTGA(void)
 
 	return;
 
+}
+
+
+void EventManager::changeSize(int w, int h) {
+
+	// Prevent a divide by zero, when window is too short
+	// (you cant make a window of zero width).
+	if (h == 0)
+		h = 1;
+	float ratio = 1.0* w / h;
+
+	// Use the Projection Matrix
+	glMatrixMode(GL_PROJECTION);
+
+	// Reset Matrix
+	glLoadIdentity();
+
+	// Set the viewport to be the entire window
+	glViewport(0, 0, w, h);
+
+	// Set the correct perspective.
+	gluPerspective(45, ratio, 1, 1000);
+
+	// Get Back to the Modelview
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void EventManager::window_size_callback(GLFWwindow* window, int width, int height)
+{
+	int minWidth = 800;
+	int minHeight = 600;
+
+	if (width >= minWidth && height >= minHeight){
+		EventManager::m_WindowWidth = width;
+		EventManager::m_WindowHeight = height;
+		EventManager::changeSize(width, height);
+	}
+	else {
+		glfwSetWindowSize(spWindow, minWidth, minHeight);
+		EventManager::m_WindowWidth = minWidth;
+		EventManager::m_WindowHeight = minHeight;
+		EventManager::changeSize(minWidth, minHeight);
+	}
+}
+
+void EventManager::SwitchWindowSize(){
+	const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	EventManager::m_WindowWidth = mode->width - 10;
+	EventManager::m_WindowHeight = mode->height - 75;
+
+	// Windowed fullscreen option
+	if (EventManager::fullscreen){
+		glfwSetWindowSize(spWindow, EventManager::m_WindowWidth / 1.5, EventManager::m_WindowHeight / 1.5);
+		EventManager::changeSize(EventManager::m_WindowWidth, EventManager::m_WindowHeight);
+		glfwSetWindowPos(spWindow, 10, 35);
+		EventManager::fullscreen = false;
+	}
+	else { // Windowed small screen option
+		glfwSetWindowSize(spWindow, EventManager::m_WindowWidth, EventManager::m_WindowHeight);
+		EventManager::changeSize(EventManager::m_WindowWidth, EventManager::m_WindowHeight);
+		glfwSetWindowPos(spWindow, 5, 5);
+		EventManager::fullscreen = true;
+	}
 }

@@ -23,23 +23,30 @@ public:
 	static bool ExitRequested();
 
 	static GLFWwindow* GetWindow();
+	static void SwitchWindowSize();
+	static bool fullscreen;
 
 	static float GetMouseMotionX();
 	static float GetMouseMotionY();
 
 	static void EnableMouseCursor();
 	static void DisableMouseCursor();
+	static void window_size_callback(GLFWwindow* window, int width, int height);
 
 	static void SaveTGA(void);
 
 	static bool gameStarted;
+	static bool mainMenu;
 	static bool paused;
+	static bool screenshots;
+	static bool options;
 	static int keyPressed;
 	static int selected;
 	
 	static int nShot;
 	static int m_WindowWidth;
 	static int m_WindowHeight;
+	static void changeSize(int w, int h);
 
 
 private:
@@ -55,4 +62,5 @@ private:
 
 	// Window
 	static GLFWwindow* spWindow;
+	
 };

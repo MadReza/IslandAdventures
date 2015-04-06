@@ -29,6 +29,8 @@ public:
 	void Draw();
 	void DrawMainMenu();
 	void DrawPauseMenu();
+	void DrawOptionsMenu();
+	void DrawScreenshotsMenu();
 
 	void LoadScene(const char * scene_path);
     void LoadCameras();

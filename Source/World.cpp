@@ -155,6 +155,7 @@ void World::Update(float dt)
 				break;
 			case GLFW_KEY_X:
 				EventManager::paused = true;
+				EventManager::mainMenu = true;
 				EventManager::keyPressed = -1;
 				break;
 			default:
@@ -230,21 +231,80 @@ void World::Update(float dt)
 		glfwSetInputMode(EventManager::GetWindow(), GLFW_STICKY_KEYS, GL_FALSE);
 		EventManager::EnableMouseCursor();
 
-		// Check for mouse input on menu
-		if (EventManager::keyPressed != -1 && glfwGetMouseButton(EventManager::GetWindow(), EventManager::keyPressed) == GLFW_RELEASE){
+		
+		if (EventManager::mainMenu == true){ // MAIN MENU
+			// Check for mouse input on menu
+			if (EventManager::keyPressed != -1 && glfwGetMouseButton(EventManager::GetWindow(), EventManager::keyPressed) == GLFW_RELEASE){
 
-			//cout << x << " and " << y << endl;
-			if (EventManager::selected == 1 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
-				EventManager::gameStarted = true;
-				EventManager::paused = false;
-				EventManager::keyPressed = -1;
+				if (EventManager::selected == 1 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+					EventManager::gameStarted = true;
+					EventManager::paused = false;
+					EventManager::mainMenu = false;
+					EventManager::keyPressed = -1;
+				}
+				else if (EventManager::selected == 2 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+					EventManager::options = true;
+					EventManager::mainMenu = false;
+					EventManager::keyPressed = -1;
+				}
+				else if (EventManager::selected == 3 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+					EventManager::screenshots = true;
+					EventManager::mainMenu = false;
+					EventManager::keyPressed = -1;
+				}
+				else if (EventManager::selected == 4 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+					cout << "QUIT" << endl;
+					std::exit(1);
+				}
+				else{
+					EventManager::keyPressed = -1;
+				}
 			}
-			else if (EventManager::selected == 4 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
-				cout << "QUIT" << endl;
-				std::exit(1);
+		}
+		else if (EventManager::options == true){ // OPTIONS MENU
+			// Check for mouse input on menu
+			if (EventManager::keyPressed != -1 && glfwGetMouseButton(EventManager::GetWindow(), EventManager::keyPressed) == GLFW_RELEASE){
+
+				if (EventManager::selected == 1 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+					if (EventManager::fullscreen == false){
+						EventManager::SwitchWindowSize();
+					}
+					EventManager::keyPressed = -1;
+				}
+				else if (EventManager::selected == 2 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+					if (EventManager::fullscreen == true){
+						EventManager::SwitchWindowSize();
+					}
+					EventManager::keyPressed = -1;
+				}
+				else if (EventManager::selected == 3 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+					EventManager::options = false;
+					EventManager::mainMenu = true;
+					EventManager::keyPressed = -1;
+				}
+				else{
+					EventManager::keyPressed = -1;
+				}
 			}
-			else{
-				EventManager::keyPressed = -1;
+		}
+		else if (EventManager::screenshots == true){ // SCREENSHOTS MENU
+			// Check for mouse input on menu
+			if (EventManager::keyPressed != -1 && glfwGetMouseButton(EventManager::GetWindow(), EventManager::keyPressed) == GLFW_RELEASE){
+
+				if (EventManager::selected == 1 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+					EventManager::keyPressed = -1;
+				}
+				else if (EventManager::selected == 2 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+					EventManager::keyPressed = -1;
+				}
+				else if (EventManager::selected == 3 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
+					EventManager::screenshots = false;
+					EventManager::mainMenu = true;
+					EventManager::keyPressed = -1;
+				}
+				else{
+					EventManager::keyPressed = -1;
+				}
 			}
 		}
 		
@@ -258,12 +318,31 @@ void World::Update(float dt)
 	} // End of pause
 
 
+
+
+
+	
+
+
+
 }
 
 void World::Draw()
 {
+	
+
+	//Setup for 3D
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity;
+	gluPerspective(45, (GLdouble)EventManager::m_WindowWidth / (GLdouble)EventManager::m_WindowHeight, 0.5, 100);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity;
+
 	Renderer::BeginFrame();
 	
+
+
 	// Set shader to use
 	glUseProgram(Renderer::GetShaderProgramID());
 
@@ -341,14 +420,39 @@ void World::Draw()
 		(*it)->Draw();
 	}
 
+	
+	// Draw crosshair
+	/*
+	glDisable(GL_DEPTH_TEST);
+	glDepthMask(1);
+	glPushMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, EventManager::m_WindowWidth, EventManager::m_WindowHeight, 0, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+
+	glLineWidth(2.5);
+	glBegin(GL_LINES);
+	glVertex2f(5, 5);
+	glVertex2f(10, 10);
+	glEnd();
+
+	glPopMatrix();
+	glEnable(GL_DEPTH_TEST);
+	*/
 
 
 	Renderer::SetShader(SHADER_TEXT);
 	glUseProgram(Renderer::GetShaderProgramID());
+	
 
-
-	// DRAW UI 2D TEXTS 
-	// text, x, y, size
+	// DRAW UI 2D TEXTS  (text, x, y, size, color)
 	char text[256];
 	if (EventManager::gameStarted == true){
 		sprintf(text, "Score: %d", score);
@@ -366,21 +470,26 @@ void World::Draw()
 		printText2D(text, 200, 300, 50);
 	}
 
-	
-
 	// Draw MAIN MENU - PAUSE MENU
-	if (EventManager::gameStarted == false){
-		DrawMainMenu();
+	if (EventManager::paused == true){
+		if (EventManager::gameStarted == false && EventManager::mainMenu == true){
+			DrawMainMenu();
+		}
+		else if (EventManager::gameStarted == true && EventManager::mainMenu == true){
+			DrawPauseMenu();
+		}
+		else if (EventManager::options == true){
+			DrawOptionsMenu();
+		}
+		else if (EventManager::screenshots == true){
+			DrawScreenshotsMenu();
+		}
 	}
-	else if (EventManager::paused == true){
-		DrawPauseMenu();
-	}
-
 
 
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
-
+	
 	Renderer::EndFrame();
 	
 }
@@ -402,22 +511,21 @@ void World::DrawMainMenu(){
 	sprintf(text, "SEBOUH BARDAKJIAN");
 	printText2D(text, 10, 10, 25, vec4(1, 1, 1, 0));
 
-	
 	if (EventManager::selected == 1){
 		sprintf(text, "START");
-		printText2D(text, 315, 400, 32, vec4(1, 0, 0, 0));
+		printText2D(text, 310, 400, 32, vec4(1, 0, 0, 0));
 	}
 	else if (EventManager::selected == 2){
 		sprintf(text, "OPTIONS");
-		printText2D(text, 285, 350, 32, vec4(1, 0, 0, 0));
+		printText2D(text, 280, 350, 32, vec4(1, 0, 0, 0));
 	}
 	else if (EventManager::selected == 3){
 		sprintf(text, "SCREENSHOTS");
-		printText2D(text, 230, 300, 32, vec4(1, 0, 0, 0));
+		printText2D(text, 218, 300, 32, vec4(1, 0, 0, 0));
 	}
 	else if (EventManager::selected == 4){
 		sprintf(text, "QUIT");
-		printText2D(text, 330, 250, 32, vec4(1, 0, 0, 0));
+		printText2D(text, 327, 250, 32, vec4(1, 0, 0, 0));
 	}
 
 	sprintf(text, "START");
@@ -428,9 +536,6 @@ void World::DrawMainMenu(){
 	printText2D(text, 230, 300, 30);
 	sprintf(text, "QUIT");
 	printText2D(text, 330, 250, 30);
-
-	
-
 }
 
 void World::DrawPauseMenu(){
@@ -438,19 +543,19 @@ void World::DrawPauseMenu(){
 
 	if (EventManager::selected == 1){
 		sprintf(text, "RESUME");
-		printText2D(text, 300, 400, 32, vec4(1, 0, 0, 0));
+		printText2D(text, 295, 400, 32, vec4(1, 0, 0, 0));
 	}
 	else if (EventManager::selected == 2){
 		sprintf(text, "OPTIONS");
-		printText2D(text, 285, 350, 32, vec4(1, 0, 0, 0));
+		printText2D(text, 280, 350, 32, vec4(1, 0, 0, 0));
 	}
 	else if (EventManager::selected == 3){
 		sprintf(text, "SCREENSHOTS");
-		printText2D(text, 230, 300, 32, vec4(1, 0, 0, 0));
+		printText2D(text, 218, 300, 32, vec4(1, 0, 0, 0));
 	}
 	else if (EventManager::selected == 4){
 		sprintf(text, "QUIT");
-		printText2D(text, 330, 250, 32, vec4(1, 0, 0, 0));
+		printText2D(text, 327, 250, 32, vec4(1, 0, 0, 0));
 	}
 
 	sprintf(text, "RESUME");
@@ -463,6 +568,49 @@ void World::DrawPauseMenu(){
 	printText2D(text, 330, 250, 30);
 }
 
+void World::DrawOptionsMenu(){
+	char text[256];
+
+	if (EventManager::selected == 1){
+		sprintf(text, "FULLSCREEN WINDOWED");
+		printText2D(text, 100, 400, 32, vec4(1, 0, 0, 0));
+	}
+	else if (EventManager::selected == 2){
+		sprintf(text, "WINDOWED");
+		printText2D(text, 268, 350, 32, vec4(1, 0, 0, 0));
+	}
+	else if (EventManager::selected == 3){
+		sprintf(text, "BACK");
+		printText2D(text, 327, 250, 32, vec4(1, 0, 0, 0));
+	}
+
+	if (EventManager::fullscreen == true){
+		sprintf(text, "FULLSCREEN WINDOWED");
+		printText2D(text, 120, 400, 30, vec4(0.3, 1, 1, 0));
+		sprintf(text, "WINDOWED");
+		printText2D(text, 275, 350, 30);
+	}
+	else {
+		sprintf(text, "FULLSCREEN WINDOWED");
+		printText2D(text, 120, 400, 30);
+		sprintf(text, "WINDOWED");
+		printText2D(text, 275, 350, 30, vec4(0.3, 1, 1, 0));
+	}
+	
+	sprintf(text, "BACK");
+	printText2D(text, 330, 250, 30);
+}
+
+void World::DrawScreenshotsMenu(){
+	char text[256];
+
+	if (EventManager::selected == 3){
+		sprintf(text, "BACK");
+		printText2D(text, 327, 50, 32, vec4(1, 0, 0, 0));
+	}
+	sprintf(text, "BACK");
+	printText2D(text, 330, 50, 30);
+}
 
 void World::LoadScene(const char * scene_path)
 {
