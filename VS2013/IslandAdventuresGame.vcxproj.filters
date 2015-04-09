@@ -133,6 +133,9 @@
     <ClCompile Include="..\Source\OBJPolygon.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\PokemonGenerator.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -193,6 +196,9 @@
       <Filter>Source Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\OBJPolygon.h">
+      <Filter>Source Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\PokemonGenerator.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
   </ItemGroup>

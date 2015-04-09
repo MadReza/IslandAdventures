@@ -25,6 +25,21 @@ Model::~Model()
 {
 }
 
+Model::Model(Model & other)
+{
+	 mName = other.mName; // The model name is mainly for debugging
+	mPosition = other.mPosition;
+	 mScaling = other.mScaling;
+	mRotationAxis = other.mRotationAxis;
+	mRotationAngleInDegrees = other.mRotationAngleInDegrees;
+
+	// Makes the model follow a path defined by a set of waypoints
+	mPath = other.mPath;
+	 mSpline = other.mSpline;
+	 mSplineParameterT = other.mSplineParameterT;
+	 mSpeed = other.mSpeed;
+	mTargetWaypoint = other.mTargetWaypoint;
+}
 void Model::Update(float dt)
 {
     if(mPath != nullptr)

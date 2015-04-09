@@ -17,7 +17,7 @@ class BSplineCamera : public Camera
 public:
     BSplineCamera(BSpline* spline, float speed);
     virtual ~BSplineCamera();
-
+	virtual glm::mat4 GetProjectionMatrix() const;
     virtual void Update(float dt);
     virtual glm::mat4 GetViewMatrix() const;
 

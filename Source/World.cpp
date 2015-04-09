@@ -22,6 +22,7 @@
 #include "Path.h"
 #include "BSpline.h"
 #include "OBJModel.h"
+#include "PokemonGenerator.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -702,6 +703,7 @@ void World::LoadScene(const char * scene_path)
 				path->Load(iss);
                 mSpline.push_back(path);
 			}
+		
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line
@@ -731,10 +733,27 @@ void World::LoadScene(const char * scene_path)
 	}
 
 	//LOAD DAT OBJ MODEL YO
-	OBJModel* pika = new OBJModel("../Models/Pikachu.obj");
-	pika->SetPosition(vec3(1,1,1));
-	mModel.push_back(pika);
+	vector<OBJModel*> pokemon = PokemonGenerator::GeneratePokemon();
+	for (int i = 0; i < pokemon.size(); i++)
+		mModel.push_back(pokemon[i]);
+	srand(20);
 
+	OBJModel* grass = new OBJModel("../Models/Grass_02.obj");
+	for (int i = 0; i < 50; i++){
+
+		OBJModel* newgrass = new OBJModel(*grass);
+		newgrass->SetPosition(vec3(rand() % 150 - 75, 0, rand() % 150 - 75));
+		newgrass->SetScaling(vec3(1, 1, 1));
+		mModel.push_back(newgrass);
+	}
+
+	OBJModel* ground = new OBJModel("../Models/cube.obj");
+	ground->SetPosition(vec3(0,0,0));
+	ground->SetScaling(vec3(150, 0, 150));
+	mModel.push_back(ground);
+
+	
+	
     LoadCameras();
 }
 
@@ -763,11 +782,25 @@ void World::LoadCameras()
 		mCamera.push_back(new BSplineCameraThirdPerson(spline, 5.0f));
     }
 
+	
 	//debug camera
 	mCamera.push_back(new DebugCamera(vec3(0.0f, 2.0f, 0.0f)));
     
+	// BSpline MainMeny Camera
+	BSpline* splineMainMenu = FindSpline("\"RollerCoasterMainMenu\"");
+	
+	if (splineMainMenu == nullptr)
+	{
+		splineMainMenu = FindSplineByIndex(0);
+	}
+
+	if (splineMainMenu != nullptr)
+	{
+		mCamera.push_back(new BSplineCamera(splineMainMenu, 10.0f));
+	}
+
 	//Starting camera (change to the roller coaster for introduction credits)
-	mCurrentCamera = 3;
+	mCurrentCamera = 6;
 
 }
 
