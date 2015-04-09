@@ -48,7 +48,10 @@ void BSplineCamera::Update(float dt)
 	float distance = mSpeed * dt;
 	mSplineParameterT += distance / length(mSpline->GetTangent(mSplineParameterT));  
 }
-
+glm::mat4 BSplineCamera::GetProjectionMatrix() const
+{
+	return glm::perspective(60.0f, 4.0f / 3.0f, 0.1f, 1000.0f);
+}
 glm::mat4 BSplineCamera::GetViewMatrix() const
 {
     return glm::lookAt(mPosition, mPosition + mLookAt, mUp);

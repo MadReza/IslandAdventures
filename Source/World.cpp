@@ -706,11 +706,25 @@ void World::LoadCameras()
 		mCamera.push_back(new BSplineCameraThirdPerson(spline, 5.0f));
     }
 
+	
 	//debug camera
 	mCamera.push_back(new DebugCamera(vec3(0.0f, 2.0f, 0.0f)));
     
+	// BSpline MainMeny Camera
+	BSpline* splineMainMenu = FindSpline("\"RollerCoasterMainMenu\"");
+	
+	if (splineMainMenu == nullptr)
+	{
+		splineMainMenu = FindSplineByIndex(0);
+	}
+
+	if (splineMainMenu != nullptr)
+	{
+		mCamera.push_back(new BSplineCamera(splineMainMenu, 10.0f));
+	}
+
 	//Starting camera (change to the roller coaster for introduction credits)
-	mCurrentCamera = 3;
+	mCurrentCamera = 6;
 
 }
 
