@@ -76,6 +76,8 @@ World* World::GetInstance()
     return instance;
 }
 
+int mPrevCamera = 6;
+
 void World::Update(float dt)
 {
 	if (EventManager::paused == false){ // Not paused
@@ -135,6 +137,7 @@ void World::Update(float dt)
 				}
 				EventManager::keyPressed = -1; //Reset KeyPressed.
 				break;
+				/*
 			case GLFW_KEY_0:
 				Renderer::SetShader(SHADER_LIGHTING);
 				std::cout << "Shader Changed: SOLID_COLOR" << std::endl;
@@ -145,19 +148,24 @@ void World::Update(float dt)
 				std::cout << "Shader Changed: SHADER_BLUE" << std::endl;
 				EventManager::keyPressed = -1;
 				break;
+				*/
 			case GLFW_MOUSE_BUTTON_LEFT:
 				++score;
 				EventManager::keyPressed = -1;
 				break;
 			case GLFW_MOUSE_BUTTON_RIGHT:
-				score += 15;
-				EventManager::SaveTGA();
+				if (mCurrentCamera == 4){
+					score += 15;
+					EventManager::SaveTGA();
+				}
 				EventManager::keyPressed = -1;
 				break;
 			case GLFW_KEY_X:
+				mPrevCamera = mCurrentCamera;
 				EventManager::paused = true;
 				EventManager::mainMenu = true;
 				EventManager::keyPressed = -1;
+				mCurrentCamera = 6;
 				break;
 			default:
 				break;
@@ -229,6 +237,16 @@ void World::Update(float dt)
 	}
 	// PAUSED 
 	else {
+		// Update current Camera
+		mCamera[mCurrentCamera]->Update(dt);
+
+		// Update models
+		for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
+		{
+			(*it)->Update(dt);
+		}
+
+
 		glfwSetInputMode(EventManager::GetWindow(), GLFW_STICKY_KEYS, GL_FALSE);
 		EventManager::EnableMouseCursor();
 
@@ -241,6 +259,7 @@ void World::Update(float dt)
 					EventManager::gameStarted = true;
 					EventManager::paused = false;
 					EventManager::mainMenu = false;
+					mCurrentCamera = 4;
 					EventManager::keyPressed = -1;
 				}
 				else if (EventManager::selected == 2 && EventManager::keyPressed == GLFW_MOUSE_BUTTON_LEFT){
@@ -501,6 +520,31 @@ void World::Draw()
 		}
 	}
 
+			/*
+	if (EventManager::gameStarted == false){
+		if (EventManager::mainMenu == true){
+			DrawMainMenu();
+		}
+		else if (EventManager::options == true){
+			DrawOptionsMenu();
+		}
+		else if (EventManager::screenshots == true){
+			DrawScreenshotsMenu();
+		}
+	}
+	else {
+		if (EventManager::mainMenu == true){
+			DrawPauseMenu();
+		}
+		else if (EventManager::options == true){
+			DrawOptionsMenu();
+		}
+		else if (EventManager::screenshots == true){
+			DrawScreenshotsMenu();
+		}
+	}
+	*/
+
 
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
@@ -511,19 +555,19 @@ void World::Draw()
 void World::DrawMainMenu(){
 	char text[256];
 	sprintf(text, "CREDITS:");
-	printText2D(text, 10, 190, 25, vec4(1, 1, 1, 0));
+	printText2D(text, 10, 190, 25, vec4(-1, -1, -1, 0));
 	sprintf(text, "ALEX NEWMAN");
-	printText2D(text, 10, 160, 25, vec4(1, 1, 1, 0));
+	printText2D(text, 10, 160, 25, vec4(-1, -1, -1, 0));
 	sprintf(text, "REZA MADABADI");
-	printText2D(text, 10, 130, 25, vec4(1, 1, 1, 0));
+	printText2D(text, 10, 130, 25, vec4(-1, -1, -1, 0));
 	sprintf(text, "ZHONGHAN ZHOU");
-	printText2D(text, 10, 100, 25, vec4(1, 1, 1, 0));
+	printText2D(text, 10, 100, 25, vec4(-1, -1, -1, 0));
 	sprintf(text, "TAWFEEQ JAWHAR");
-	printText2D(text, 10, 70, 25, vec4(1, 1, 1, 0));
+	printText2D(text, 10, 70, 25, vec4(-1, -1, -1, 0));
 	sprintf(text, "REINA VILLANUEVA");
-	printText2D(text, 10, 40, 25, vec4(1, 1, 1, 0));
+	printText2D(text, 10, 40, 25, vec4(-1, -1, -1, 0));
 	sprintf(text, "SEBOUH BARDAKJIAN");
-	printText2D(text, 10, 10, 25, vec4(1, 1, 1, 0));
+	printText2D(text, 10, 10, 25, vec4(-1, -1, -1, 0));
 
 	if (EventManager::selected == 1){
 		sprintf(text, "START");
@@ -617,7 +661,7 @@ void World::DrawOptionsMenu(){
 
 void World::DrawScreenshotsMenu(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glClearColor(1, 1, 1, 1);
+	glClearColor(0.2, 0.2, 0.2, 1);
 	char text[256];
 
 	if (EventManager::selected == 3){

@@ -183,37 +183,6 @@ void EventManager::Update()
 		}
 	}
 
-
-
-
-	
-	// FULLSCREEN
-	/*
-	// Toggle fullscreen flag.
-	//fullscreen = !fullscreen;
-
-	//glfwWindowShouldClose(EventManager::GetWindow());
-	glfwDestroyWindow(EventManager::GetWindow());
-
-	//glfwWindowHint(GLFW_RESIZABLE, 0);
-	//glfwSetWindowSize(spWindow, 1600, 1600);
-	GLFWwindow* spWindowCopy = glfwCreateWindow(1024, 768, "COMP371 - Assignment Framework", nullptr/* glfwGetPrimaryMonitor()  For fullscreen, nullptr otherwise , nullptr);
-		
-		
-	//glfwDestroyWindow(spWindow);
-	spWindow = spWindowCopy;
-
-	//glfwMakeContextCurrent(spWindow);
-
-	//glfwSwapInterval(1);
-
-	Renderer::Initialize();
-	World* world = World::GetInstance();
-	world->LoadScene("../Scenes/BSplineScene.scene");
-	*/
-	
-
-
 }
 
 float EventManager::GetFrameTime()
