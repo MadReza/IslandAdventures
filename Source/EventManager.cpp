@@ -253,11 +253,13 @@ void EventManager::DisableMouseCursor()
 
 void EventManager::SaveTGA(void)
 {
+
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+
 	char cFileName[64];
 	FILE *fScreenshot;
 
-	int nSize = 768 * 1024 * 3;
-
+	int nSize = EventManager::m_WindowWidth * EventManager::m_WindowHeight * 3;
 
 	GLubyte *pixels = new GLubyte[nSize];
 	if (pixels == NULL) return;
@@ -282,19 +284,7 @@ void EventManager::SaveTGA(void)
 
 	fScreenshot = fopen(cFileName, "wb");
 
-	glReadPixels(0, 0, EventManager::m_WindowWidth, EventManager::m_WindowHeight, GL_RGB, GL_UNSIGNED_BYTE, pixels);
-
-	//convert to BGR format    
-	unsigned char temp;
-	int i = 0;
-
-	while (i < nSize)
-	{
-		temp = pixels[i];       //grab blue
-		pixels[i] = pixels[i + 2];//assign red to blue
-		pixels[i + 2] = temp;     //assign blue to red
-		i += 3;     //skip to next blue byte
-	}
+	glReadPixels(0, 0, EventManager::m_WindowWidth, EventManager::m_WindowHeight, GL_BGR, GL_UNSIGNED_BYTE, pixels);
 
 	unsigned char TGAheader[12] = { 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
@@ -310,9 +300,7 @@ void EventManager::SaveTGA(void)
 	fclose(fScreenshot);
 	delete[] pixels;
 
-
 	return;
-
 }
 
 
@@ -334,7 +322,7 @@ void EventManager::changeSize(int w, int h) {
 	glViewport(0, 0, w, h);
 
 	// Set the correct perspective.
-	gluPerspective(45, ratio, 1, 1000);
+	gluPerspective(45, ratio, 0.1f, 1000.0f);
 
 	// Get Back to the Modelview
 	glMatrixMode(GL_MODELVIEW);
