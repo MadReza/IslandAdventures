@@ -62,8 +62,26 @@ void Model::Update(float dt)
 	else if (mSpline)
 	{	
 		mPosition = mSpline->GetPosition(mSplineParameterT);
+
+		vec3 tangent = mSpline->GetTangent(mSplineParameterT);
+
 		float distance = mSpeed * dt;
 		mSplineParameterT += distance / length(mSpline->GetTangent(mSplineParameterT));
+
+		vec3 nextTangent = mSpline->GetTangent(mSplineParameterT);
+
+		float dotVal = dot(normalize(tangent), normalize(nextTangent));
+		float angVal = degrees(acos(dotVal));
+
+		int mod = ((int)mRotationAngleInDegrees - (int)angVal)/360;
+		int angle = mRotationAngleInDegrees - angVal;
+
+		if (angle < 0)
+			angle = 359;
+		else if (angle > 360)
+		angle = 1;
+
+		mRotationAngleInDegrees = (float)angle;
 	}
 }
 
