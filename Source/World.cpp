@@ -695,7 +695,22 @@ void World::LoadCameras()
     mModel.push_back(character);
     
     // BSpline Camera
-    BSpline* spline = FindSpline("\"RollerCoaster\"");
+	BSpline* spline = new BSpline();
+	spline->SetPosition(vec3(0.0, 2.5, 0.0));
+	spline->AddControlPoint(vec3(20.0, 0.0, - 50.0));
+	spline->AddControlPoint(vec3(40.0, 0.0, - 20.0));
+	spline->AddControlPoint(vec3(60.0, 0.0, - 5.0));
+	spline->AddControlPoint(vec3(80.0, 0.0, 20.0));
+	spline->AddControlPoint(vec3(45.0, 0.0, 20.0));
+	spline->AddControlPoint(vec3(25.0, 0.0, 10.0));
+	spline->AddControlPoint(vec3(10.0, 0.0, 40.0));
+	spline->AddControlPoint(vec3(-50.0, 0.0, 60.0));
+	spline->AddControlPoint(vec3(-75.0, 0.0, 40.0));
+	spline->AddControlPoint(vec3(-50.0, 0.0, 20.0));
+	spline->AddControlPoint(vec3(-75.0, 0.0 ,- 20.0));
+	spline->AddControlPoint(vec3(-60.0, 0.0, - 60.0));
+	spline->AddControlPoint(vec3(-20.0, 0.0, - 60.0));
+	
     if (spline == nullptr)
     {
         spline = FindSplineByIndex(0);
@@ -711,8 +726,23 @@ void World::LoadCameras()
 	mCamera.push_back(new DebugCamera(vec3(0.0f, 2.0f, 0.0f)));
     
 	// BSpline MainMeny Camera
-	BSpline* splineMainMenu = FindSpline("\"RollerCoasterMainMenu\"");
-	
+	BSpline* splineMainMenu = new BSpline();
+	splineMainMenu->SetPosition(vec3(0.0, 30, 0.0));
+	splineMainMenu->AddControlPoint(vec3(20.0, 10.0, -10.0));
+	splineMainMenu->AddControlPoint(vec3(40.0, - 20.0, 20.0));
+	splineMainMenu->AddControlPoint(vec3(-60.0, - 10.0, - 5.0));
+	splineMainMenu->AddControlPoint(vec3(20.0, 20.0, 20.0));
+	splineMainMenu->AddControlPoint(vec3(-20.0, - 20.0, 40.0));
+	splineMainMenu->AddControlPoint(vec3(45.0,40.0, 20.0));
+	splineMainMenu->AddControlPoint(vec3(25.0, 0.0, 10.0));
+	splineMainMenu->AddControlPoint(vec3(10.0, - 20.0, 40.0));
+	splineMainMenu->AddControlPoint(vec3(-50.0, 30.0, 10.0));
+	splineMainMenu->AddControlPoint(vec3(-50.0, 0.0, 20.0));
+	splineMainMenu->AddControlPoint(vec3(-20.0, 30.0, - 20.0));
+	splineMainMenu->AddControlPoint(vec3(30.0, - 10.0, 30.0));
+	splineMainMenu->AddControlPoint(vec3(-20.0, 40.0, - 60.0));
+		
+
 	if (splineMainMenu == nullptr)
 	{
 		splineMainMenu = FindSplineByIndex(0);

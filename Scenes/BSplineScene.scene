@@ -1,39 +1,7 @@
 # This is a comment
 
 
-[Spline]
-name     = "RollerCoaster"
-position = 0.0 2.5 0.0
-controlpoint = 20.0 0.0 -50.0
-controlpoint = 40.0 0.0 -20.0
-controlpoint = 60.0 0.0 -5.0
-controlpoint = 80.0 0.0 20.0
-controlpoint = 45.0 0.0 20.0
-controlpoint = 25.0 0.0 10.0
-controlpoint = 10.0 0.0 40.0
-controlpoint = -50.0 0.0 60.0
-controlpoint = -75.0 0.0 40.0
-controlpoint = -50.0 0.0 20.0
-controlpoint = -75.0 0.0 -20.0
-controlpoint = -60.0 0.0 -60.0
-controlpoint = -20.0 0.0 -60.0
 
-[Spline]
-name     = "RollerCoasterMainMenu"
-position = 0.0 30 0.0
-controlpoint = 20.0 10.0 -10.0
-controlpoint = 40.0 -20.0 20.0
-controlpoint = -60.0 -10.0 -5.0
-controlpoint = 20.0 20.0 20.0
-controlpoint = -20.0 -20.0 40.0
-controlpoint = 45.0 40.0 20.0
-controlpoint = 25.0 0.0 10.0
-controlpoint = 10.0 -20.0 40.0
-controlpoint = -50.0 30.0 10.0
-controlpoint = -50.0 0.0 20.0
-controlpoint = -20.0 30.0 -20.0
-controlpoint = 30.0 -10.0 30.0
-controlpoint = -20.0 40.0 -60.0
 
 
 
