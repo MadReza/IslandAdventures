@@ -685,10 +685,10 @@ void World::LoadScene(const char * scene_path)
 	srand(20);
 
 	OBJModel* grass = new OBJModel("../Models/Grass_02.obj");
-	for (int i = 0; i < 30; i++){
+	for (int i = 0; i < 50; i++){
 
 		OBJModel* newgrass = new OBJModel(*grass);
-		newgrass->SetPosition(vec3(rand() % 100 - 50, 0, rand() % 100 - 50));
+		newgrass->SetPosition(vec3(rand() % 150 - 75, 0, rand() % 150 - 75));
 		newgrass->SetScaling(vec3(1, 1, 1));
 		mModel.push_back(newgrass);
 	}
