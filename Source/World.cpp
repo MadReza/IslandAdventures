@@ -410,22 +410,68 @@ void World::Draw()
 		(*it)->Draw();
 	}
 
-	
-	
-
-	
-	
-
-
 	Renderer::SetShader(SHADER_TEXT);
 	glUseProgram(Renderer::GetShaderProgramID());
 	
+	if (EventManager::paused == false && mCurrentCamera == 4){
+		// Draw crosshair
+		GLuint ColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "FontColor");
+		vec4 color = vec4(1, 1, 1, 0);
+		glUniform4f(ColorID, color.x, color.y, color.z, color.w);
+
+
+		glLineWidth(4.0);
+		glBegin(GL_LINES);
+		// Bottom left
+		glVertex2f(200, 200);
+		glVertex2f(200, 150);
+		glVertex2f(200, 150);
+		glVertex2f(250, 150);
+
+		// Bottom right
+		glVertex2f(550, 150);
+		glVertex2f(600, 150);
+		glVertex2f(600, 150);
+		glVertex2f(600, 200);
+
+		// Top right
+		glVertex2f(600, 400);
+		glVertex2f(600, 450);
+		glVertex2f(600, 450);
+		glVertex2f(550, 450);
+
+		// Top left
+		glVertex2f(250, 450);
+		glVertex2f(200, 450);
+		glVertex2f(200, 450);
+		glVertex2f(200, 400);
+
+		if (EventManager::keyPressed != GLFW_MOUSE_BUTTON_RIGHT){
+			// Middle crosshair
+			glVertex2f(375, 300);
+			glVertex2f(385, 300);
+
+			glVertex2f(400, 280);
+			glVertex2f(400, 267);
+
+			glVertex2f(415, 300);
+			glVertex2f(425, 300);
+
+			glVertex2f(400, 320);
+			glVertex2f(400, 333);
+		}
+
+		glEnd();
+	}
+
 
 	// DRAW UI 2D TEXTS  (text, x, y, size, color)
 	char text[256];
 	if (EventManager::gameStarted == true){
-		sprintf(text, "Score: %d", score);
-		printText2D(text, 10, 550, 30);
+		if (EventManager::screenshots == false){
+			sprintf(text, "Score: %d", score);
+			printText2D(text, 10, 550, 30);
+		}
 
 		sprintf(text, "PAUSE: X");
 		printText2D(text, 10, 10, 14, vec4(1, 0, 0, 0));
@@ -570,14 +616,44 @@ void World::DrawOptionsMenu(){
 }
 
 void World::DrawScreenshotsMenu(){
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClearColor(1, 1, 1, 1);
 	char text[256];
 
 	if (EventManager::selected == 3){
 		sprintf(text, "BACK");
-		printText2D(text, 327, 50, 32, vec4(1, 0, 0, 0));
+		printText2D(text, 337, 50, 32, vec4(1, 0, 0, 0));
 	}
 	sprintf(text, "BACK");
-	printText2D(text, 330, 50, 30);
+	printText2D(text, 340, 50, 30);
+
+
+	// Draw screenshots
+	GLuint ColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "FontColor");
+	vec4 color = vec4(1, 1, 1, 0);
+	glUniform4f(ColorID, color.x, color.y, color.z, color.w);
+
+
+	for (int i = 50; i < 751; i = i + 167.5){
+		for (int j = 100; j < 551; j = j + 105){
+			glBegin(GL_TRIANGLE_STRIP);
+			glVertex2f(i, j);
+			glVertex2f(i + 167.5, j);
+			
+			glVertex2f(i, j + 105);
+			glVertex2f(i + 167.5, j + 105);
+			glEnd();
+
+			j += 10;
+		}
+		i += 10;
+	}
+
+
+
+
+
+
 }
 
 void World::LoadScene(const char * scene_path)

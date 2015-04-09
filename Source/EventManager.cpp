@@ -176,7 +176,7 @@ void EventManager::Update()
 			}
 		}
 		else if (EventManager::screenshots == true){
-			if (x >= 400 / 1024.0 * EventManager::m_WindowWidth && x <= 600 / 1024.0 * EventManager::m_WindowWidth &&
+			if (x >= 410 / 1024.0 * EventManager::m_WindowWidth && x <= 610 / 1024.0 * EventManager::m_WindowWidth &&
 				y >= 655 / 768.0 * EventManager::m_WindowHeight && y <= 715 / 768.0 * EventManager::m_WindowHeight){
 				EventManager::selected = 3;
 			}
@@ -259,12 +259,16 @@ void EventManager::SaveTGA(void)
 	char cFileName[64];
 	FILE *fScreenshot;
 
-	int nSize = EventManager::m_WindowWidth * EventManager::m_WindowHeight * 3;
+	int x, y;
+	x = EventManager::m_WindowWidth / 4;
+	y = EventManager::m_WindowHeight / 4;
+
+	int nSize = (EventManager::m_WindowWidth-x*2) * (EventManager::m_WindowHeight-y*2) * 3;
 
 	GLubyte *pixels = new GLubyte[nSize];
 	if (pixels == NULL) return;
 
-	while (EventManager::nShot < 35)
+	while (EventManager::nShot < 16)
 	{
 		sprintf(cFileName, "screenshot_%d.tga", EventManager::nShot);
 
@@ -275,7 +279,7 @@ void EventManager::SaveTGA(void)
 
 		++EventManager::nShot;
 
-		if (EventManager::nShot > 35)
+		if (EventManager::nShot > 16)
 		{
 			// Too many pics taken
 			return;
@@ -284,12 +288,12 @@ void EventManager::SaveTGA(void)
 
 	fScreenshot = fopen(cFileName, "wb");
 
-	glReadPixels(0, 0, EventManager::m_WindowWidth, EventManager::m_WindowHeight, GL_BGR, GL_UNSIGNED_BYTE, pixels);
+	glReadPixels(x, y, (EventManager::m_WindowWidth - x * 2), (EventManager::m_WindowHeight - y * 2), GL_BGR, GL_UNSIGNED_BYTE, pixels);
 
 	unsigned char TGAheader[12] = { 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-	unsigned char header[6] = { EventManager::m_WindowWidth % 256, EventManager::m_WindowWidth / 256,
-		EventManager::m_WindowHeight % 256, EventManager::m_WindowHeight / 256, 24, 0 };
+	unsigned char header[6] = { (EventManager::m_WindowWidth - x * 2) % 256, (EventManager::m_WindowWidth - x * 2) / 256,
+		(EventManager::m_WindowHeight - y * 2) % 256, (EventManager::m_WindowHeight - y * 2) / 256, 24, 0 };
 
 	fwrite(TGAheader, sizeof(unsigned char), 12, fScreenshot);
 
