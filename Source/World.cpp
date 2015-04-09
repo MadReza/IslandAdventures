@@ -22,6 +22,7 @@
 #include "Path.h"
 #include "BSpline.h"
 #include "OBJModel.h"
+#include "PokemonGenerator.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -655,9 +656,9 @@ void World::LoadScene(const char * scene_path)
 	}
 
 	//LOAD DAT OBJ MODEL YO
-	OBJModel* pika = new OBJModel("../Models/Pikachu.obj");
-	pika->SetPosition(vec3(1,1,1));
-	mModel.push_back(pika);
+	vector<OBJModel*> pokemon = PokemonGenerator::GeneratePokemon();
+	for (int i = 0; i < pokemon.size(); i++)
+		mModel.push_back(pokemon[i]);
 
     LoadCameras();
 }
