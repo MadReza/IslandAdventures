@@ -150,16 +150,19 @@ void World::Update(float dt)
 				break;
 				*/
 			case GLFW_MOUSE_BUTTON_LEFT:
-				++score;
-				EventManager::keyPressed = -1;
-				break;
-			case GLFW_MOUSE_BUTTON_RIGHT:
 				if (mCurrentCamera == 4){
 					score += 15;
 					EventManager::SaveTGA();
 				}
 				EventManager::keyPressed = -1;
 				break;
+			/*case GLFW_MOUSE_BUTTON_RIGHT:
+				if (mCurrentCamera == 4){
+					score += 15;
+					EventManager::SaveTGA();
+				}
+				EventManager::keyPressed = -1;
+				break;*/
 			case GLFW_KEY_X:
 				mPrevCamera = mCurrentCamera;
 				EventManager::paused = true;
@@ -465,7 +468,7 @@ void World::Draw()
 		glVertex2f(200, 450);
 		glVertex2f(200, 400);
 
-		if (EventManager::keyPressed != GLFW_MOUSE_BUTTON_RIGHT){
+		if (EventManager::keyPressed != GLFW_MOUSE_BUTTON_LEFT){
 			// Middle crosshair
 			glVertex2f(375, 300);
 			glVertex2f(385, 300);
