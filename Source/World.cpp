@@ -329,18 +329,7 @@ void World::Update(float dt)
 
 void World::Draw()
 {
-	
-
-	//Setup for 3D
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity;
-	gluPerspective(45, (GLdouble)EventManager::m_WindowWidth / (GLdouble)EventManager::m_WindowHeight, 0.5, 100);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity;
-
 	Renderer::BeginFrame();
-	
 
 
 	// Set shader to use
@@ -421,31 +410,10 @@ void World::Draw()
 	}
 
 	
-	// Draw crosshair
-	/*
-	glDisable(GL_DEPTH_TEST);
-	glDepthMask(1);
-	glPushMatrix();
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	glOrtho(0, EventManager::m_WindowWidth, EventManager::m_WindowHeight, 0, -1, 1);
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glDisable(GL_CULL_FACE);
-	glClear(GL_DEPTH_BUFFER_BIT);
+	
 
-
-	glLineWidth(2.5);
-	glBegin(GL_LINES);
-	glVertex2f(5, 5);
-	glVertex2f(10, 10);
-	glEnd();
-
-	glPopMatrix();
-	glEnable(GL_DEPTH_TEST);
-	*/
+	
+	
 
 
 	Renderer::SetShader(SHADER_TEXT);
@@ -489,9 +457,8 @@ void World::Draw()
 
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
-	
+
 	Renderer::EndFrame();
-	
 }
 
 void World::DrawMainMenu(){
