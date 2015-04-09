@@ -25,7 +25,7 @@ using namespace glm;
 
 
 ThirdPersonCamera::ThirdPersonCamera(Model* targetModel)
-	: Camera(), mTargetModel(targetModel), mHorizontalAngle(0.0f), mVerticalAngle(-20.0f), mRadius(10.0f), mSpeed(5.0f)
+	: Camera(), mTargetModel(targetModel), mHorizontalAngle(0.0f), mVerticalAngle(-20.0f), mRadius(25.0f), mSpeed(25.0f)
 
 {
 	mRotationSpeed = 0.05f;
@@ -92,8 +92,11 @@ void ThirdPersonCamera::Update(float dt)
 	else if (mHorizontalAngle > 180)
 		mHorizontalAngle -= 360;
 
-	vec3 alignHorizontal(1, 0, 1);
-	vec3 forward = mLookAt * dt * mSpeed * alignHorizontal;
+	vec3 forward = mLookAt;
+	forward.y = 0;
+	forward = normalize(forward);
+	forward = dt * mSpeed * forward;
+
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 	{
 		mTargetModel->SetPosition(mTargetModel->GetPosition() + forward);
@@ -104,7 +107,9 @@ void ThirdPersonCamera::Update(float dt)
 		mTargetModel->SetPosition(mTargetModel->GetPosition() - forward);
 	}
 
-	vec3 side = mRight * dt * mSpeed * alignHorizontal;
+	vec3 side = mRight;
+	side = normalize(side);
+	side = dt * mSpeed * side;
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_A) == GLFW_PRESS)
 	{
 		mTargetModel->SetPosition(mTargetModel->GetPosition() - side);
@@ -116,9 +121,7 @@ void ThirdPersonCamera::Update(float dt)
 	}
 
 	// Align target model with the horizontal angle  
-	mTargetModel->SetRotation(mTargetModel->GetRotationAxis(),
-
-		mHorizontalAngle);
+	mTargetModel->SetRotation(mTargetModel->GetRotationAxis(), mHorizontalAngle-90);
 
 	CalculateCameraBasis();
 }

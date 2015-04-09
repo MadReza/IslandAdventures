@@ -1,0 +1,94 @@
+# 
+# Wavefront material file
+# Created with Kaydara FBX
+# 
+
+newmtl Material_#247
+map_Kd Textures/nb2_pointglasses.tga
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl Material_#248
+map_Kd Textures/nb2_bagbag.tga
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl Material_#249
+map_Kd Textures/nb2_bangle01.tga
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl Material_#250
+map_Kd Textures/nb2_btmsskin.tga
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl Material_#251
+map_Kd Textures/nb2_face_on_1.tga
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl Material_#252
+map_Kd Textures/nb2_face_on_0.tga
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl Material_#253
+map_Kd Textures/nb2_hair01_on.tga
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl Material_#254
+map_Kd Textures/nb2_hathun.tga
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl Material_#255
+map_Kd Textures/nb2_shoessboots.tga
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl Material_#256
+map_Kd Textures/nb2_topsjer.tga
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000

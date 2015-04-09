@@ -112,8 +112,8 @@ void World::Update(float dt)
 				EventManager::keyPressed = -1; //Reset KeyPressed.
 				break;
 			case GLFW_KEY_4:
-				// Spline camera
-				if (mCamera.size() > 3 && mSpline.size() > 0)
+				// Character
+				if (mCamera.size() > 3)
 				{
 					mCurrentCamera = 3;
 					std::cout << "Camera Changed to: " << mCurrentCamera << std::endl;
@@ -812,13 +812,29 @@ void World::LoadCameras()
     mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     
     // Cube Character controlled with Third Person Camera
-    CubeModel* character = new CubeModel();
-    character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
+	OBJModel* character = new OBJModel("../Models/Calem.obj");
+	character->SetPosition(vec3(0.0f, 0.0f, 0.0f));
+	character->SetScaling(vec3(1.25, 1.25, 1.25));
     mCamera.push_back(new ThirdPersonCamera(character));
     mModel.push_back(character);
     
     // BSpline Camera
-    BSpline* spline = FindSpline("\"RollerCoaster\"");
+	BSpline* spline = new BSpline();
+	spline->SetPosition(vec3(0.0, 2.5, 0.0));
+	spline->AddControlPoint(vec3(20.0, 0.0, - 50.0));
+	spline->AddControlPoint(vec3(40.0, 0.0, - 20.0));
+	spline->AddControlPoint(vec3(60.0, 0.0, - 5.0));
+	spline->AddControlPoint(vec3(80.0, 0.0, 20.0));
+	spline->AddControlPoint(vec3(45.0, 0.0, 20.0));
+	spline->AddControlPoint(vec3(25.0, 0.0, 10.0));
+	spline->AddControlPoint(vec3(10.0, 0.0, 40.0));
+	spline->AddControlPoint(vec3(-50.0, 0.0, 60.0));
+	spline->AddControlPoint(vec3(-75.0, 0.0, 40.0));
+	spline->AddControlPoint(vec3(-50.0, 0.0, 20.0));
+	spline->AddControlPoint(vec3(-75.0, 0.0 ,- 20.0));
+	spline->AddControlPoint(vec3(-60.0, 0.0, - 60.0));
+	spline->AddControlPoint(vec3(-20.0, 0.0, - 60.0));
+	
     if (spline == nullptr)
     {
         spline = FindSplineByIndex(0);
@@ -834,8 +850,23 @@ void World::LoadCameras()
 	mCamera.push_back(new DebugCamera(vec3(0.0f, 2.0f, 0.0f)));
     
 	// BSpline MainMeny Camera
-	BSpline* splineMainMenu = FindSpline("\"RollerCoasterMainMenu\"");
-	
+	BSpline* splineMainMenu = new BSpline();
+	splineMainMenu->SetPosition(vec3(0.0, 30, 0.0));
+	splineMainMenu->AddControlPoint(vec3(20.0, 10.0, -10.0));
+	splineMainMenu->AddControlPoint(vec3(40.0, - 20.0, 20.0));
+	splineMainMenu->AddControlPoint(vec3(-60.0, - 10.0, - 5.0));
+	splineMainMenu->AddControlPoint(vec3(20.0, 20.0, 20.0));
+	splineMainMenu->AddControlPoint(vec3(-20.0, - 20.0, 40.0));
+	splineMainMenu->AddControlPoint(vec3(45.0,40.0, 20.0));
+	splineMainMenu->AddControlPoint(vec3(25.0, 0.0, 10.0));
+	splineMainMenu->AddControlPoint(vec3(10.0, - 20.0, 40.0));
+	splineMainMenu->AddControlPoint(vec3(-50.0, 30.0, 10.0));
+	splineMainMenu->AddControlPoint(vec3(-50.0, 0.0, 20.0));
+	splineMainMenu->AddControlPoint(vec3(-20.0, 30.0, - 20.0));
+	splineMainMenu->AddControlPoint(vec3(30.0, - 10.0, 30.0));
+	splineMainMenu->AddControlPoint(vec3(-20.0, 40.0, - 60.0));
+		
+
 	if (splineMainMenu == nullptr)
 	{
 		splineMainMenu = FindSplineByIndex(0);
