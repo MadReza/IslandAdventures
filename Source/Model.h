@@ -23,7 +23,7 @@ class Model
 public:
 	Model();
 	virtual ~Model();
-
+	Model(Model & other);
 	virtual void Update(float dt) = 0;
 	virtual void Draw() = 0;
 

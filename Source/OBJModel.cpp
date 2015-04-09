@@ -6,11 +6,30 @@
 
 using namespace glm;
 
-OBJModel::OBJModel(char* path): Model(){
+OBJModel::OBJModel(const char* path): Model(){
 	mName = "OBJModel";
 	loadOBJ(path);
 }
 
+OBJModel::OBJModel(OBJModel & other)
+{
+	mName = other.mName; // The model name is mainly for debugging
+	mPosition = other.mPosition;
+	mScaling = other.mScaling;
+	mRotationAxis = other.mRotationAxis;
+	mRotationAngleInDegrees = other.mRotationAngleInDegrees;
+
+	// Makes the model follow a path defined by a set of waypoints
+	mPath = other.mPath;
+	mSpline = other.mSpline;
+	mSplineParameterT = other.mSplineParameterT;
+	mSpeed = other.mSpeed;
+	mTargetWaypoint = other.mTargetWaypoint;
+
+
+	//polygons for obj file
+	polygons = other.polygons;
+}
 OBJModel::~OBJModel(){
 }
 

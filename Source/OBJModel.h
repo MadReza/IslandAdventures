@@ -10,9 +10,9 @@ using namespace glm;
 class OBJModel : public Model
 {
 public:
-	OBJModel(char* path);
+	OBJModel(const char* path);
 	virtual ~OBJModel();
-
+	OBJModel(OBJModel &other);
 	virtual void Update(float dt);
 	virtual void Draw();
 

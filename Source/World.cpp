@@ -627,6 +627,29 @@ void World::LoadScene(const char * scene_path)
 				path->Load(iss);
                 mSpline.push_back(path);
 			}
+			/*else if (result == "OBJ")
+			{
+				ci_string line;
+
+				// Parse model line by line
+				std::getline(iss, line);
+				// Splitting line into tokens
+				ci_istringstream strstr(line);
+				istream_iterator<ci_string, char, ci_char_traits> it(strstr);
+				istream_iterator<ci_string, char, ci_char_traits> end;
+				vector<ci_string> token_temp(it, end);
+
+				if (token_temp[0] == "file")
+				{
+					assert(token_temp.size() > 2);
+					assert(token_temp[1] == "=");
+					const char * c = token_temp[2].c_str();
+					OBJModel* objmodel = new OBJModel(c);
+					objmodel->Load(iss);
+					mModel.push_back(objmodel);
+				}
+				
+			}*/
 			else if ( result.empty() == false && result[0] == '#')
 			{
 				// this is a comment line
@@ -659,7 +682,21 @@ void World::LoadScene(const char * scene_path)
 	vector<OBJModel*> pokemon = PokemonGenerator::GeneratePokemon();
 	for (int i = 0; i < pokemon.size(); i++)
 		mModel.push_back(pokemon[i]);
+	srand(20);
 
+	OBJModel* grass = new OBJModel("../Models/Grass_02.obj");
+	for (int i = 0; i < 30; i++){
+
+		OBJModel* newgrass = new OBJModel(*grass);
+		newgrass->SetPosition(vec3(rand() % 100 - 50, 0, rand() % 100 - 50));
+		newgrass->SetScaling(vec3(1, 1, 1));
+		mModel.push_back(newgrass);
+	}
+
+	OBJModel* ground = new OBJModel("../Models/cube.obj");
+	ground->SetPosition(vec3(0,0,0));
+	ground->SetScaling(vec3(150, 0, 150));
+	mModel.push_back(ground);
     LoadCameras();
 }
 
