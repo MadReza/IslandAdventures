@@ -1,9 +1,10 @@
 #include "OBJModel.h"
 #include "Renderer.h"
-
+#include "Path.h"
+#include "BSpline.h"
 #include <GL/glew.h>
 #include <iostream>
-
+#include "World.h"
 using namespace glm;
 
 OBJModel::OBJModel(const char* path): Model(){
@@ -51,12 +52,15 @@ void OBJModel::loadOBJ(const char* path){
 }
 
 void OBJModel::Update(float dt){
+	
 	Model::Update(dt);
 
 }
 
 void OBJModel::Draw()
 {
+
+	
 	GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldTransform");
 	glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
 	
@@ -129,4 +133,50 @@ bool OBJModel::ParseLine(const std::vector<ci_string> &token)
 	{
 		return Model::ParseLine(token);
 	}
+}
+
+void OBJModel::setSplinePath(ci_string pathname)
+{
+	 
+		   SetSpeed(2.0);
+	  
+		   ci_string pathName = pathname;
+		   World* w = World::GetInstance();
+		   mPath = w->FindPath(pathName);
+
+		   if (mPath == nullptr)
+		   {
+			   mSpline = w->FindSpline(pathName);
+		   }
+		   if (mPath != nullptr)
+		   {
+			   mPosition = mPath->GetWaypoint(0);
+		   }
+		   else if (mSpline)
+		   {
+			   mPosition = mSpline->GetPosition(mSplineParameterT);
+		   }
+	 
+}
+
+void OBJModel::setSplinePath(BSpline* spline)
+{
+
+	SetSpeed(4.0);
+
+	
+
+	if (mPath == nullptr)
+	{
+		mSpline = spline;
+	}
+	if (mPath != nullptr)
+	{
+		mPosition = mPath->GetWaypoint(0);
+	}
+	else if (mSpline)
+	{
+		mPosition = mSpline->GetPosition(mSplineParameterT);
+	}
+
 }
