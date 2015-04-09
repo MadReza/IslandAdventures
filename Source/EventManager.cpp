@@ -334,7 +334,7 @@ void EventManager::changeSize(int w, int h) {
 	glViewport(0, 0, w, h);
 
 	// Set the correct perspective.
-	gluPerspective(45, ratio, 1, 1000);
+	gluPerspective(45, ratio, 0.1f, 1000.0f);
 
 	// Get Back to the Modelview
 	glMatrixMode(GL_MODELVIEW);
