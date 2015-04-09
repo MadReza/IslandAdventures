@@ -352,48 +352,22 @@ void World::Update(float dt)
 
 void World::Draw()
 {
-	Renderer::BeginFrame();
 
+	Renderer::BeginFrame();
 
 	// Set shader to use
 	glUseProgram(Renderer::GetShaderProgramID());
 
 	// This looks for the MVP Uniform variable in the Vertex Program
-	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform"); 
+	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
 
 	// Send the view projection constants to the shader
 	mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
 	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
 
-	// Code for lighting - just get the View Matrix
-	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
-	mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
-	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &V[0][0]);
+	// SET THE LIGHT
+	setUpLightingShader();
 
-	// Light Position
-	GLuint LightPositionID = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldLightPosition");
-	vec4 lightPosition = vec4(40, 40, -4, 0);
-	glUniform4f(LightPositionID, lightPosition.x, lightPosition.y, lightPosition.z, lightPosition.w);
-
-	// Light Color
-	GLuint LightColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightColor");
-	vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
-	glUniform3f(LightColorID, lightColor.x, lightColor.y, lightColor.z);
-
-	// Light Attenuation
-	GLuint LightAttenuationID = glGetUniformLocation(Renderer::GetShaderProgramID(), "lightAttenuation");
-	const float lightKc = 0.0f;
-	const float lightKl = 0.0f;
-	const float lightKq = 1.0f;
-	glUniform3f(LightAttenuationID, lightKc, lightKl, lightKq);
-
-	// Material Coefficients
-	GLuint MaterialID = glGetUniformLocation(Renderer::GetShaderProgramID(), "MaterialCoefficients");
-	const float ka = 0.2f;
-	const float kd = 0.8f;
-	const float ks = 0.2f;
-	const float n = 150.0f;
-	glUniform4f(MaterialID, ka, kd, ks, n);
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
@@ -794,11 +768,29 @@ void World::LoadScene(const char * scene_path)
 		mModel.push_back(newgrass);
 	}
 
-	OBJModel* ground = new OBJModel("../Models/cube.obj");
-	ground->SetPosition(vec3(0,0,0));
-	ground->SetScaling(vec3(150, 0, 150));
+	
+	bool daytime = true;
+	const char* groundPath;
+	const char* skyboxPath;
+	
+	if (daytime) {
+		groundPath = "../Models/cube.obj";
+		skyboxPath = "../Models/ds.obj";
+	}
+	else {
+		groundPath = "../Models/cube2.obj";
+		skyboxPath = "../Models/ns.obj";
+	}
+
+	OBJModel* ground = new OBJModel(groundPath);
+	ground->SetPosition(vec3(0, -2.5, 0));
+	ground->SetScaling(vec3(150, 5, 150));
 	mModel.push_back(ground);
 
+	OBJModel* skybox = new OBJModel(skyboxPath);
+	skybox->SetPosition(vec3(0, 60, 0));
+	skybox->SetScaling(vec3(80, 80, 80));
+	mModel.push_back(skybox);
 	
 	
     LoadCameras();
@@ -918,7 +910,7 @@ Model* World::FindModelByIndex(unsigned int index)
 
 void World::setUpLightingShader(){
 	Renderer::SetShader(SHADER_LIGHTING);
-	
+
 	glUseProgram(Renderer::GetShaderProgramID());
 
 	// This looks for the MVP Uniform variable in the Vertex Program
@@ -935,8 +927,9 @@ void World::setUpLightingShader(){
 
 	// Light Position
 	GLuint LightPositionID = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldLightPosition");
-	vec4 lightPosition = vec4(40, 40, -4, 0);
-	glUniform4f(LightPositionID, lightPosition.x, lightPosition.y, lightPosition.z, lightPosition.w);
+	vec4 lightPos = vec4(5, 0, 0, 0);		// directional light
+	//vec4 lightPos = vec4(5, 0, 0, 1);		// point light
+	glUniform4f(LightPositionID, lightPos.x, lightPos.y, lightPos.z, lightPos.w);
 
 	// Light Color
 	GLuint LightColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightColor");
@@ -961,7 +954,7 @@ void World::setUpLightingShader(){
 
 void World::setUpTextureShader(){
 	Renderer::SetShader(SHADER_TEXTURE);
-	
+
 	glUseProgram(Renderer::GetShaderProgramID());
 
 	// This looks for the MVP Uniform variable in the Vertex Program
@@ -978,8 +971,9 @@ void World::setUpTextureShader(){
 
 	// Light Position
 	GLuint LightPositionID = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldLightPosition");
-	vec4 lightPosition = vec4(40, 40, -4, 0);
-	glUniform4f(LightPositionID, lightPosition.x, lightPosition.y, lightPosition.z, lightPosition.w);
+	vec4 lightPos = vec4(5, 0, 0, 0);		// directional light
+	//vec4 lightPos = vec4(5, 0, 0, 1);		// point light
+	glUniform4f(LightPositionID, lightPos.x, lightPos.y, lightPos.z, lightPos.w);
 
 	// Light Color
 	GLuint LightColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightColor");
