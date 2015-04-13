@@ -18,6 +18,10 @@ Add the player model for the third person camera
 added the third person spline camera to camera vectors with button to go to
 added the grass model and generated randomly (also rechanged it to use copy constructor which saves a lot of time loading)
 
+-Reza Madabadi
+Added states to key press. 
+Making keypress only pressed when Let go which removes the issue of infinit pressing.
+
 */
 
 #include "World.h"
