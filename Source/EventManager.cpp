@@ -78,7 +78,7 @@ void EventManager::Initialize()
     
     
 	// Open a window and create its OpenGL context
-	glfwWindowHint(GLFW_RESIZABLE, 1);
+	glfwWindowHint(GLFW_RESIZABLE, 0);
 
 
 	
@@ -360,7 +360,7 @@ void EventManager::SwitchWindowSize(){
 
 	// Windowed fullscreen option
 	if (EventManager::fullscreen){
-		glfwSetWindowSize(spWindow, EventManager::m_WindowWidth / 1.5, EventManager::m_WindowHeight / 1.5);
+		glfwSetWindowSize(spWindow, EventManager::m_WindowWidth / 2, EventManager::m_WindowHeight / 2);
 		EventManager::changeSize(EventManager::m_WindowWidth, EventManager::m_WindowHeight);
 		glfwSetWindowPos(spWindow, 10, 35);
 		EventManager::fullscreen = false;
