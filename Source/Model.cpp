@@ -7,6 +7,12 @@
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
 //
 
+/*
+-Alex Newman
+If the model is on a spline (meaning it's a pokemon), try to rotate it as it moves along the spline
+Isn't properly done, but still looks better than being static
+*/
+
 #include "Model.h"
 #include "Path.h"
 #include "BSpline.h"

@@ -1,3 +1,11 @@
+/*
+-Alex Newman
+Used for loaded .obj models
+Holds a vector of OBJPolygons
+Calls renderer to properly to load OBJPolygons
+Draws each polygon properly in overridden Draw function
+*/
+
 #include "OBJModel.h"
 #include "Renderer.h"
 #include "Path.h"

@@ -7,6 +7,13 @@
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
 //
 
+/*
+-Alex Newman
+Refined and added upon the obj loader
+Parses obj file to create Materials from .mtl file and create OBJPolygons
+OBJModel is returned holding all OBJPolygons
+*/
+
 #include "Renderer.h"
 
 

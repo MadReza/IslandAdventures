@@ -7,6 +7,13 @@
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
 //
 
+/*
+-Alex Newman
+Switch shader to draw OBJModels
+Use PokemonGenerator to add Pokemon to the world
+Add the player model for the third person camera
+*/
+
 #include "World.h"
 #include "Renderer.h"
 #include "ParsingHelper.h"

@@ -1,3 +1,8 @@
+/*
+-Alex Newman
+Holds information for a obj's material
+*/
+
 #include "Material.h"
 
 Material::Material(){}

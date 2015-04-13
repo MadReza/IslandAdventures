@@ -1,3 +1,9 @@
+/*
+-Alex Newman
+Randomly creates 30 pokemon and gives them a random location within the world coordinates
+Returns vector of said pokemon
+*/
+
 #include "PokemonGenerator.h"
 #include "BSpline.h"
 

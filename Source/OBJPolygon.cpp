@@ -1,3 +1,8 @@
+/*
+-Alex Newman
+Object used to hold vertex, uv, normal and material information of a polygon
+*/
+
 #include "OBJPolygon.h"
 #include "Renderer.h"
 #include <iostream>
