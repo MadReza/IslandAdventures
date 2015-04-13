@@ -1,5 +1,4 @@
-# Sebouh Bardakjian
-
+// Sebouh Bardakjian
 #version 150
 
 in vec4 position;
