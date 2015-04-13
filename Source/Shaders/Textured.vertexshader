@@ -12,16 +12,33 @@ uniform vec4 WorldLightPosition;
 
 // Outputs to fragment shader
 out vec3 normal;
-out float distance;
 out vec3 EyeDirection_cameraspace;
-out vec4 LightDirection_cameraspace;
 out vec2 UV;
 
 uniform mat4 MVP;
 
+const int totalLights = 2;
+struct Light {
+	vec4 lightDirection;
+	float distance;
+	float power;
+};
+
+out Light Lights[totalLights];
+
+//Constant World Lights
+vec4 lightsPosition[totalLights];
+vec4 lightPosition = vec4(70.0, 0.0, 70.0, 1.0);
+//vec4 lightPosition2 = vec4(-70.0, -1.0, -70.0, 1.0);
+
 void main()
 {
- 
+	lightsPosition[0] = WorldLightPosition;
+	lightsPosition[1] = lightPosition;
+	
+	Lights[0].power = 1.0f;
+	Lights[1].power = 0.6f;
+
 	mat4 M = WorldTransform;
 	mat4 V = ViewTransform;
 	mat4 MV = V * M;
@@ -38,14 +55,17 @@ void main()
 	vec3 vertexPosition_cameraspace = ( MV * vec4(vertexPosition_modelspace,1)).xyz;
 	EyeDirection_cameraspace = vec3(0,0,0) - vertexPosition_cameraspace;
 	
-	// vector that goes from the vertex to the light IN CAMERA SPACE
-	vec3 LightPosition_cameraspace = ( V * WorldLightPosition).xyz;
-	LightDirection_cameraspace.xyz = LightPosition_cameraspace + EyeDirection_cameraspace;
+	for (int x=0; x < totalLights; x++)
+	{
+		// vector that goes from the vertex to the light IN CAMERA SPACE
+		vec3 LightPosition_cameraspace = ( V * lightsPosition[x]).xyz;
+		Lights[x].lightDirection.xyz = LightPosition_cameraspace + EyeDirection_cameraspace;
+
+		Lights[x].distance = length( lightsPosition[x].xyz - Position_worldspace.xyz );
+	}
 
 	// normal of the vertex IN CAMERA SPACE
 	normal = ( MV * vec4(vertexNormal_modelspace,0)).xyz;
-
-	distance = length( WorldLightPosition.xyz - Position_worldspace.xyz );
  
     // UV of the vertex. No special space for this one.
     UV = vertexUV;
