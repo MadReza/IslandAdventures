@@ -17,7 +17,7 @@ using namespace glm;
 float DebugCamera::zoomLevel = 45.0f;
 
 DebugCamera::DebugCamera(vec3 position) : Camera(), mHorizontalAngle(0.0f), mVerticalAngle(0.0f),
-mMouseSpeed(0.005f), mMovementSpeed(5.0f), mPosition(position)
+mMouseSpeed(0.005f), mMovementSpeed(15.0f), mPosition(position)
 {
 	CalculateCameraBasis();
 
