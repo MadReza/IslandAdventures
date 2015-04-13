@@ -54,7 +54,6 @@ public:
 
 	static GLuint textureId;
 
-
 private:
 	// Time
 	static double sLastFrameTime;

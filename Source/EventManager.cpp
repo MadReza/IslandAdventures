@@ -243,24 +243,23 @@ void EventManager::SaveTGA(void)
 
 	if (pixels == NULL) return;
 
-	while (EventManager::nShot < 16)
-	{
+	//while (EventManager::nShot < 32)
+	//{
 		sprintf(cFileName, "screenshot_%d.tga", EventManager::nShot);
-
+		
 		fScreenshot = fopen(cFileName, "rb");
 
-		if (fScreenshot == NULL) break;
-		else fclose(fScreenshot);
+		//if (fScreenshot == NULL) break;
+		//else fclose(fScreenshot);
 
 		++EventManager::nShot;
 
-		if (EventManager::nShot > 16)
-		{
+		//if (EventManager::nShot > 32)
+		//{
 			// Too many pics taken
-			return;
-		}
-	}
-
+			//cout << ""
+		//	return;
+	//}
 	fScreenshot = fopen(cFileName, "wb");
 
 	glReadPixels(x, y, (EventManager::m_WindowWidth - x * 2), (EventManager::m_WindowHeight - y * 2), GL_BGR, GL_UNSIGNED_BYTE, pixels);
@@ -313,27 +312,27 @@ void EventManager::SaveTGA(void)
 
 
 void EventManager::changeSize(int w, int h) {
+		// Prevent a divide by zero, when window is too short
+		// (you cant make a window of zero width).
+		if (h == 0)
+			h = 1;
+		float ratio = 1.0* w / h;
 
-	// Prevent a divide by zero, when window is too short
-	// (you cant make a window of zero width).
-	if (h == 0)
-		h = 1;
-	float ratio = 1.0* w / h;
+		// Use the Projection Matrix
+		glMatrixMode(GL_PROJECTION);
 
-	// Use the Projection Matrix
-	glMatrixMode(GL_PROJECTION);
+		// Reset Matrix
+		glLoadIdentity();
 
-	// Reset Matrix
-	glLoadIdentity();
+		// Set the viewport to be the entire window
+		glViewport(0, 0, w, h);
 
-	// Set the viewport to be the entire window
-	glViewport(0, 0, w, h);
+		// Set the correct perspective.
+		gluPerspective(45, ratio, 0.1f, 1000.0f);
 
-	// Set the correct perspective.
-	gluPerspective(45, ratio, 0.1f, 1000.0f);
-
-	// Get Back to the Modelview
-	glMatrixMode(GL_MODELVIEW);
+		// Get Back to the Modelview
+		glMatrixMode(GL_MODELVIEW);
+	
 }
 
 void EventManager::window_size_callback(GLFWwindow* window, int width, int height)

@@ -27,16 +27,20 @@
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 #include "Text2D.h"
+#include "textureFunc.h"
 
 using namespace std;
 using namespace glm;
 
 World* World::instance;
+GLuint vao;
 
 World::World()
 {
     instance = this;
 	score = 0;
+	
+	
 }
 
 World::~World()
@@ -458,6 +462,13 @@ void World::Draw()
 		}
 
 		glEnd();
+
+
+
+		if (EventManager::nShot > 0){
+			textureFunc::initialize2(vao);
+			textureFunc::display(vao);
+		}
 	}
 
 
@@ -611,8 +622,6 @@ void World::DrawOptionsMenu(){
 }
 
 void World::DrawScreenshotsMenu(){
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glClearColor(0.2, 0.2, 0.2, 1);
 	char text[256];
 
 	if (EventManager::selected == 3){
@@ -624,47 +633,15 @@ void World::DrawScreenshotsMenu(){
 
 
 	// Draw screenshots
-	/*
-	GLuint ColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "FontColor");
-	vec4 color = vec4(1, 1, 1, 0);
-	glUniform4f(ColorID, color.x, color.y, color.z, color.w);
-	*/
 
-	unsigned int prevShader = Renderer::GetCurrentShader();
-	Renderer::SetShader(SHADER_TEXT);
-	glUseProgram(Renderer::GetShaderProgramID());
-
-
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, EventManager::textureId);
-
-	for (int i = 50; i < 751; i = i + 167.5){
-		for (int j = 100; j < 551; j = j + 105){
-			glBegin(GL_QUADS);
-
-			glTexCoord2f(0, 0);
-			glVertex2f(i, j);
-			glTexCoord2f(1, 0);
-			glVertex2f(i + 167.5, j);
-			glTexCoord2f(1, 1);
-			glVertex2f(i + 167.5, j + 105);
-			glTexCoord2f(0, 1);
-			glVertex2f(i, j + 105);
-			
-			glEnd();
-
-			j += 10;
-		}
-		i += 10;
+	if (EventManager::nShot > 0){
+		textureFunc::initialize(vao);
+		textureFunc::display(vao);
 	}
-
-
-	glDisable(GL_TEXTURE_2D);
-
-	// Restore previous shader
-	Renderer::SetShader((ShaderType)prevShader);
-
-
+	else{
+		sprintf(text, "NO SCREENSHOTS TAKEN!");
+		printText2D(text, 100, 350, 28);
+	}
 
 }
 
