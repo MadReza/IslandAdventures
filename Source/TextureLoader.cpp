@@ -1,3 +1,8 @@
+/*
+- Sebouh Bardakjian
+   .DDS texture loader for font
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

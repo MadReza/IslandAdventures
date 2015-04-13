@@ -6,13 +6,15 @@
 //
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
 //
+
+/*
+- Sebouh Bardakjian
+Worked on all event managment, window handling, keypress, menu related stuff, and screenshot capturing
+*/
+
 #pragma comment( lib, "Glu32.Lib" )
 
 #include "EventManager.h"
-
-
-//#include <GLFW/glfw3.h>
-
 #include <stdio.h>
 #include <iostream>
 #include <fstream>

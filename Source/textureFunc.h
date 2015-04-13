@@ -1,3 +1,8 @@
+/*
+- Sebouh Bardakjian
+All texture/screenshot related tasks
+*/
+
 #pragma once
 // Open a window with GLFW
 #include <GL\glew.h>

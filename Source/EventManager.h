@@ -6,6 +6,10 @@
 //
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
 //
+/*
+- Sebouh Bardakjian 
+All UI and Event Management
+*/
 
 #pragma once
 #include "Renderer.h"

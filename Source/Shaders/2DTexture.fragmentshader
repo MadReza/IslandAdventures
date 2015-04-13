@@ -1,3 +1,5 @@
+# Sebouh Bardakjian
+
 #version 150
 
 in vec2 texture_coord_from_vshader;
