@@ -406,7 +406,6 @@ void World::Draw()
 			if (dynamic_cast<SkyboxModel*>((*it))->GetSwitch() == true) {
 				setUpSkyboxShader();
 				(*it)->Draw();
-				std::cout << "MADE IT" << std::endl;
 
 			}
 		}
