@@ -28,16 +28,20 @@
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 #include "Text2D.h"
+#include "textureFunc.h"
 
 using namespace std;
 using namespace glm;
 
 World* World::instance;
+GLuint vao;
 
 World::World()
 {
     instance = this;
 	score = 0;
+	
+	
 }
 
 World::~World()
@@ -498,6 +502,13 @@ void World::Draw()
 		}
 
 		glEnd();
+
+
+
+		if (EventManager::nShot > 0){
+			textureFunc::initialize2(vao);
+			textureFunc::display(vao);
+		}
 	}
 
 
@@ -536,32 +547,6 @@ void World::Draw()
 			DrawScreenshotsMenu();
 		}
 	}
-
-			/*
-	if (EventManager::gameStarted == false){
-		if (EventManager::mainMenu == true){
-			DrawMainMenu();
-		}
-		else if (EventManager::options == true){
-			DrawOptionsMenu();
-		}
-		else if (EventManager::screenshots == true){
-			DrawScreenshotsMenu();
-		}
-	}
-	else {
-		if (EventManager::mainMenu == true){
-			DrawPauseMenu();
-		}
-		else if (EventManager::options == true){
-			DrawOptionsMenu();
-		}
-		else if (EventManager::screenshots == true){
-			DrawScreenshotsMenu();
-		}
-	}
-	*/
-
 
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
@@ -677,8 +662,6 @@ void World::DrawOptionsMenu(){
 }
 
 void World::DrawScreenshotsMenu(){
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.2, 0.2, 0.2, 1);
 	char text[256];
 
 	if (EventManager::selected == 3){
@@ -690,30 +673,15 @@ void World::DrawScreenshotsMenu(){
 
 
 	// Draw screenshots
-	GLuint ColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "FontColor");
-	vec4 color = vec4(1, 1, 1, 0);
-	glUniform4f(ColorID, color.x, color.y, color.z, color.w);
 
-
-	for (int i = 50; i < 751; i = i + 167.5){
-		for (int j = 100; j < 551; j = j + 105){
-			glBegin(GL_TRIANGLE_STRIP);
-			glVertex2f(i, j);
-			glVertex2f(i + 167.5, j);
-			
-			glVertex2f(i, j + 105);
-			glVertex2f(i + 167.5, j + 105);
-			glEnd();
-
-			j += 10;
-		}
-		i += 10;
+	if (EventManager::nShot > 0){
+		textureFunc::initialize(vao);
+		textureFunc::display(vao);
 	}
-
-
-
-
-
+	else{
+		sprintf(text, "NO SCREENSHOTS TAKEN!");
+		printText2D(text, 100, 350, 28);
+	}
 
 }
 

@@ -9,10 +9,9 @@
 #pragma comment( lib, "Glu32.Lib" )
 
 #include "EventManager.h"
-#include "Renderer.h"
-#include "World.h"
 
-#include <GLFW/glfw3.h>
+
+//#include <GLFW/glfw3.h>
 
 #include <stdio.h>
 #include <iostream>
@@ -48,6 +47,8 @@ int EventManager::selected = 0;
 // Screenshot
 int EventManager::nShot = 0;
 
+// Textures
+GLuint EventManager::textureId = 0;
 
 void EventManager::Initialize()
 {
@@ -233,31 +234,64 @@ void EventManager::SaveTGA(void)
 	y = EventManager::m_WindowHeight / 4;
 
 	int nSize = (EventManager::m_WindowWidth-x*2) * (EventManager::m_WindowHeight-y*2) * 3;
+	int nSizeTexture = nextPowerOf2(EventManager::m_WindowWidth - x * 2) * nextPowerOf2(EventManager::m_WindowHeight - y * 2) * 3;
 
 	GLubyte *pixels = new GLubyte[nSize];
+	GLubyte *pixelsForTexture = new GLubyte[nSizeTexture];
+
+	memset(pixelsForTexture, 0, nSizeTexture);
+
 	if (pixels == NULL) return;
 
-	while (EventManager::nShot < 16)
-	{
+	//while (EventManager::nShot < 32)
+	//{
 		sprintf(cFileName, "screenshot_%d.tga", EventManager::nShot);
-
+		
 		fScreenshot = fopen(cFileName, "rb");
 
-		if (fScreenshot == NULL) break;
-		else fclose(fScreenshot);
+		//if (fScreenshot == NULL) break;
+		//else fclose(fScreenshot);
 
 		++EventManager::nShot;
 
-		if (EventManager::nShot > 16)
-		{
+		//if (EventManager::nShot > 32)
+		//{
 			// Too many pics taken
-			return;
-		}
-	}
-
+			//cout << ""
+		//	return;
+	//}
 	fScreenshot = fopen(cFileName, "wb");
 
 	glReadPixels(x, y, (EventManager::m_WindowWidth - x * 2), (EventManager::m_WindowHeight - y * 2), GL_BGR, GL_UNSIGNED_BYTE, pixels);
+
+	// copy pixels into pixelsTexture
+	GLubyte* src = pixels;
+	GLubyte* dst = pixelsForTexture;
+
+	for (int i = 0; i < (EventManager::m_WindowHeight - y * 2); ++i)
+	{
+		memcpy(dst, src, (EventManager::m_WindowWidth - x * 2) * 3 * sizeof(GLubyte));
+		src += 3 * (EventManager::m_WindowWidth - x * 2);
+		dst += 3 * nextPowerOf2(EventManager::m_WindowWidth - x * 2);
+	}
+
+
+	// Upload texture to gpu, keep track of ID
+
+	glGenTextures(1, &textureId);
+	glBindTexture(GL_TEXTURE_2D, textureId);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexImage2D(
+		GL_TEXTURE_2D, 0,           /* target, level */
+		GL_RGB8,                    /* internal format */
+		nextPowerOf2(EventManager::m_WindowWidth - x * 2), nextPowerOf2(EventManager::m_WindowHeight - y * 2), 0,           /* width, height, border */
+		GL_BGR, GL_UNSIGNED_BYTE,   /* external format, type */
+		pixelsForTexture                      /* pixels */
+		);
+
 
 	unsigned char TGAheader[12] = { 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
@@ -278,27 +312,27 @@ void EventManager::SaveTGA(void)
 
 
 void EventManager::changeSize(int w, int h) {
+		// Prevent a divide by zero, when window is too short
+		// (you cant make a window of zero width).
+		if (h == 0)
+			h = 1;
+		float ratio = 1.0* w / h;
 
-	// Prevent a divide by zero, when window is too short
-	// (you cant make a window of zero width).
-	if (h == 0)
-		h = 1;
-	float ratio = 1.0* w / h;
+		// Use the Projection Matrix
+		glMatrixMode(GL_PROJECTION);
 
-	// Use the Projection Matrix
-	glMatrixMode(GL_PROJECTION);
+		// Reset Matrix
+		glLoadIdentity();
 
-	// Reset Matrix
-	glLoadIdentity();
+		// Set the viewport to be the entire window
+		glViewport(0, 0, w, h);
 
-	// Set the viewport to be the entire window
-	glViewport(0, 0, w, h);
+		// Set the correct perspective.
+		gluPerspective(45, ratio, 0.1f, 1000.0f);
 
-	// Set the correct perspective.
-	gluPerspective(45, ratio, 0.1f, 1000.0f);
-
-	// Get Back to the Modelview
-	glMatrixMode(GL_MODELVIEW);
+		// Get Back to the Modelview
+		glMatrixMode(GL_MODELVIEW);
+	
 }
 
 void EventManager::window_size_callback(GLFWwindow* window, int width, int height)
@@ -337,4 +371,21 @@ void EventManager::SwitchWindowSize(){
 		glfwSetWindowPos(spWindow, 5, 5);
 		EventManager::fullscreen = true;
 	}
+}
+
+unsigned int EventManager::nextPowerOf2(unsigned int n)
+{
+	unsigned count = 0;
+
+	/* First n in the below condition is for the case where n is 0*/
+	if (n && !(n&(n - 1)))
+		return n;
+
+	while (n != 0)
+	{
+		n >>= 1;
+		count += 1;
+	}
+
+	return 1 << count;
 }

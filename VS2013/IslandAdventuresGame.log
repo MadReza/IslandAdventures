@@ -1,9 +1,198 @@
-﻿Build started 2015-04-12 10:52:40 PM.
+﻿Build started 2015-04-12 11:08:25 PM.
      1>Project "C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\IslandAdventuresGame.vcxproj" on node 2 (Build target(s)).
-     1>Link:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 13\VC\bin\CL.exe /c /I../ThirdParty/FreeImage /I"../ThirdParty/glew-1.10.0/include" /I"../ThirdParty/glfw-3.0.4/include" /I../ThirdParty/glm /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/" /Fd"C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Source\BSpline.cpp ..\Source\BSplineCamera.cpp ..\Source\BSplineCameraThirdPerson.cpp ..\Source\DebugCamera.cpp ..\Source\OBJModel.cpp ..\Source\OBJPolygon.cpp ..\Source\Path.cpp ..\Source\SkyboxModel.cpp ..\Source\SphereModel.cpp ..\Source\StaticCamera.cpp ..\Source\EventManager.cpp ..\Source\main.cpp ..\Source\Model.cpp ..\Source\CubeModel.cpp ..\Source\Renderer.cpp ..\Source\Text2D.cpp ..\Source\textureFunc.cpp ..\Source\ThirdPersonCamera.cpp ..\Source\World.cpp
+         World.cpp
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(519): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(523): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(527): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(531): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(559): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(561): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(563): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(565): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(567): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(569): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(571): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(575): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(579): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(583): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(587): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(591): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(593): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(595): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(597): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(605): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(609): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(613): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(617): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(621): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(623): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(625): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(627): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(635): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(639): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(643): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(648): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(650): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(654): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(656): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(660): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(668): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(671): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(682): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\world.cpp(766): warning C4018: '<' : signed/unsigned mismatch
+         textureFunc.cpp
+     1>c:\users\reina\source\repos\islandadventures2\source\texturefunc.cpp(52): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>c:\users\reina\source\repos\islandadventures2\source\texturefunc.cpp(111): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\reina\source\repos\islandadventures2\source\texturefunc.cpp(127): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\string.h(112) : see declaration of 'strcpy'
+     1>c:\users\reina\source\repos\islandadventures2\source\texturefunc.cpp(128): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\reina\source\repos\islandadventures2\source\texturefunc.cpp(129): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\reina\source\repos\islandadventures2\source\texturefunc.cpp(172): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>c:\users\reina\source\repos\islandadventures2\source\texturefunc.cpp(236): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\string.h(112) : see declaration of 'strcpy'
+     1>c:\users\reina\source\repos\islandadventures2\source\texturefunc.cpp(237): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\reina\source\repos\islandadventures2\source\texturefunc.cpp(238): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\string.h(118) : see declaration of 'strcat'
+         Renderer.cpp
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(135): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(271): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(312): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(314): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\string.h(112) : see declaration of 'strcpy'
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(315): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(316): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\string.h(118) : see declaration of 'strcat'
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(324): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(327): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(467): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(478): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(505): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(230) : see declaration of 'fscanf'
+     1>c:\users\reina\source\repos\islandadventures2\source\renderer.cpp(507): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\string.h(118) : see declaration of 'strcat'
+         EventManager.cpp
+     1>c:\users\reina\source\repos\islandadventures2\source\eventmanager.cpp(248): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\reina\source\repos\islandadventures2\source\eventmanager.cpp(250): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\reina\source\repos\islandadventures2\source\eventmanager.cpp(263): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\reina\source\repos\islandadventures2\source\eventmanager.cpp(319): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\reina\source\repos\islandadventures2\source\eventmanager.cpp(363): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+         SkyboxModel.cpp
+     1>c:\users\reina\source\repos\islandadventures2\source\skyboxmodel.cpp(33): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\reina\source\repos\islandadventures2\source\skyboxmodel.cpp(53): warning C4018: '<' : signed/unsigned mismatch
+         Generating Code...
+         Compiling...
+         ThirdPersonCamera.cpp
+         Text2D.cpp
+         CubeModel.cpp
+         Model.cpp
+     1>c:\users\reina\source\repos\islandadventures2\source\model.cpp(77): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+         main.cpp
+         StaticCamera.cpp
+         SphereModel.cpp
+         Path.cpp
+         OBJPolygon.cpp
+     1>c:\users\reina\source\repos\islandadventures2\source\objpolygon.cpp(88): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 13\vc\include\stdio.h(211) : see declaration of 'fopen'
+         OBJModel.cpp
+     1>c:\users\reina\source\repos\islandadventures2\source\objmodel.cpp(44): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\reina\source\repos\islandadventures2\source\objmodel.cpp(68): warning C4018: '<' : signed/unsigned mismatch
+         DebugCamera.cpp
+     1>c:\users\reina\source\repos\islandadventures2\source\debugcamera.cpp(49): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\reina\source\repos\islandadventures2\source\debugcamera.cpp(51): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\reina\source\repos\islandadventures2\source\debugcamera.cpp(54): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\reina\source\repos\islandadventures2\source\debugcamera.cpp(56): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\reina\source\repos\islandadventures2\source\debugcamera.cpp(101): warning C4244: '-=' : conversion from 'double' to 'float', possible loss of data
+         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+         BSplineCameraThirdPerson.cpp
+         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+         BSplineCamera.cpp
+         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
+         BSpline.cpp
+     1>c:\users\reina\source\repos\islandadventures2\source\bspline.cpp(192): warning C4018: '<' : signed/unsigned mismatch
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 13\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Bin/IslandAdventureGame-Debug.exe" /INCREMENTAL /NOLOGO /LIBPATH:../ThirdParty/FreeImage /LIBPATH:"../ThirdParty/glew-1.10.0/lib/Release/Win32" /LIBPATH:"../ThirdParty/glfw-3.0.4/lib/Win32/lib-msvc110" FreeImage.lib opengl32.lib glew32s.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Bin/IslandAdventureGame-Debug.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Bin/IslandAdventureGame-Debug.lib" /MACHINE:X86 C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/BSpline.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/BSplineCamera.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/BSplineCameraThirdPerson.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/Camera.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/DebugCamera.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/Material.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/OBJModel.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/OBJPolygon.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/Path.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/PokemonGenerator.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/SkyboxModel.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/SphereModel.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/StaticCamera.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/EventManager.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/main.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/Model.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/CubeModel.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/Renderer.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/Text2D.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/textureFunc.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/TextureLoader.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/ThirdPersonCamera.obj
+         C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Build/Debug/World.obj
+     1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+     1>glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc100.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\Reina\Source\Repos\IslandAdventures2\Bin\vc100.pdb'; linking object as if no debug info
          IslandAdventuresGame.vcxproj -> C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\/../Bin/IslandAdventureGame-Debug.exe
      1>Done Building Project "C:\Users\Reina\Source\Repos\IslandAdventures2\VS2013\IslandAdventuresGame.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.10
+Time Elapsed 00:00:19.31

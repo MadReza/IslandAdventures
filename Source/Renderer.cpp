@@ -91,9 +91,14 @@ void Renderer::Initialize()
 							shaderPathPrefix + "TextVertexShader.fragmentshader")
 							);
 	sShaderProgramID.push_back(
+		LoadShaders(shaderPathPrefix + "2DTexture.vertexshader",
+		shaderPathPrefix + "2DTexture.fragmentshader")
+		);
+	sShaderProgramID.push_back(
 		LoadShaders(shaderPathPrefix + "Skybox.vertexshader",
 		shaderPathPrefix + "Skybox.fragmentshader")
 		);
+
 	sCurrentShader = 0;
 
 }

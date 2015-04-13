@@ -8,6 +8,9 @@
 //
 
 #pragma once
+#include "Renderer.h"
+#include "World.h"
+#include <GLFW/glfw3.h>
 
 struct GLFWwindow;
 
@@ -47,7 +50,9 @@ public:
 	static int m_WindowWidth;
 	static int m_WindowHeight;
 	static void changeSize(int w, int h);
+	static unsigned int nextPowerOf2(unsigned int x);
 
+	static GLuint textureId;
 
 private:
 	// Time
@@ -62,5 +67,7 @@ private:
 
 	// Window
 	static GLFWwindow* spWindow;
+
+	
 	
 };
