@@ -1,8 +1,13 @@
+/*
+- Sebouh Bardakjian
+All text related tasks
+*/
+
+
+
 #include <vector>
 #include <cstring>
-
 #include <GL/glew.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;

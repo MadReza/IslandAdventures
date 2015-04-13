@@ -1,3 +1,8 @@
+/*
+- Sebouh Bardakjian
+All text related tasks
+*/
+
 #ifndef TEXT2D_HPP
 #define TEXT2D_HPP
 

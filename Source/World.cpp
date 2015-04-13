@@ -22,11 +22,11 @@ added the grass model and generated randomly (also rechanged it to use copy cons
 Added states to key press. 
 Making keypress only pressed when Let go which removes the issue of infinit pressing.
 
--Reina Villanueva
-Added lighting system
-Added skybox model (day and night)
-Added keypress buttons to switch between day and night
-Added skybox shader
+
+- Sebouh Bardakjian
+Displaying of text and menu
+Handling of menu and keypresses (pause/unpause)
+Handling of taking pictures and displaying them and the crosshair
 
 */
 
@@ -165,18 +165,6 @@ void World::Update(float dt)
 				}
 				EventManager::keyPressed = -1; //Reset KeyPressed.
 				break;
-				/*
-			case GLFW_KEY_0:
-				Renderer::SetShader(SHADER_LIGHTING);
-				std::cout << "Shader Changed: SOLID_COLOR" << std::endl;
-				EventManager::keyPressed = -1;
-				break;
-			case GLFW_KEY_9:
-				Renderer::SetShader(SHADER_BLUE);
-				std::cout << "Shader Changed: SHADER_BLUE" << std::endl;
-				EventManager::keyPressed = -1;
-				break;
-				*/
 			case GLFW_MOUSE_BUTTON_LEFT:
 				if (mCurrentCamera == 4){
 					score += 15;
@@ -184,13 +172,6 @@ void World::Update(float dt)
 				}
 				EventManager::keyPressed = -1;
 				break;
-			/*case GLFW_MOUSE_BUTTON_RIGHT:
-				if (mCurrentCamera == 4){
-					score += 15;
-					EventManager::SaveTGA();
-				}
-				EventManager::keyPressed = -1;
-				break;*/
 			case GLFW_KEY_X:
 				mPrevCamera = mCurrentCamera;
 				EventManager::paused = true;
@@ -396,15 +377,6 @@ void World::Update(float dt)
 
 
 	} // End of pause
-
-
-
-
-
-	
-
-
-
 }
 
 void World::Draw()
@@ -434,7 +406,6 @@ void World::Draw()
 			if (dynamic_cast<SkyboxModel*>((*it))->GetSwitch() == true) {
 				setUpSkyboxShader();
 				(*it)->Draw();
-				std::cout << "MADE IT" << std::endl;
 
 			}
 		}

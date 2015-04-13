@@ -7,6 +7,11 @@
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
 //
 
+/*
+- Sebouh Bardakjian
+	Fixed the 3rd person camera based on assignment framwork.
+*/
+
 #include "ThirdPersonCamera.h"
 #include "EventManager.h"
 #include "World.h"

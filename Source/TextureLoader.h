@@ -1,3 +1,8 @@
+/*
+- Sebouh Bardakjian
+.DDS texture loader for font
+*/
+
 #ifndef TEXTURELOADER_H
 #define TEXTURELOADER_H
 
