@@ -106,6 +106,8 @@
     <None Include="..\Source\Shaders\PathLines.vertexshader" />
     <None Include="..\Source\Shaders\PhongLighting.vertexshader" />
     <None Include="..\Source\Shaders\PhongLighting.fragmentshader" />
+    <None Include="..\Source\Shaders\Skybox.fragmentshader" />
+    <None Include="..\Source\Shaders\Skybox.vertexshader" />
     <None Include="..\Source\Shaders\Textured.fragmentshader" />
     <None Include="..\Source\Shaders\Textured.vertexshader" />
     <None Include="..\Source\Shaders\TextVertexShader.fragmentshader" />
@@ -122,6 +124,7 @@
     <ClCompile Include="..\Source\OBJPolygon.cpp" />
     <ClCompile Include="..\Source\Path.cpp" />
     <ClCompile Include="..\Source\PokemonGenerator.cpp" />
+    <ClCompile Include="..\Source\SkyboxModel.cpp" />
     <ClCompile Include="..\Source\SphereModel.cpp" />
     <ClCompile Include="..\Source\StaticCamera.cpp" />
     <ClCompile Include="..\Source\EventManager.cpp" />
@@ -146,6 +149,7 @@
     <ClInclude Include="..\Source\ParsingHelper.h" />
     <ClInclude Include="..\Source\Path.h" />
     <ClInclude Include="..\Source\PokemonGenerator.h" />
+    <ClInclude Include="..\Source\SkyboxModel.h" />
     <ClInclude Include="..\Source\SphereModel.h" />
     <ClInclude Include="..\Source\StaticCamera.h" />
     <ClInclude Include="..\Source\EventManager.h" />

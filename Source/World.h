@@ -16,6 +16,7 @@ class Camera;
 class Model;
 class Path;
 class BSpline;
+class SkyboxModel;
 
 class World
 {
@@ -44,12 +45,19 @@ private:
     static World* instance;
 
 	std::vector<Model*> mModel;
+	std::vector<Model*> mSkybox;
     std::vector<Path*> mPath;
     std::vector<BSpline*> mSpline;
 	std::vector<Camera*> mCamera;
 	unsigned int mCurrentCamera;
 	int score;
+	SkyboxModel* groundDay;
+	SkyboxModel* skyboxDay;
+	SkyboxModel* groundNight;
+	SkyboxModel* skyboxNight;
+
 
 	void setUpLightingShader();
 	void setUpTextureShader();
+	void setUpSkyboxShader();
 };

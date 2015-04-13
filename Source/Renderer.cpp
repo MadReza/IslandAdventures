@@ -90,7 +90,10 @@ void Renderer::Initialize()
 				LoadShaders(shaderPathPrefix + "TextVertexShader.vertexshader",
 							shaderPathPrefix + "TextVertexShader.fragmentshader")
 							);
-
+	sShaderProgramID.push_back(
+		LoadShaders(shaderPathPrefix + "Skybox.vertexshader",
+		shaderPathPrefix + "Skybox.fragmentshader")
+		);
 	sCurrentShader = 0;
 
 }
