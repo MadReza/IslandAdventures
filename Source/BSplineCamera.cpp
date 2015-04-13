@@ -1,11 +1,11 @@
-//
-// COMP 371 Assignment Framework
-//
-// Created by Nicolas Bergeron on 8/7/14.
-// Updated by Gary Chang on 28/1/15
-//
-// Copyright (c) 2014-2015 Concordia University. All rights reserved.
-//
+/*
+-Tawfiq Jawhar
+this is the same BSPline camera provided in the assignment framework with one modification
+the camera always look down never to the sky
+so when the derivative is positive (increasing slope) the mlookAt.y = - mlookAt.y
+so in main menu spline we can always view the world and yet have a rollercoaster kind of feeling
+instead of looking at the sky
+*/
 
 #include "BSplineCamera.h"
 #include "EventManager.h"

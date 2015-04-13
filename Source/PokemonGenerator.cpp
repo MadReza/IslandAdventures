@@ -2,6 +2,15 @@
 -Alex Newman
 Randomly creates 30 pokemon and gives them a random location within the world coordinates
 Returns vector of said pokemon
+
+-Tawfiq Jawhar
+first created a copy constructor for oBJ model and loaded the pokemons from file ones then copied them to generate random number of it
+
+then added the function setSplinePath to the OBJModel so the model can follow a path
+
+generated randpm splines with random positions (depends if pokemon flies or not)
+and randomly generated pokemons with splines
+
 */
 
 #include "PokemonGenerator.h"

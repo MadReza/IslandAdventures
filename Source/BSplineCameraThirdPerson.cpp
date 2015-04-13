@@ -1,11 +1,9 @@
-//
-// COMP 371 Assignment Framework
-//
-// Created by Nicolas Bergeron on 8/7/14.
-// Updated by Gary Chang on 28/1/15
-//
-// Copyright (c) 2014-2015 Concordia University. All rights reserved.
-//
+/*
+-Tawfiq Jawhar
+this is a camera mix between the third person camera and the spliine camera which makes it posible to change the lookAt vector with mouse control
+and move the position of the camera based on a spline path and speed 
+also added the zoom level to zoom and zoomout with space button so you can take pictures in the game
+*/
 
 #include "BSplineCameraThirdPerson.h"
 #include "EventManager.h"
