@@ -1,3 +1,7 @@
+// Reina Villanueva
+// Code taken from OpenGL Tutorial on Basic Lighting
+// Modified certain variable names
+
 #version 330 core
 
 // Input vertex data, different for all executions of this shader.

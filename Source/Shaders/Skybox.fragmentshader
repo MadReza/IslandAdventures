@@ -1,4 +1,6 @@
-// NEW TEXTURED.FRAGMENTSHADER
+// Reina Villanueva
+// Simple texture fragment shader
+// Code taken from OpenGL Tutorial 5
 
 #version 330 core
 
