@@ -30,6 +30,7 @@ Add the player model for the third person camera
 #include "BSpline.h"
 #include "OBJModel.h"
 #include "PokemonGenerator.h"
+#include "SkyboxModel.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -181,6 +182,21 @@ void World::Update(float dt)
 				EventManager::keyPressed = -1;
 				mCurrentCamera = 6;
 				break;
+				// make daytime skybox active
+			case GLFW_KEY_K:
+				groundDay->SetSwitch(true);
+				skyboxDay->SetSwitch(true);
+				groundNight->SetSwitch(false);
+				skyboxNight->SetSwitch(false);
+				break;
+
+				// make nighttime skybox active
+			case GLFW_KEY_L:
+				groundDay->SetSwitch(false);
+				skyboxDay->SetSwitch(false);
+				groundNight->SetSwitch(true);
+				skyboxNight->SetSwitch(true);
+				break;
 			default:
 				break;
 			}
@@ -227,6 +243,20 @@ void World::Update(float dt)
 		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X) == GLFW_PRESS)
 		{
 			EventManager::keyPressed = GLFW_KEY_X;
+		}
+
+		// Daytime skybox
+		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_K) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_K;
+			Draw();
+		}
+
+		// Nighttime skybox
+		if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_L) == GLFW_PRESS)
+		{
+			EventManager::keyPressed = GLFW_KEY_L;
+			Draw();
 		}
 
 
@@ -384,12 +414,22 @@ void World::Draw()
 	{
 		// Draw model
 
+		if (dynamic_cast<SkyboxModel*>((*it)) != 0) {
+			if (dynamic_cast<SkyboxModel*>((*it))->GetSwitch() == true) {
+				setUpSkyboxShader();
+				(*it)->Draw();
+				std::cout << "MADE IT" << std::endl;
+
+			}
+		}
 		//check if it's a textured object
-		if (dynamic_cast<OBJModel*>((*it)) != 0){
+		else if (dynamic_cast<OBJModel*>((*it)) != 0){
 			setUpTextureShader();
 			(*it)->Draw();
 			setUpLightingShader();
-		}else
+
+		}
+		else
 			(*it)->Draw();
 	}
 
@@ -743,30 +783,32 @@ void World::LoadScene(const char * scene_path)
 		mModel.push_back(newgrass);
 	}
 
-	
-	bool daytime = true;
-	const char* groundPath;
-	const char* skyboxPath;
-	
-	if (daytime) {
-		groundPath = "../Models/cube.obj";
-		skyboxPath = "../Models/ds.obj";
-	}
-	else {
-		groundPath = "../Models/cube2.obj";
-		skyboxPath = "../Models/ns.obj";
-	}
+	// DAYTIME - default
+	groundDay = new SkyboxModel("../Models/cube.obj");
+	groundDay->SetSwitch(true);
+	groundDay->SetPosition(vec3(0, -2.5, 0));
+	groundDay->SetScaling(vec3(150, 5, 150));
+	mModel.push_back(groundDay);
 
-	OBJModel* ground = new OBJModel(groundPath);
-	ground->SetPosition(vec3(0, -2.5, 0));
-	ground->SetScaling(vec3(150, 5, 150));
-	mModel.push_back(ground);
-
-	OBJModel* skybox = new OBJModel(skyboxPath);
-	skybox->SetPosition(vec3(0, 60, 0));
-	skybox->SetScaling(vec3(80, 80, 80));
-	mModel.push_back(skybox);
+	skyboxDay = new SkyboxModel("../Models/ds.obj");
+	skyboxDay->SetSwitch(true);
+	skyboxDay->SetPosition(vec3(0, 60, 0));
+	skyboxDay->SetScaling(vec3(80, 80, 80));
+	mModel.push_back(skyboxDay);
 	
+	// NIGHTTIME
+	groundNight = new SkyboxModel("../Models/cube2.obj");
+	groundNight->SetSwitch(false);
+	groundNight->SetPosition(vec3(0, -2.5, 0));
+	groundNight->SetScaling(vec3(150, 5, 150));
+	mModel.push_back(groundNight);
+
+	skyboxNight = new SkyboxModel("../Models/ns.obj");
+	skyboxNight->SetSwitch(false);
+	skyboxNight->SetPosition(vec3(0, 60, 0));
+	skyboxNight->SetScaling(vec3(80, 80, 80));
+	mModel.push_back(skyboxNight);
+
 	
     LoadCameras();
 }
@@ -929,6 +971,50 @@ void World::setUpLightingShader(){
 
 void World::setUpTextureShader(){
 	Renderer::SetShader(SHADER_TEXTURE);
+
+	glUseProgram(Renderer::GetShaderProgramID());
+
+	// This looks for the MVP Uniform variable in the Vertex Program
+	GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
+
+	// Send the view projection constants to the shader
+	mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
+	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+
+	// Code for lighting - just get the View Matrix
+	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+	mat4 V = mCamera[mCurrentCamera]->GetViewMatrix();
+	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &V[0][0]);
+
+	// Light Position
+	GLuint LightPositionID = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldLightPosition");
+	vec4 lightPos = vec4(5, 0, 0, 0);		// directional light
+	//vec4 lightPos = vec4(5, 0, 0, 1);		// point light
+	glUniform4f(LightPositionID, lightPos.x, lightPos.y, lightPos.z, lightPos.w);
+
+	// Light Color
+	GLuint LightColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "LightColor");
+	vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
+	glUniform3f(LightColorID, lightColor.x, lightColor.y, lightColor.z);
+
+	// Light Attenuation
+	GLuint LightAttenuationID = glGetUniformLocation(Renderer::GetShaderProgramID(), "lightAttenuation");
+	const float lightKc = 0.0f;
+	const float lightKl = 0.0f;
+	const float lightKq = 1.0f;
+	glUniform3f(LightAttenuationID, lightKc, lightKl, lightKq);
+
+	// Material Coefficients
+	GLuint MaterialID = glGetUniformLocation(Renderer::GetShaderProgramID(), "MaterialCoefficients");
+	const float ka = 0.2f;
+	const float kd = 0.8f;
+	const float ks = 0.2f;
+	const float n = 150.0f;
+	glUniform4f(MaterialID, ka, kd, ks, n);
+}
+
+void World::setUpSkyboxShader(){
+	Renderer::SetShader(SHADER_SKYBOX);
 
 	glUseProgram(Renderer::GetShaderProgramID());
 
