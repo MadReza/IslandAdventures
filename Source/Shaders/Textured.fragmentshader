@@ -1,5 +1,8 @@
 #version 330 core
 
+//Modified by Reza Madabadi
+//		-- Added Multiple Light Source Capabilities
+
 out vec3 color;			// final color
 
 in vec3 v_color;

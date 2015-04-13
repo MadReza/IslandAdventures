@@ -12,6 +12,9 @@
 Switch shader to draw OBJModels
 Use PokemonGenerator to add Pokemon to the world
 Add the player model for the third person camera
+
+-Reza Madabadi:
+Made the Key Press into States to start action on key pulled after pressed.
 */
 
 #include "World.h"
