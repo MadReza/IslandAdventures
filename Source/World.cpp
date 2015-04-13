@@ -14,6 +14,10 @@ Use PokemonGenerator to add Pokemon to the world
 Add the player model for the third person camera
 
 
+-Tawfiq Jawhar
+added the third person spline camera to camera vectors with button to go to
+added the grass model and generated randomly (also rechanged it to use copy constructor which saves a lot of time loading)
+
 */
 
 #include "World.h"
