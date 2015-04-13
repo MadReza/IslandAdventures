@@ -1,3 +1,9 @@
+/*
+-Reina Villanueva
+Same as the OBJModel class, but with no splines involved.
+Added GetSwitch() and SetSwitch().
+*/
+
 #include "SkyboxModel.h"
 #include "Renderer.h"
 #include "Path.h"

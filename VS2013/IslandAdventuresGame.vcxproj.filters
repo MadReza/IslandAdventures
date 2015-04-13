@@ -77,6 +77,12 @@
     <None Include="..\Source\Shaders\2DTexture.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="..\Source\Shaders\Skybox.vertexshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\Skybox.fragmentshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\EventManager.cpp">
@@ -145,6 +151,9 @@
     <ClCompile Include="..\Source\textureFunc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\SkyboxModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\EventManager.h">
@@ -212,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\textureFunc.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\SkyboxModel.h">
+      <Filter>Source Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

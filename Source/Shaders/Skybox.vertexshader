@@ -1,4 +1,7 @@
-// NEW TEXTURED.VERTEXSHADER
+// Reina Villanueva
+// Simple texture fragment shader
+// Code taken from OpenGL Tutorial 5
+
 #version 330 core
 
 layout(location = 0) in vec3 vertexPosition_modelspace;
