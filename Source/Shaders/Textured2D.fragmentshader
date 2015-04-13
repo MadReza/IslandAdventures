@@ -1,0 +1,51 @@
+#version 330 core
+
+
+out vec3 color;			// final color
+
+in vec3 v_color;
+in vec3 normal;
+in float distance;
+in vec3 EyeDirection_cameraspace;
+in vec4 LightDirection_cameraspace;
+in vec2 UV;
+
+uniform vec4 MaterialCoefficients;
+
+uniform vec3 LightColor;
+uniform vec3 LightAttenuation;
+uniform sampler2D myTextureSampler;
+
+void main()
+{	
+	vec4 v_color = texture(myTextureSampler, UV).rbga;
+
+	
+	float attenuation = 1/(LightAttenuation.x + (LightAttenuation.y * distance) + (LightAttenuation.z * distance * distance));
+
+	// normal vector
+	vec3 n = normalize( normal );
+	
+	// light vector
+	vec3 l = normalize( LightDirection_cameraspace.xyz );
+	
+	// cos angle between the normal and the light
+	float cosTheta = clamp( dot( n,l ), 0,1 );
+	
+	// eye vector
+	vec3 E = normalize(EyeDirection_cameraspace);
+	
+	// reflect vector
+	vec3 R = reflect(-l,n);
+	
+	// cos angle between the eye vector and the reflect vector
+	float cosAlpha = clamp( dot( E,R ), 0,1 );
+
+	// calculate the final color
+	color = MaterialCoefficients.x * vec3(1,1,1) +
+			MaterialCoefficients.y * LightColor *  cosTheta * vec3(1,1,1)+ 
+			MaterialCoefficients.z * LightColor * pow(cosAlpha, MaterialCoefficients.w) * vec3(1,1,1);
+
+	color = v_color.rbg * color;
+	
+}
