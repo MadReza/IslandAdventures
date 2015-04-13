@@ -22,6 +22,12 @@ added the grass model and generated randomly (also rechanged it to use copy cons
 Added states to key press. 
 Making keypress only pressed when Let go which removes the issue of infinit pressing.
 
+-Reina Villanueva
+Added lighting system
+Added skybox model (day and night)
+Added keypress buttons to switch between day and night
+Added skybox shader
+
 */
 
 #include "World.h"
